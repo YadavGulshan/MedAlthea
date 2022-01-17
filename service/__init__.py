@@ -10,6 +10,6 @@
 
 from service.logger import Logging
 from service.config import Config
-from service.core import ()
+from service.core import (PharmaService, get_collection)
 
-service = Service()
+service = PharmaService()
