@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'services.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'your-db-name',
+        'NAME': 'pharmaservice',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
                 'host': 'mongodb+srv://gulshan:gulshanyadav@cluster.4zdlu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
