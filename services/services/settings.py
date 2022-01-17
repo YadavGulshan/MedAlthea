@@ -75,10 +75,15 @@ WSGI_APPLICATION = 'services.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# TODO: Setup needed!!
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'your-db-name',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb+srv://gulshan:gulshanyadav@cluster.4zdlu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+            }  
     }
 }
 
