@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import djongo
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,6 +74,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'services.wsgi.application'
 
 
+
+username = os.getenv('USERNAME')
+password = os.getenv('PASSWORD')
+cluster = os.getenv('CLUSTER')
+database = os.getenv('DATABASE')
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -80,10 +87,10 @@ WSGI_APPLICATION = 'services.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'pharmaservice',
+        'NAME': database,
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': 'mongodb+srv://gulshan:gulshanyadav@cluster.4zdlu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+                'host': f'mongodb+srv://{username}:{password}@{cluster}/myFirstDatabase?retryWrites=true&w=majority',
             }  
     }
 }
