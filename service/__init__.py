@@ -9,6 +9,7 @@
 # All rights reserved.
 
 from service.logger import Logging
+from service.config import Config
+from service.core import ()
 
-
-service = service()
+service = Service()
