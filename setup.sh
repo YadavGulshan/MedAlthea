@@ -21,6 +21,8 @@ source env/bin/activate
 pip install -r requirements.txt
 
 
+cd services
+
 # Check if fish is installed
 if [ -f /usr/bin/fish ]; then
     fish
