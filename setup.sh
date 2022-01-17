@@ -30,3 +30,4 @@ else
     echo "Fish is not installed"
 fi
 
+exit
