@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'services.wsgi.application'
 
 
 
-username = os.getenv('USERNAME')
+username = os.getenv('ADMIN')
 password = os.getenv('PASSWORD')
 cluster = os.getenv('CLUSTER')
 database = os.getenv('DATABASE')
@@ -90,8 +90,8 @@ DATABASES = {
         'NAME': database,
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': f'mongodb+srv://{username}:{password}@{cluster}/myFirstDatabase?retryWrites=true&w=majority',
-            }  
+                'host': f'mongodb+srv://{username}:{password}@{cluster}/database?retryWrites=true&w=majority',
+            }
     }
 }
 
