@@ -16,3 +16,13 @@ def postData(request):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors)
+
+@api_view(['PUT'])
+def updateData(request):
+    id = request.data['id']
+    medical = Medical.objects.get(id=id)
+    serializer = MedicalSerializer(instance=medical, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors)
