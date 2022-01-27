@@ -19,8 +19,8 @@ def postData(request):
 
 @api_view(['PUT'])
 def updateData(request):
-    id = request.data['id']
-    medical = Medical.objects.get(id=id)
+    medicalId = request.data['medicalId']
+    medical = Medical.objects.get(medicalId)
     serializer = MedicalSerializer(instance=medical, data=request.data)
     if serializer.is_valid():
         serializer.save()

@@ -14,5 +14,6 @@ class Medical(models.Model):
     phone = models.IntegerField( default=0)
     email = models.EmailField(max_length=100)
     website = models.URLField(max_length=100)
-    # image = models.ImageField(upload_to=f'images/{name}_{medicalId}_{createdAt}')
+    # An image file with size less than 1MB
+    image = models.ImageField(upload_to=f'images/', default='images/default.jpg', max_length=1000)
 
