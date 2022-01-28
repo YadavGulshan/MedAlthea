@@ -37,8 +37,11 @@ ___
 ### Frontend:
 >- Tkinter ( since it's a python project )
 >
->- Flutter 
->
->- Next.js
+
+[//]: # (>- Flutter )
+
+[//]: # (>)
+
+[//]: # (>- Next.js)
 
 
