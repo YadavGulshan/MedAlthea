@@ -34,4 +34,11 @@ ___
 >- Docker
 >
 
+### Frontend:
+>- Tkinter ( since it's a python project )
+>
+>- Flutter 
+>
+>- Next.js
+
 
