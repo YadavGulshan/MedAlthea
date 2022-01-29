@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 from pharmacy.models import Medical
 from .serializers import MedicalSerializer
 
@@ -23,12 +25,14 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getData(request):
     medical = Medical.objects.all()
     serializer = MedicalSerializer(medical, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def postData(request):
     serializer = MedicalSerializer(data=request.data)
     if serializer.is_valid():
@@ -37,6 +41,7 @@ def postData(request):
     return Response(serializer.errors)
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def updateData(request):
     medicalId = request.data['medicalId']
     medical = Medical.objects.get(medicalId)
