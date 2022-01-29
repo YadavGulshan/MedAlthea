@@ -25,7 +25,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def getData(request):
     medical = Medical.objects.all()
     serializer = MedicalSerializer(medical, many=True)
