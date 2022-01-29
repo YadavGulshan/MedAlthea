@@ -4,7 +4,8 @@ from django.db import models
 
 
 class Medical(models.Model):
-    medicalId = models.IntegerField(auto_created=True, primary_key=True)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    medicalId = models.AutoField(auto_created=True,serialize=False, verbose_name='ID', primary_key=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
@@ -17,3 +18,10 @@ class Medical(models.Model):
     # An image file with size less than 1MB
     image = models.ImageField(upload_to=f'images/', default='images/default.jpg', max_length=1000)
 
+class Medicine(models.Model):
+    medicalId = models.ForeignKey('Medical', on_delete=models.CASCADE)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=20)
+    description = models.CharField(max_length=100)
+    price = models.IntegerField()
+    quantity = models.IntegerField()
