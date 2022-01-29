@@ -6,15 +6,18 @@ echo "Environment variables exported"
 
 
 # Check if virtual env exist for python or not
-if [ ! -d "env" ]; then
-    echo "Creating virtual environment"
-    python3 -m venv env
-    echo "Virtual environment created"
-fi
+# if [ ! -d "env" ]; then
+#     echo "Creating virtual environment"
+#     python3 -m venv env
+#     echo "Virtual environment created"
+# fi
+
+source ~/.virtualenvs/pharmacy/bin/activate
+
 
 
 # start the virtual environment for python
-source env/bin/activate
+# source env/bin/activate
 
 
 # install the requirements
