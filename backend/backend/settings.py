@@ -38,14 +38,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Apps
+    'pharmacy',
+
+    # Tailwind stuff: maybe useless.... TODO: Remove if unused!
     'tailwind',
     'theme',
     'django_browser_reload',
+
+    # For api
     'rest_framework',
-    'pharmacy',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'corsheaders'
+    'corsheaders',
+    
+    # Django model stuff
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +64,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Browser reload installed when setting up tailwind
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    # CORS
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
 ]

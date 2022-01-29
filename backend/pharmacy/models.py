@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -12,7 +13,7 @@ class Medical(models.Model):
     pincode = models.IntegerField()
     latitude = models.FloatField()
     longitude = models.FloatField()
-    phone = models.IntegerField( default=0)
+    phone = PhoneNumberField()
     email = models.EmailField(max_length=100)
     website = models.URLField(max_length=100)
     # An image file with size less than 1MB
