@@ -17,7 +17,13 @@ class Medical(models.Model):
     email = models.EmailField(max_length=100)
     website = models.URLField(max_length=100, blank=True)
     # An image file with size less than 1MB
-    image = models.ImageField(upload_to=f'images/', default='images/default.jpg', max_length=1000)
+    image = models.ImageField(upload_to='images/')
+    """
+     To get this image stored, Note to use api endpoint.
+
+     I wasted hours wonder why the hell I'm unable to get the stored image...
+     But when I later tried https://127.0.0.1:8000/api/media/images/your-image.jpg
+    """
 
 class Medicine(models.Model):
     medicalId = models.ForeignKey('Medical', on_delete=models.CASCADE)
