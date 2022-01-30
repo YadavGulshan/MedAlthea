@@ -14,9 +14,9 @@ And this is the where a problem arises, the problem is....
 
 Let's say the medicine you're looking for is not available, that means you have to either wait for medicine to be available or you have to wait for the pharmacy to deliver the medicine.
 
-If you don't want to wait or it's very urgent, then you have to check other pharmacies. But in this case you have to check all the pharmacies and there is also a possibility that you won't finr the medicine.
+If you don't want to wait, or it's very urgent, then you have to check other pharmacies. But in this case you have to check all the pharmacies and there is also a possibility that you won't find the medicine.
 
-And at last you will sad of not getting the medicine.
+And at last you will be sad of not getting the medicine.
 
 This service is designed to allow you to check if certain medicine is available in your nearby pharmacy or not.
 
@@ -37,8 +37,11 @@ ___
 ### Frontend:
 >- Tkinter ( since it's a python project )
 >
->- Flutter (Not gonna get covered in project, but we will do it.)
->
->- Next.js (Same case as above)
+
+[//]: # (>- Flutter )
+
+[//]: # (>)
+
+[//]: # (>- Next.js)
 
 
