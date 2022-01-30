@@ -3,7 +3,10 @@ import sys
 from PyQt5.QtGui import QPixmap, QCursor
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout, QLineEdit
+
 # initializing GUI application
+from Frames.welcome_frame import welcomeFrame
+
 app = QApplication(sys.argv)
 
 # window and settings
@@ -19,73 +22,7 @@ window.setStyleSheet("background: #EEE6CE;")
 # initialize the grid layout
 grid = QGridLayout()
 
-
-def welcomeFrame():
-    # inserting image
-    image = QPixmap("images/capsule.png")
-    icon = QLabel()
-    icon.setPixmap(image)
-    icon.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-    icon.setStyleSheet(
-        '''
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        '''
-    )
-
-    # Welcome Quotes
-    logo = QLabel()
-    logo.setText("Get your Medicine !!")
-    logo.setStyleSheet(  # style is given by using normal css
-        '''
-        *{
-            color: #313552;
-            font-family: "JetBrains Mono";
-            font-size: 30px;
-            font-weight: bold;
-            margin: 0;
-
-        }
-
-    '''
-    )
-
-    # set the alignment
-    logo.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-    # adding a TextBox
-    text_box = QLineEdit()
-    text_box.setPlaceholderText("Search Your Medicine")
-    text_box.setGeometry(100, 100, 200, 50)
-    # text_box.setFocus()
-    text_box.setMaximumWidth(500)
-    text_box.setStyleSheet('''
-        *{
-            color: #313552;
-            margin:0px;
-            padding: 10px;
-            outline: none;
-            font-size: 18px;
-            border: 3px solid #313552;
-            border-radius: 10px;
-        }
-        *::placeholder{
-            color: #313540
-        }
-        *:active,:focus,:hover{
-
-        }
-    ''')
-
-    # added to grid
-
-    grid.addWidget(icon, 0, 0)
-    grid.addWidget(logo, 1, 0)
-    grid.addWidget(text_box, 2, 0)
-
-
-welcomeFrame()
+welcomeFrame(grid)
 
 window.setLayout(grid)
 
