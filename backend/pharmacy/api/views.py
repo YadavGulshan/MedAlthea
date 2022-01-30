@@ -96,4 +96,9 @@ class DataList(APIView):
 class User(APIView):
     def get(self, request, format=None):
         current_user = request.user
-        return JsonResponse(current_user.id, safe=False)
+        user = {
+            'id': current_user.id,
+            'username': current_user.username,
+            'email': current_user.email,
+        }
+        return Response(user, status=200)
