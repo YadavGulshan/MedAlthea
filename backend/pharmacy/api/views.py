@@ -1,4 +1,5 @@
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
+import jwt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -10,6 +11,15 @@ from .serializers import MedicalSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+# Imports for caching
+from rest_framework.views import APIView
+from rest_framework import viewsets
+
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie, vary_on_headers
+
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -20,25 +30,50 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return token
 
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getData(request):
-    medical = Medical.objects.all()
-    serializer = MedicalSerializer(medical, many=True)
-    return Response(serializer.data)
+# A method decorator to cache the view for 60 seconds
+@method_decorator(cache_page(60), name='get')
+# A method decorator to vary on the cookie
+@method_decorator(vary_on_cookie, name='get')
+# A method decorator to vary on the headers
+# @method_decorator(vary_on_headers, name='get')
+# Allow only authenticated users to access this view
+# @permission_classes([IsAuthenticated])
+class Data(APIView):
+    def getObject(self, pk):
+        try:
+            return Medical.objects.filter(pk=pk)
+        except Medical.DoesNotExist:
+            return Http404
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def postData(request):
-    serializer = MedicalSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
+            
+    def get(self, request, pk):
+        medical = self.getObject(pk)
+        serializer = MedicalSerializer(medical, many=True)
         return Response(serializer.data)
-    return Response(serializer.errors)
+    
+    def put(self, request, pk):
+        medical = self.getObject(pk)
+        # Ensure that the user is the owner of the medical
+        if medical.user != request.user:
+            return Response(status=403)
+        serializer = MedicalSerializer(medical, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    
+    def delete(self, request, pk):
+        medical = self.getObject(pk)
+        medical.delete()
+        return Response(status=204)
+    
+
+
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
@@ -52,10 +87,23 @@ def updateData(request):
     return Response(serializer.errors)
 
 
-@api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        'api/token',
-        'api/token/refresh',
-    ]
-    return Response(routes)
+class DataList(APIView):
+    def get(self, request, format=None):
+        medical = Medical.objects.all()
+        serializer = MedicalSerializer(medical, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = MedicalSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+@permission_classes([IsAuthenticated])
+class User(APIView):
+    def get(self, request, format=None):
+        # decode the jwt token and get the user id
+        jwt.decode(request.headers['Authorization'], verify=False)
+        return Response(status=200)

@@ -15,7 +15,7 @@ class Medical(models.Model):
     longitude = models.FloatField()
     phone = PhoneNumberField()
     email = models.EmailField(max_length=100)
-    website = models.URLField(max_length=100)
+    website = models.URLField(max_length=100, blank=True)
     # An image file with size less than 1MB
     image = models.ImageField(upload_to=f'images/', default='images/default.jpg', max_length=1000)
 
