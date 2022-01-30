@@ -16,6 +16,19 @@ class MedicalSerializer(serializers.ModelSerializer):
     
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """
+    To use this serializer, you must pass in the following data:
+    {
+        "username": "username",
+        "email": "some-email@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "password": "password",
+        "password2": "password"
+    }
+
+    To get the access token, you must perform a login with the credentials
+    """
     email = serializers.EmailField(validators=[
                               UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
@@ -30,6 +43,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         }
 
     def validatePassword(self, attr):
+        """
+        This method is used to validate the password and password2 fields
+        """
         if attr['password'] !=attr['password2']:
             raise serializers.ValidationError('Passwords must match')
         return attr
@@ -37,6 +53,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         
     def create(self, validated_data):
+        """
+        This method is used to create a new user
+        """
         user = User.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
@@ -47,4 +66,5 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.is_staff = True
         user.set_password(validated_data['password'])
         user.save()
+
         return user
