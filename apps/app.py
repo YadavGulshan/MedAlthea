@@ -1,8 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout, QLineEdit
+
 from PyQt5.QtGui import QPixmap, QCursor
 from PyQt5 import QtGui, QtCore
-
+from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout, QLineEdit
 # initializing GUI application
 app = QApplication(sys.argv)
 
@@ -46,7 +46,7 @@ def welcomeFrame():
             font-size: 30px;
             font-weight: bold;
             margin: 0;
-            
+
         }
 
     '''
@@ -58,16 +58,23 @@ def welcomeFrame():
     text_box = QLineEdit()
     text_box.setPlaceholderText("Search Your Medicine")
     text_box.setGeometry(100, 100, 200, 50)
-    text_box.setFocus()
+    # text_box.setFocus()
     text_box.setMaximumWidth(500)
     text_box.setStyleSheet('''
         *{
             color: #313552;
             margin:0px;
-            
+            padding: 10px;
+            outline: none;
+            font-size: 18px;
+            border: 3px solid #313552;
+            border-radius: 10px;
         }
         *::placeholder{
             color: #313540
+        }
+        *:active,:focus,:hover{
+
         }
     ''')
 
