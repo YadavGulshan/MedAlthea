@@ -1,5 +1,4 @@
 import sys
-
 from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout
 from PyQt5.QtGui import QPixmap, QCursor
 from PyQt5 import QtGui, QtCore
@@ -11,8 +10,9 @@ app = QApplication(sys.argv)
 window = QWidget()
 window.setWindowTitle("Get Your Medicine!!")
 window.setFixedWidth(1000)
-window.move(2700, 200)
-window.setStyleSheet("background: #161219;")
+window.setFixedHeight(800)
+window.move(400, 100)
+window.setStyleSheet("background: white;")
 
 # initialize the grid layout
 grid = QGridLayout()
@@ -20,4 +20,4 @@ grid = QGridLayout()
 window.setLayout(grid)
 
 window.show()
-sys.exit(app.exec())
+sys.exit(app.exec_())
