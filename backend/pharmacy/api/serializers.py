@@ -16,7 +16,7 @@ class MedicalSerializer(serializers.ModelSerializer):
     
 
 class RegisterSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(unique=True, null=False, validators=[
+    email = serializers.EmailField(validators=[
                               UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)

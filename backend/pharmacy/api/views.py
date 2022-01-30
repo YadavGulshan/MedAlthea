@@ -21,6 +21,7 @@ from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 # Imports for registering a new user
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
+from django.contrib.auth.models import User
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -94,7 +95,7 @@ class DataList(APIView):
 
 
 @permission_classes([IsAuthenticated])
-class User(APIView):
+class UserData(APIView):
     def get(self, request, format=None):
         current_user = request.user
         user = {
@@ -127,4 +128,3 @@ class Register(generics.CreateAPIView):
     Now registering the serializer we created in serializers.py
     """
 
-    

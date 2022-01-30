@@ -18,7 +18,7 @@ urlpatterns = [
     path('<int:pk>/', views.Data.as_view(), name='get'),
 
     # User
-    path('user/', views.User.as_view(), name='user'),
+    path('user/', views.UserData.as_view(), name='user'),
 
     ## Auth
 
