@@ -1,3 +1,4 @@
+from multiprocessing.dummy import current_process
 from django.http import Http404, JsonResponse
 import jwt
 from rest_framework.response import Response
@@ -42,7 +43,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 # A method decorator to vary on the headers
 # @method_decorator(vary_on_headers, name='get')
 # Allow only authenticated users to access this view
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class Data(APIView):
     def getObject(self, pk):
         try:
@@ -69,24 +70,14 @@ class Data(APIView):
     
     def delete(self, request, pk):
         medical = self.getObject(pk)
+        # Ensure that the user is the owner of the medical
+        if medical.user.id != request.user.id:
+            return Response(status=403)
         medical.delete()
-        return Response(status=204)
+        return Response("Deleted", status=200)
     
 
-
-
-@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def updateData(request):
-    medicalId = request.data['medicalId']
-    medical = Medical.objects.get(medicalId)
-    serializer = MedicalSerializer(instance=medical, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors)
-
-
 class DataList(APIView):
     def get(self, request, format=None):
         medical = Medical.objects.all()
@@ -104,6 +95,5 @@ class DataList(APIView):
 @permission_classes([IsAuthenticated])
 class User(APIView):
     def get(self, request, format=None):
-        # decode the jwt token and get the user id
-        jwt.decode(request.headers['Authorization'], verify=False)
-        return Response(status=200)
+        current_user = request.user
+        return JsonResponse(current_user.id, safe=False)
