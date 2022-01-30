@@ -12,10 +12,30 @@ window.setWindowTitle("Get Your Medicine!!")
 window.setFixedWidth(1000)
 window.setFixedHeight(800)
 window.move(400, 100)
-window.setStyleSheet("background: white;")
+window.setStyleSheet("background: #96CEB4;")
+
+
+def welcomeFrame():
+    logo = QLabel()
+    logo.setText("Get your Medicine")
+    # logo.setStyleSheet('''
+    #     *{
+    #         color: #D9534F;
+    #         font-family: serif;
+    #         font-weight: bold;
+    #     }
+    #     *:hover{
+    #         color: #FFEEAD;
+    #     }
+    #
+    # ''')
+    logo.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
 
 # initialize the grid layout
 grid = QGridLayout()
+
+welcomeFrame()
 
 window.setLayout(grid)
 
