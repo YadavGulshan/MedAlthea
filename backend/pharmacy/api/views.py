@@ -4,7 +4,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from pharmacy.models import Medical
-from .serializers import MedicalSerializer
+from .serializers import MedicalSerializer, RegisterSerializer
 
 # For customizing user claims
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -16,6 +16,11 @@ from rest_framework.views import APIView
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_cookie, vary_on_headers
+
+
+# Imports for registering a new user
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -48,12 +53,11 @@ class Data(APIView):
         except Medical.DoesNotExist:
             return Http404
 
-            
     def get(self, request, pk):
         medical = self.getObject(pk)
         serializer = MedicalSerializer(medical, many=True)
         return Response(serializer.data)
-    
+
     def put(self, request, pk):
         medical = self.getObject(pk)
         # Ensure that the user is the owner of the medical
@@ -64,7 +68,7 @@ class Data(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
-    
+
     def delete(self, request, pk):
         medical = self.getObject(pk)
         # Ensure that the user is the owner of the medical
@@ -72,7 +76,7 @@ class Data(APIView):
             return Response("HTTP 403 Forbidden", status=403)
         medical.delete()
         return Response("Deleted", status=200)
-    
+
 
 @permission_classes([IsAuthenticated])
 class DataList(APIView):
@@ -99,3 +103,28 @@ class User(APIView):
             'email': current_user.email,
         }
         return Response(user, status=200)
+
+
+class Register(generics.CreateAPIView):
+    """
+    CreateAPIView is a generic class-based view that allows you to handle POST requests.
+
+    This class is used to register a new user.
+    """
+
+    queryset = User.objects.all()
+    """
+    Queryset is used to get all the users
+    """
+
+    permission_classes = (AllowAny,)
+    """
+    Allow only unauthenticated users to access this view
+    """
+
+    serializer_class = RegisterSerializer
+    """
+    Now registering the serializer we created in serializers.py
+    """
+
+    
