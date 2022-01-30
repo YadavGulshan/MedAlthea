@@ -1,8 +1,6 @@
-from multiprocessing.dummy import current_process
-from django.http import Http404, JsonResponse
-import jwt
+from django.http import Http404
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from pharmacy.models import Medical
@@ -14,7 +12,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Imports for caching
 from rest_framework.views import APIView
-from rest_framework import viewsets
 
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -60,8 +57,8 @@ class Data(APIView):
     def put(self, request, pk):
         medical = self.getObject(pk)
         # Ensure that the user is the owner of the medical
-        if medical.user != request.user:
-            return Response(status=403)
+        if medical[0].user.id != request.user.id:
+            return Response("HTTP 403 Forbidden", status=403)
         serializer = MedicalSerializer(medical, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -71,8 +68,8 @@ class Data(APIView):
     def delete(self, request, pk):
         medical = self.getObject(pk)
         # Ensure that the user is the owner of the medical
-        if medical.user.id != request.user.id:
-            return Response(status=403)
+        if medical[0].user.id != request.user.id:
+            return Response("HTTP 403 Forbidden", status=403)
         medical.delete()
         return Response("Deleted", status=200)
     
