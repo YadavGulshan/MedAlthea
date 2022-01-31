@@ -14,7 +14,7 @@ window = QWidget()
 window.setWindowTitle("Get Your Medicine!!")
 # set height and width
 window.setFixedWidth(800)
-# window.setFixedHeight(650)
+# window.setFixedHeight(550)
 # Set the location of window at desktop
 window.move(400, 100)
 window.setStyleSheet("background: #EEE6CE; padding: 20px;")
