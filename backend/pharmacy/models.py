@@ -1,12 +1,13 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 # Create your models here.
 
 
 class Medical(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    medicalId = models.AutoField(auto_created=True,serialize=False, verbose_name='ID', primary_key=True)
+    medicalId = models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
@@ -24,6 +25,7 @@ class Medical(models.Model):
      I wasted hours wonder why the hell I'm unable to get the stored image...
      But when I later tried https://127.0.0.1:8000/api/media/images/your-image.jpg
     """
+
 
 class Medicine(models.Model):
     medicalId = models.ForeignKey('Medical', on_delete=models.CASCADE)
