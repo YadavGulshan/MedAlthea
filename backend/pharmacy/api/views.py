@@ -58,7 +58,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 # A method decorator to vary on the headers
 @method_decorator(vary_on_headers, name='get')
 # Allow only authenticated users to access this view
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicalView(APIView):
     def getObject(self, pk):
         try:
@@ -91,7 +91,7 @@ class MedicalView(APIView):
         return Response("Deleted", status=200)
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicalViewList(APIView):
     def get(self, request, format=None):
         medical = Medical.objects.all()
@@ -105,14 +105,14 @@ class MedicalViewList(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicalSearch(generics.ListCreateAPIView):
     search_fields = ['name', 'address', 'phone']
     filter_backends = (filters.SearchFilter,)
     queryset = Medical.objects.all()
     serializer_class = MedicalSerializer
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicineView(APIView):
     def getObject(self, pk):
         try:
@@ -144,7 +144,7 @@ class MedicineView(APIView):
         medicine.delete()
         return Response("Deleted", status=200)
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicineViewList(APIView):
     def get(self, request, format=None):
         medicine = Medicine.objects.all()
@@ -158,7 +158,7 @@ class MedicineViewList(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicineSearch(generics.ListCreateAPIView):
     search_fields = ['name', 'description']
     filter_backends = (filters.SearchFilter,)
