@@ -1,7 +1,17 @@
+# pylint: disable=missing-module-docstring
+# 
+# Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
+#
+# This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
+#
+# All rights reserved.
+
 from dataclasses import field
 from phonenumbers import PhoneNumber
 from rest_framework import serializers
-from pharmacy.models import Medical
+from pharmacy.models import Medical, Medicine
 
 # For auth
 from django.contrib.auth.models import User
@@ -12,6 +22,12 @@ from django.contrib.auth.password_validation import validate_password
 class MedicalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medical
+        fields = '__all__'
+
+
+class MedicineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medicine
         fields = '__all__'
     
 
