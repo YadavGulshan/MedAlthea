@@ -11,7 +11,7 @@
 from dataclasses import field
 from phonenumbers import PhoneNumber
 from rest_framework import serializers
-from pharmacy.models import Medical
+from pharmacy.models import Medical, Medicine
 
 # For auth
 from django.contrib.auth.models import User
@@ -22,6 +22,12 @@ from django.contrib.auth.password_validation import validate_password
 class MedicalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medical
+        fields = '__all__'
+
+
+class MedicineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medicine
         fields = '__all__'
     
 

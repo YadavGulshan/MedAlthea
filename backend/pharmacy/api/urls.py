@@ -24,8 +24,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # For getting the api view: i.e medical list and all
-    path('', views.DataList.as_view(), name='get'),
-    path('<int:pk>/', views.Data.as_view(), name='get'),
+    path('', views.MedicalViewList.as_view(), name='get'),
+    path('<int:pk>/', views.MedicalView.as_view(), name='get'),
+    path('search/', views.MedicalSearch.as_view(), name='search'),
+    
+    # For medicine
+    path('medicine/', views.MedicineViewList.as_view(), name='get'),
+    path('search/medicine/', views.MedicineSearch.as_view(), name='search'),
 
     # User
     path('user/', views.UserData.as_view(), name='user'),
@@ -39,6 +44,7 @@ urlpatterns = [
 
     # Auth: register user
     path('register/', views.Register.as_view(), name='register'),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -9,6 +9,7 @@
 # All rights reserved.
 
 from django.test import TestCase
-
-# Create your tests here.
-print("Hello from pharmacy")
+from django.test import Client
+c = Client()
+response = c.get('/api/')
+print(response)
