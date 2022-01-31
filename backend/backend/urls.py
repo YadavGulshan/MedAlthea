@@ -17,6 +17,5 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/', include('pharmacy.api.urls')),
-    path('examples/', include('pharmacy.examples.urls')),
-    path('', lambda request: redirect('examples/', permanent=False)),
+    path('', lambda request: redirect('api/', permanent=False)),
 ]
