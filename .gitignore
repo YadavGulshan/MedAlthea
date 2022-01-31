@@ -7,3 +7,4 @@ db.sqlite3
 .DS_Store
 .nvimlog
 apps/examples-_
+db.sqlite3
