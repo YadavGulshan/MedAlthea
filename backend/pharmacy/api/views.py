@@ -152,36 +152,4 @@ class MedicineSearch(generics.ListCreateAPIView):
     serializer_class = MedicineSerializer
 
 
-@permission_classes([IsAuthenticated])
-class UserData(APIView):
-    def get(self, request, format=None):
-        current_user = request.user
-        user = {
-            'id': current_user.id,
-            'username': current_user.username,
-            'email': current_user.email,
-        }
-        return Response(user, status=200)
 
-
-class Register(generics.CreateAPIView):
-    """
-    CreateAPIView is a generic class-based view that allows you to handle POST requests.
-
-    This class is used to register a new user.
-    """
-
-    queryset = User.objects.all()
-    """
-    Queryset is used to get all the users
-    """
-
-    permission_classes = (AllowAny,)
-    """
-    Allow only unauthenticated users to access this view
-    """
-
-    serializer_class = RegisterSerializer
-    """
-    Now registering the serializer we created in serializers.py
-    """
