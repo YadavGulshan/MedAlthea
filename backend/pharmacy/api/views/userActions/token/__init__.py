@@ -7,3 +7,11 @@
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
+
+__all__ = ['token']
+
+from .serializer import MyTokenObtainPairSerializer
+from .view import MyTokenObtainPairView
+
+class MyToken(MyTokenObtainPairSerializer, MyTokenObtainPairView):
+    """userActions.token"""
