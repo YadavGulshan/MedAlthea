@@ -13,25 +13,41 @@ from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from pharmacy.models import Medical, Medicine
-from ...serializers import MedicalSerializer, MedicineSerializer, RegisterSerializer
-
-# For customizing user claims
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
+from pharmacy.models import Medicine
+from ...serializers import MedicineSerializer
 
 # Imports for caching
 from rest_framework.views import APIView
 
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
+@permission_classes([IsAuthenticated])
+class MedicineView(APIView):
+    def getObject(self, pk):
+        try:
+            return Medicine.objects.filter(pk=pk)
+        except Medicine.DoesNotExist:
+            return Http404
 
-# Imports for registering a new user
-from rest_framework import generics
-from rest_framework.permissions import AllowAny
-from django.contrib.auth.models import User
+    def get(self, request, pk):
+        medicine = self.getObject(pk)
+        serializer = MedicineSerializer(medicine, many=True)
+        return Response(serializer.data)
 
-# Imports used in search functionality
-from rest_framework import filters
+    def put(self, request, pk):
+        medicine = self.getObject(pk)
+        # Ensure that the user is the owner of the medicine
+        if medicine[0].user.id != request.user.id:
+            return Response("HTTP 403 Forbidden", status=403)
+        serializer = MedicineSerializer(medicine, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+    def delete(self, request, pk):
+        medicine = self.getObject(pk)
+        # Ensure that the user is the owner of the medicine
+        if medicine[0].user.id != request.user.id:
+            return Response("HTTP 403 Forbidden", status=403)
+        medicine.delete()
+        return Response("Deleted", status=200)

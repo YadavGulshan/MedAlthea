@@ -7,3 +7,13 @@
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
+
+__all__ = ['Medicine']
+
+
+from .list import MedicineViewList
+from .search import MedicineSearch
+from .views import Medicine
+
+class Medicine(MedicineViewList, MedicineSearch, Medicine):
+    """view.medicine"""
