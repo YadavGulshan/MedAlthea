@@ -12,6 +12,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
+from .serializer import MyTokenObtainPairSerializer
 
 from pharmacy.models import Medical, Medicine
 from ....serializers import MedicalSerializer, MedicineSerializer, RegisterSerializer
@@ -35,3 +36,8 @@ from django.contrib.auth.models import User
 
 # Imports used in search functionality
 from rest_framework import filters
+
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer

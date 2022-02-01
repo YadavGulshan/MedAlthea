@@ -36,20 +36,6 @@ from django.contrib.auth.models import User
 # Imports used in search functionality
 from rest_framework import filters
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-
-        token['username'] = user.username
-        token['email'] = user.email
-
-        return token
-
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
-
 
 # A method decorator to cache the view for 60 seconds
 @method_decorator(cache_page(60), name='get')
