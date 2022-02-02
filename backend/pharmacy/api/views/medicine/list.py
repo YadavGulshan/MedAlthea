@@ -19,7 +19,7 @@ from ...serializers import MedicineSerializer
 from rest_framework.views import APIView
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicineViewList(APIView):
     def get(self, request, format=None):
         medicine = Medicine.objects.all()
@@ -28,6 +28,8 @@ class MedicineViewList(APIView):
 
     def post(self, request):
         serializer = MedicineSerializer(data=request.data)
+        # Set the user to the logged in user
+        # serializer.initial_data['user'] = request.user.id
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)

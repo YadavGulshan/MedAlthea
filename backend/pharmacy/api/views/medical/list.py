@@ -28,6 +28,8 @@ class MedicalViewList(APIView):
 
     def post(self, request):
         serializer = MedicalSerializer(data=request.data)
+        # Set the user to the logged in user
+        serializer.initial_data['user'] = request.user.id
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)

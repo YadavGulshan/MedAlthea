@@ -8,12 +8,7 @@
 #
 # All rights reserved.
 
-__all__ = ['views']
 
 from .medical import Medical
 from .medicine import Medicine
 from .userActions import UserAction
-
-
-class Views(Medical, Medicine, UserAction):
-    "View for Medical, Medicine, UserAction classes."

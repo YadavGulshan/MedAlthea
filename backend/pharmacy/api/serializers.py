@@ -80,6 +80,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         # Set the user to staff
         user.is_staff = True
+        user.set_active = True
         user.set_password(validated_data['password'])
         user.save()
 

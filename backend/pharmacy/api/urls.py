@@ -27,10 +27,10 @@ from pharmacy.api.views.medical.views import MedicalView
 from pharmacy.api.views.medicine.list import MedicineViewList
 from pharmacy.api.views.medicine.search import MedicineSearch
 from pharmacy.api.views.userActions import UserAction
-from pharmacy.api.views.userActions.register import Register
+from pharmacy.api.views.userActions.register import Register, UserNameAvailable
 from pharmacy.api.views.userActions.token.view import MyTokenObtainPairView
 
-from . import Medical
+# from . import Medical
 
 urlpatterns = [
     # For getting the api view: i.e medical list and all
@@ -54,6 +54,7 @@ urlpatterns = [
 
     # Auth: register user
     path('register/', Register.as_view(), name='register'),
+    path('register/search/<str:pk>/', UserNameAvailable.as_view(), name='register'),
 
 ]
 
