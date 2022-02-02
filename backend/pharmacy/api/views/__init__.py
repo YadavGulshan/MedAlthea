@@ -7,3 +7,8 @@
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
+
+
+from .medical import Medical
+from .medicine import Medicine
+from .userActions import UserAction
