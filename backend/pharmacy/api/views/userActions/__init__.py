@@ -7,3 +7,14 @@
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
+
+
+__all__ = ['UserActions']
+
+from .token import MyToken
+from .register import Register
+from .views import UserView
+
+
+class UserAction(MyToken, Register, UserView):
+    """User Actions for registering, getting the user info using access token and also for generating the jwt token with user details in it..."""
