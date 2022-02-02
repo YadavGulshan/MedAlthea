@@ -7,3 +7,10 @@
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
+
+__all__=['BackendInit']
+
+from .views import Views
+
+class BackendInit(Views):
+    """Backend Init for all the views"""
