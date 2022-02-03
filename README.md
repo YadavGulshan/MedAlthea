@@ -1,8 +1,10 @@
 <div style="text-align: center; display: flex; flex-direction: column; margin-bottom: 10px;">
     <img src="assets/logo.svg" alt="MedAlthea" style="width: 100%;">
-    <b>
-        A service to get the medicines needed at critical moments.
-    </b>
+    <p align="center">
+        <b>
+            A service to get the medicines needed at critical moments.
+        </b>
+    </p>
     <p align="center">
         <a href="https://med.gulshan.cf">Website</a>
         <a href="https://med.gulshan.cf">Android: User</a>
