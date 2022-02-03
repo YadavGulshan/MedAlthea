@@ -1,47 +1,25 @@
-# Pharma Service Backend
+<div style="text-align: center; display: flex; flex-direction: column; margin-bottom: 10px;">
+    <img src="assets/logo.svg" alt="MedAlthea" style="width: 100%;">
+    <b>
+        A service to get the medicines needed at critical moments.
+    </b>
+    <div style="font-size: small; margin: 10px;">
+        <a href="https://med.gulshan.cf">Website</a>
+        <a href="https://med.gulshan.cf">Android: User</a>
+        <a href="https://med.gulshan.cf">Android: Medical Owners</a>
+    </div>
+    <div>
+        <a href="https://twitter.com/gulshan_rox"><img src="https://img.shields.io/badge/%40gulshan_rox-follow-blue"></a>
+        <a href="https://github.com/yadavgulshan/pharmaservice"><img src="https://img.shields.io/github/stars/yadavgulshan/pharmaservice?label=github%20stars"></a>
+        <a href="https://t.me/gyprojects"><img src="https://img.shields.io/badge/Telegram-join-blue"></a>
+        <a href="https://github.com/yadavgulshan/pharmaservice"><img src="https://github.com/yadavgulshan/pharmaservice/actions/workflows/django.yml/badge.svg?branch=master"></a>
+    </div>
+</div>
 
-This section of code is written in Python and is used to create a backend for the Pharma Service.
+MedAlthea is a free and open-source service to get the medicines needed at critical moments.
 
-## Idea
-
-The main motive of this service is to provide a platform for the pharmaceutical industry to connect with the patients.
-
-Imagine a situation where you want to buy some medicine, and you can't afford to wait for one or two days to get the medicine delivered.
-
-You just want the medicine from your nearby pharmacy. 
-
-And this is the where a problem arises, the problem is....
-
-Let's say the medicine you're looking for is not available, that means you have to either wait for medicine to be available or you have to wait for the pharmacy to deliver the medicine.
-
-If you don't want to wait, or it's very urgent, then you have to check other pharmacies. But in this case you have to check all the pharmacies and there is also a possibility that you won't find the medicine.
-
-And at last you will be sad of not getting the medicine.
-
-This service is designed to allow you to check if certain medicine is available in your nearby pharmacy or not.
-
-So that you don't have to waste you time and energy in roaming around the city to find the medicine.
-
-___
-
-## Tech-Stack:
-
-### Backend:
->- Flask
->
->- MongoDB
->
->- Docker
->
-
-### Frontend:
->- Tkinter ( since it's a python project )
->
-
-[//]: # (>- Flutter )
-
-[//]: # (>)
-
-[//]: # (>- Next.js)
-
-
+# Disclaimer
+> We don't have anything special to say untill our project is finished.
+> 
+> So come Join us and help us to make this project a success.
+> 
