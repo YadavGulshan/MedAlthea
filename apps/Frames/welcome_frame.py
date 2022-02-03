@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QLabel, QPushButton, QLineEdit
 def searchMedicine(text_box):
     print(text_box.text())
 
+
 def welcomeFrame(grid):
     # inserting image
     image = QPixmap("images/capsule.png")

@@ -1,0 +1,6 @@
+Who to add font in pyqt5?
+https://stackoverflow.com/questions/53855799/pyqt5-using-google-fonts
+
+how to creating a Marquee effect in PySide
+https://stackoverflow.com/questions/46505130/creating-a-marquee-effect-in-pyside
+
