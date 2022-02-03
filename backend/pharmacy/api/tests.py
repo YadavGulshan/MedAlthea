@@ -7,3 +7,9 @@
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
+
+from django.test import TestCase
+from django.test import Client
+c = Client()
+response = c.get('/api/')
+print(response)

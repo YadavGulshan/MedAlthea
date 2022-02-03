@@ -6,13 +6,8 @@ from PyQt5.QtWidgets import QLabel, QPushButton, QLineEdit
 def searchMedicine(text_box):
     print(text_box.text())
 
-object ={
-    'log' : [],
-    'button': [],
-    'testbox': []
-}
-def welcomeFrame(grid):
 
+def welcomeFrame(grid):
     # inserting image
     image = QPixmap("images/capsule.png")
     icon = QLabel()
@@ -85,9 +80,9 @@ def welcomeFrame(grid):
         *:hover{
             color: #EEE6CE;
             background-color: #B8405E ;
-            
+
         }
-        
+
         '''
     )
 
