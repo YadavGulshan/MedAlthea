@@ -10,8 +10,8 @@
 
 from cmath import cos, sin, sqrt
 from math import atan2
-from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 class CalculateDistance(APIView):
@@ -23,7 +23,7 @@ class CalculateDistance(APIView):
         """
         This method will throw the syntax of the required json input
         """
-        return JsonResponse({
+        return Response({
             "status": "Please send a POST request to this endpoint.",
             "examples": {
                 "lat1": "latitude1",
@@ -37,10 +37,10 @@ class CalculateDistance(APIView):
         """
         This method will calculate the distance between two points
         """
-        lat1 = request.data.get('lat1')
-        lon1 = request.data.get('lon1')
-        lat2 = request.data.get('lat2')
-        lon2 = request.data.get('lon2')
+        lat1 = float(request.data.get('lat1'))
+        lon1 = float(request.data.get('lon1'))
+        lat2 = float(request.data.get('lat2'))
+        lon2 = float(request.data.get('lon2'))
 
         radius = 6371  # km
         dlat = (lat2 - lat1) * (3.14 / 180)
@@ -71,12 +71,13 @@ class CalculateDistance(APIView):
             d = R.c
         """
 
-        c = 2*atan2(sqrt(a), sqrt(1-a))
+        a = a.real
+        c = 2*atan2(sqrt(a).real, sqrt(1-a).real)
         d = radius*c
         """
         d is the distance between two points
         """
 
-        return JsonResponse({
+        return Response({
             "distance": d,
         })
