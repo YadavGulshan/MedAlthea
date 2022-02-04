@@ -9,11 +9,11 @@
 # All rights reserved.
 
 
+from django.http import JsonResponse
 from ...serializers import RegisterSerializer
 
 # Imports for registering a new user
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import filters
@@ -29,7 +29,7 @@ class Register(generics.CreateAPIView):
         """
         This method will throw the syntax of the required json input
         """
-        return Response({
+        return JsonResponse({
             "status": "Please send a POST request to this endpoint.",
             "examples": {
                 "username": "your_username",
