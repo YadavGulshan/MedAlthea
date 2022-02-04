@@ -1,6 +1,14 @@
 Who to add font in pyqt5?
 https://stackoverflow.com/questions/53855799/pyqt5-using-google-fonts
 
-how to creating a Marquee effect in PySide
+how to create a Marquee effect in PySide
 https://stackoverflow.com/questions/46505130/creating-a-marquee-effect-in-pyside
 
+How to get the longitude and latitude of a city using Python?
+https://www.tutorialspoint.com/how-to-get-the-longitude-and-latitude-of-a-city-using-python
+
+dammy text
+https://loremipsum.io/
+
+
+https://reqbin.com/req/python/5k564bhv/get-request-bearer-token-authorization-header-example

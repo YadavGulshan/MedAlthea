@@ -8,3 +8,4 @@ db.sqlite3
 .nvimlog
 apps/examples-_
 db.sqlite3
+userName.json
