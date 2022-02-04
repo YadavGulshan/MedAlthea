@@ -10,6 +10,10 @@
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from pharmacy.api.serializers import MedicalSerializer
+from pharmacy.api.views.userActions.token import serializer
+
+from pharmacy.models import Medical
 
 
 class DisplayNearbyMedical(APIView):
@@ -25,8 +29,20 @@ class DisplayNearbyMedical(APIView):
 
         return Response({
             "status": "Please send a POST request to this endpoint.",
+            "info": "This endpoint won't be calculating the distance between each medicals and a user because that seems inefficient. So please calculate the distance at the client side. This endpoint will only show the medicals which are near to users pincode.",
             "example": {
-                "lat": "user latitude",
-                "lon": "user longitude"
+                "pincode": "110016",
             }
         })
+
+    def post(self, request):
+        """
+        This method will check the request for given pincode and will throw the medicals having pincode similar to request
+        """
+        pincode = request.data.get('pincode')
+        medical = Medical.objects.filter(pincode__contains=pincode)
+        """
+        Here we are checking the pincode of medicals similar to request pincode
+        """
+        serializer = MedicalSerializer(medical, many=True)
+        return Response(serializer.data, status=200)

@@ -19,6 +19,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from pharmacy.api.views.mapper.display_nearby_medical import DisplayNearbyMedical
 from pharmacy.api.views.mapper.distance import CalculateDistance
 
 
@@ -58,7 +59,8 @@ urlpatterns = [
     path('register/search/<str:pk>/', UserNameAvailable.as_view(), name='register'),
 
     # Utilities goes here.
-    path('distance/', CalculateDistance.as_view(), name="calculate_distance")
+    path('distance/', CalculateDistance.as_view(), name="calculate_distance"),
+    path('nearbymedical/', DisplayNearbyMedical.as_view(), name="nearby_medical")
 
 ]
 
