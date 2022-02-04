@@ -11,11 +11,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from pharmacy.api.serializers import MedicalSerializer
-from pharmacy.api.views.userActions.token import serializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 
 from pharmacy.models import Medical
 
-
+@permission_classes([IsAuthenticated])
 class DisplayNearbyMedical(APIView):
     """
     This class will use distance api endpoint 
