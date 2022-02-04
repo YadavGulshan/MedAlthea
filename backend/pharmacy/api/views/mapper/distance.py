@@ -13,7 +13,10 @@ from math import atan2
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 
+@permission_classes([IsAuthenticated])
 class CalculateDistance(APIView):
     """
     This class is used to calculate the distance between two points
