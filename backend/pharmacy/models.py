@@ -1,3 +1,13 @@
+# pylint: disable=missing-module-docstring
+#
+# Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
+#
+# This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
+#
+# All rights reserved.
+
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -29,6 +39,7 @@ class Medical(models.Model):
 
 class Medicine(models.Model):
     medicalId = models.ForeignKey('Medical', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     createdAt = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=100)
