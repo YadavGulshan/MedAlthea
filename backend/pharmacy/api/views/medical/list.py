@@ -16,7 +16,6 @@ from pharmacy.models import Medical
 from ...serializers import MedicalSerializer
 
 
-# Imports for caching
 from rest_framework.views import APIView
 
 @permission_classes([IsAuthenticated])
