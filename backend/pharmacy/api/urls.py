@@ -56,7 +56,7 @@ urlpatterns = [
 
     # Auth: register user
     path('register/', Register.as_view(), name='register'),
-    path('register/search/<str:pk>/', UserNameAvailable.as_view(), name='register'),
+    path('register/search/', UserNameAvailable.as_view(), name='register'),
 
     # Utilities goes here.
     path('distance/', CalculateDistance.as_view(), name="calculate_distance"),
