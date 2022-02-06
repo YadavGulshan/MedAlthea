@@ -15,15 +15,15 @@ from django.contrib.auth.models import User
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
 
-class simpleTest(APITestCase):
+class userAuthTest(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
+        self.client = APIClient()
         self.user = User.objects.create_user(
             username='testuser',  password='top_secret', email='testuser@email.com', first_name='test', last_name='user')
         self.user.save()
 
     def test_user_login(self):
-        self.client = APIClient()
         response = self.client.post(
             '/api/token/', {'username': 'testuser', 'password': 'top_secret'})
         self.access = response.data['access']
