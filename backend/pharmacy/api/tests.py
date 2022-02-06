@@ -8,8 +8,12 @@
 #
 # All rights reserved.
 
-from django.test import TestCase
+import unittest
 from django.test import Client
-c = Client()
-response = c.get('/api/')
-print(response)
+
+class TestAPI(unittest.TestCase):
+    def test_get(self):
+        print("Module is {}".format(__name__))
+        c = Client()
+        response = c.get('/api/')
+        self.assertEqual(response.status_code, 200)
