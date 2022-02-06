@@ -28,7 +28,7 @@ class Medical(models.Model):
     email = models.EmailField(max_length=100)
     website = models.URLField(max_length=100, blank=True)
     # An image file with size less than 1MB
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', blank=True)
     """
      To get this image stored, Note to use api endpoint.
 

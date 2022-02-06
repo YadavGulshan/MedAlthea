@@ -9,6 +9,7 @@
 # All rights reserved.
 
 
+from django.http import JsonResponse
 from ...serializers import RegisterSerializer
 
 # Imports for registering a new user
@@ -29,7 +30,7 @@ class Register(generics.CreateAPIView):
         """
         This method will throw the syntax of the required json input
         """
-        return Response({
+        return JsonResponse({
             "status": "Please send a POST request to this endpoint.",
             "examples": {
                 "username": "your_username",
@@ -40,23 +41,6 @@ class Register(generics.CreateAPIView):
         })
 
     def post(self, request):
-        # """
-        # This method will register the user
-        # """
-        # queryset = User.objects.all()
-        # """
-        # Queryset is used to get all the users
-        # """
-
-        # permission_classes = (AllowAny,)
-        # """
-        # Allow only unauthenticated users to access this view
-        # """
-
-        # serializer_class = RegisterSerializer
-        # """
-        # Now registering the serializer we created in serializers.py
-        # """
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             account = serializer.save()
@@ -66,12 +50,12 @@ class Register(generics.CreateAPIView):
         return Response(serializer.errors, status=400)
 
 
-class UserNameAvailable(generics.ListCreateAPIView):
+class UserNameAvailable(generics.CreateAPIView):
     queryset = User.objects.all()
 
     # show if username is not available
     def get(self, request):
-        username = request.GET.get('search')
+        username = request.query_params.get('username', None)
         if username:
             if self.queryset.filter(username=username).exists():
                 return Response({
@@ -81,6 +65,7 @@ class UserNameAvailable(generics.ListCreateAPIView):
                 return Response({
                     "status": "Username is available",
                 }, status=204)
-        return Response({
-            "status": "Please send a GET request to this endpoint with a query parameter 'search'"
+        return JsonResponse({
+            "status": "Please send a GET request to this endpoint with a query parameter 'username'",
+            "example": "GET /api/register/search/?username=your_username",
         })
