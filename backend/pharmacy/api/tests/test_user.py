@@ -26,9 +26,19 @@ class simpleTest(APITestCase):
         self.client = APIClient()
         response = self.client.post(
             '/api/token/', {'username': 'testuser', 'password': 'top_secret'})
+        self.access = response.data['access']
+        self.refresh = response.data['refresh']
         self.assertEqual(response.status_code, 200)
+    
+    def test_unauthenticated_user(self):
+        response = self.client.post('/api/token/', {'username': 'testuser', 'password': 'wrong_password'})
+        self.assertEqual(response.status_code, 401)
+
 
     def test_username_exist(self):
         response = self.client.get('/api/register/search/?search=testuser')
-        print(response.data)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+
+    def test_username_not_exist(self):
+        response = self.client.get('/api/register/search/?search=testuser1')
+        self.assertEqual(response.status_code, 204)

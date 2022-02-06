@@ -18,7 +18,7 @@ from ...serializers import MedicalSerializer
 
 from rest_framework.views import APIView
 
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class MedicalViewList(APIView):
     def get(self, request, format=None):
         medical = Medical.objects.all()

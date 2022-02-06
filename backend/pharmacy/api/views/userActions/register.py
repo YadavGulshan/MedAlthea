@@ -9,7 +9,6 @@
 # All rights reserved.
 
 
-from django.http import JsonResponse
 from ...serializers import RegisterSerializer
 
 # Imports for registering a new user
@@ -25,11 +24,12 @@ class Register(generics.CreateAPIView):
 
     This class is used to register a new user.
     """
+
     def get(self, request):
         """
         This method will throw the syntax of the required json input
         """
-        return JsonResponse({
+        return Response({
             "status": "Please send a POST request to this endpoint.",
             "examples": {
                 "username": "your_username",
@@ -66,11 +66,21 @@ class Register(generics.CreateAPIView):
         return Response(serializer.errors, status=400)
 
 
-
 class UserNameAvailable(generics.ListCreateAPIView):
-    search_fields = ['username']
-    filter_backends = (filters.SearchFilter,)
     queryset = User.objects.all()
-    # Disable the pagination
-    pagination_class = None
-    serializer_class = RegisterSerializer
+
+    # show if username is not available
+    def get(self, request):
+        username = request.GET.get('search')
+        if username:
+            if self.queryset.filter(username=username).exists():
+                return Response({
+                    "status": "Username is not available"
+                }, status=302)
+            else:
+                return Response({
+                    "status": "Username is available",
+                }, status=204)
+        return Response({
+            "status": "Please send a GET request to this endpoint with a query parameter 'search'"
+        })
