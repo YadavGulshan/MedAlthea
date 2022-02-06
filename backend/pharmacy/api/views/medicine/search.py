@@ -21,7 +21,7 @@ from rest_framework import generics
 from rest_framework import filters
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class MedicineSearch(generics.ListCreateAPIView):
     search_fields = ['name', 'description']
     filter_backends = (filters.SearchFilter,)
