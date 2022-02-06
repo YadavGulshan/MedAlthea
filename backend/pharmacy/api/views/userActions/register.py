@@ -71,4 +71,6 @@ class UserNameAvailable(generics.ListCreateAPIView):
     search_fields = ['username']
     filter_backends = (filters.SearchFilter,)
     queryset = User.objects.all()
+    # Disable the pagination
+    pagination_class = None
     serializer_class = RegisterSerializer
