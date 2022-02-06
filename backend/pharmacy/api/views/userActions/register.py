@@ -25,6 +25,7 @@ class Register(generics.CreateAPIView):
 
     This class is used to register a new user.
     """
+
     def get(self, request):
         """
         This method will throw the syntax of the required json input
@@ -40,23 +41,6 @@ class Register(generics.CreateAPIView):
         })
 
     def post(self, request):
-        # """
-        # This method will register the user
-        # """
-        # queryset = User.objects.all()
-        # """
-        # Queryset is used to get all the users
-        # """
-
-        # permission_classes = (AllowAny,)
-        # """
-        # Allow only unauthenticated users to access this view
-        # """
-
-        # serializer_class = RegisterSerializer
-        # """
-        # Now registering the serializer we created in serializers.py
-        # """
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             account = serializer.save()
@@ -66,9 +50,22 @@ class Register(generics.CreateAPIView):
         return Response(serializer.errors, status=400)
 
 
-
-class UserNameAvailable(generics.ListCreateAPIView):
-    search_fields = ['username']
-    filter_backends = (filters.SearchFilter,)
+class UserNameAvailable(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = RegisterSerializer
+
+    # show if username is not available
+    def get(self, request):
+        username = request.query_params.get('username', None)
+        if username:
+            if self.queryset.filter(username=username).exists():
+                return Response({
+                    "status": "Username is not available"
+                }, status=302)
+            else:
+                return Response({
+                    "status": "Username is available",
+                }, status=204)
+        return JsonResponse({
+            "status": "Please send a GET request to this endpoint with a query parameter 'username'",
+            "example": "GET /api/register/search/?username=your_username",
+        })
