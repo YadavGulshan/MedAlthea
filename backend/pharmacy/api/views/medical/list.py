@@ -36,6 +36,8 @@ class MedicalViewList(generics.CreateAPIView):
         # Set the user to the logged in user
         serializer.initial_data['user'] = request.user.id
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
+            if request.user.is_staff:
+                serializer.save()
+                return Response(serializer.data, status=201)
+            return Response(serializer.errors, status=status.HTTP_405_METHOD_NOT_ALLOWED)
         return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)

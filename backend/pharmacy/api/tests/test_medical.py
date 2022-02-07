@@ -15,6 +15,7 @@ class medicalTest(APITestCase):
             email='testuser@email.com',
             first_name='test',
             last_name='user',
+            is_staff=True
         )
         response = self.client.post(
             '/api/token/', {
