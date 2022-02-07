@@ -38,6 +38,6 @@ class MedicalViewList(generics.CreateAPIView):
         if serializer.is_valid():
             if request.user.is_staff:
                 serializer.save()
-                return Response(serializer.data, status=201)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_405_METHOD_NOT_ALLOWED)
         return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)

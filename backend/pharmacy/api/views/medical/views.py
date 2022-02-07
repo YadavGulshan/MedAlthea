@@ -19,6 +19,7 @@ from ...serializers import MedicalSerializer
 
 # Imports for caching
 from rest_framework.views import APIView
+from rest_framework import status
 
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -49,17 +50,17 @@ class MedicalView(APIView):
         medical = self.getObject(pk)
         # Ensure that the user is the owner of the medical
         if medical[0].user.id != request.user.id:
-            return Response("HTTP 403 Forbidden", status=403)
+            return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
         serializer = MedicalSerializer(medical, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         medical = self.getObject(pk)
         # Ensure that the user is the owner of the medical
         if medical[0].user.id != request.user.id:
-            return Response("HTTP 403 Forbidden", status=403)
+            return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
         medical.delete()
-        return Response("Deleted", status=200)
+        return Response("Deleted", status=status.HTTP_202_ACCEPTED)
