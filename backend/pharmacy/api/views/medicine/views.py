@@ -3,7 +3,7 @@
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
-# and is released under the "GNU v3.0 License Agreement".
+# and is released under the "BSD 3-Clause License Agreement".
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
@@ -17,11 +17,11 @@ from pharmacy.models import Medicine
 from ...serializers import MedicineSerializer
 
 # Imports for caching
-from rest_framework.views import APIView
+from rest_framework import generics
 
 
 @permission_classes([IsAuthenticated])
-class MedicineView(APIView):
+class MedicineView(generics.RetrieveUpdateDestroyAPIView):
     def getObject(self, pk):
         try:
             return Medicine.objects.filter(pk=pk)

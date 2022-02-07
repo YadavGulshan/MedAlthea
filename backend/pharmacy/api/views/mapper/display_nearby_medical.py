@@ -3,7 +3,7 @@
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
-# and is released under the "GNU v3.0 License Agreement".
+# and is released under the "BSD 3-Clause License Agreement".
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
@@ -22,20 +22,6 @@ class DisplayNearbyMedical(APIView):
     This class will use distance api endpoint 
     and check for lat and log of medicals listed and then it will show them
     """
-
-    def get(self, request):
-        """
-        This method will throw the syntax of the required json input
-        """
-
-        return Response({
-            "status": "Please send a POST request to this endpoint.",
-            "info": "This endpoint won't be calculating the distance between each medicals and a user because that seems inefficient. So please calculate the distance at the client side. This endpoint will only show the medicals which are near to users pincode.",
-            "example": {
-                "pincode": "110016",
-            }
-        })
-
     def post(self, request):
         """
         This method will check the request for given pincode and will throw the medicals having pincode similar to request

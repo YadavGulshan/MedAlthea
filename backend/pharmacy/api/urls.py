@@ -1,7 +1,7 @@
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/PharmaService > project,
-# and is released under the "GNU v3.0 License Agreement".
+# and is released under the "BSD 3-Clause License Agreement".
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from pharmacy.api.views import userActions, medicine, medical, mapper
+from pharmacy.api.views.medical.user import MyMedical
 
 urlpatterns = [
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('', medical.MedicalViewList.as_view(), name='get'),
     path('<int:pk>/', medical.MedicalView.as_view(), name='get'),
     path('search/', medical.MedicalSearch.as_view(), name='search'),
+    path('mymedical/', MyMedical.as_view(), name='mymedical'),
 
     # For medicine
     path('medicine/', medicine.MedicineViewList.as_view(), name='get'),
@@ -42,7 +44,7 @@ urlpatterns = [
 
     # Auth: register user
     path('register/', userActions.Register.as_view(), name='register'),
-    path('register/search/', userActions.register.UserNameAvailable.as_view(), name='register'),
+    path('register/search/', userActions.register.UserNameAvailable.as_view(), name='serch'),
 
     # Utilities goes here.
     path('distance/', mapper.CalculateDistance.as_view(), name="calculate_distance"),

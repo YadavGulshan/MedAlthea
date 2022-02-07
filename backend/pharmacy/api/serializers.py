@@ -3,7 +3,7 @@
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
-# and is released under the "GNU v3.0 License Agreement".
+# and is released under the "BSD 3-Clause License Agreement".
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
@@ -85,3 +85,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class LoginSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True, min_length=8)
+    username = serializers.CharField(write_only=True, required=True)
+    
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+        
+class UserNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username',)

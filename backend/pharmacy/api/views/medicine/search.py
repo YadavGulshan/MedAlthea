@@ -3,7 +3,7 @@
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
-# and is released under the "GNU v3.0 License Agreement".
+# and is released under the "BSD 3-Clause License Agreement".
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
@@ -23,6 +23,7 @@ from rest_framework import filters
 
 @permission_classes([IsAuthenticated])
 class MedicineSearch(generics.ListCreateAPIView):
+    serializer_class = MedicineSerializer
     search_fields = ['name', 'description']
     filter_backends = (filters.SearchFilter,)
     queryset= Medicine.objects.all()
