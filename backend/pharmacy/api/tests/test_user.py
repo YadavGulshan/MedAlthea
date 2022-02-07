@@ -48,4 +48,4 @@ class userAuthTest(APITestCase):
 
     def test_username_not_exist(self):
         response = self.client.get("/api/register/search/?username=testuser")
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code, 200)
