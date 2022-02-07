@@ -19,7 +19,7 @@ from ...serializers import MedicineSerializer
 from rest_framework.views import APIView
 
 
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class MedicineViewList(APIView):
     def get(self, request, format=None):
         medicine = Medicine.objects.all()

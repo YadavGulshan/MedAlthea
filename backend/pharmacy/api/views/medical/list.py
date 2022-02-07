@@ -20,13 +20,23 @@ from rest_framework.views import APIView
 
 @permission_classes([IsAuthenticated])
 class MedicalViewList(APIView):
-    def get(self, request, format=None):
+    def get(self, request):
         medical = Medical.objects.all()
         serializer = MedicalSerializer(medical, many=True)
         return Response(serializer.data)
 
+    
     def post(self, request):
+        """
+        This section almost ripped me apart. I don't know why this section 
+        is not working now without making serializer mutable by literraly copying 
+        the data.
+
+        Bruh... 
+        """
         serializer = MedicalSerializer(data=request.data)
+        # Make serializer mutable
+        serializer.initial_data = serializer.initial_data.copy()
         # Set the user to the logged in user
         serializer.initial_data['user'] = request.user.id
         if serializer.is_valid():
