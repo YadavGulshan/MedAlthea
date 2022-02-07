@@ -18,7 +18,7 @@ from ...serializers import MedicineSerializer
 # Imports for caching
 from rest_framework.views import APIView
 from rest_framework import generics
-
+from rest_framework import status
 
 
 @permission_classes([IsAuthenticated])
@@ -42,4 +42,5 @@ class MedicineViewList(generics.ListCreateAPIView):
             if request.user.is_staff:
                 serializer.save()
                 return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.errors, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
