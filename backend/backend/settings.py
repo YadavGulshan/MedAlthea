@@ -52,9 +52,6 @@ INSTALLED_APPS = [
     # Apps
     'pharmacy',
 
-    # Tailwind stuff: maybe useless.... TODO: Remove if unused!
-    'tailwind',
-    'theme',
     'django_browser_reload',
 
     # For api
