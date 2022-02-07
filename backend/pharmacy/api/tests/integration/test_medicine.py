@@ -6,15 +6,13 @@
 #
 # All rights reserved.
 
-
-from random import random
 from django.contrib.auth.models import User
 
-
+from random import random
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
 
-class medicinetest(APITestCase):
+class TestMedicine(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.client = APIClient()
@@ -50,34 +48,5 @@ class medicinetest(APITestCase):
         )
         self.medicalId = response.data["medicalId"]
 
-    def test_user_create_medicine(self):
-        response = self.client.get(
-            "/api/mymedical/", HTTP_AUTHORIZATION="Bearer " + self.access_token
-        )
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.post(
-            "/api/medicine/",
-            {
-                "name": "TestMedicine",
-                "description": "TestMedicine Description",
-                "price": 100,
-                "quantity": 100,
-                "medicalId": self.medicalId,
-            },
-            HTTP_AUTHORIZATION="Bearer " + self.access_token,
-        )
-
-        self.assertEqual(response.status_code, 201)
-
-    def test_user_create_medicine_without_token(self):
-        response = self.client.post(
-            "/api/medicine/",
-            {
-                "name": "TestMedicine",
-                "description": "TestMedicine Description",
-                "price": 100,
-                "quantity": 100,
-            },
-        )
-        self.assertEqual(response.status_code, 401)
+    def test_create_and_search_medicine(self):
+        pass
