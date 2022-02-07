@@ -1,3 +1,4 @@
+from urllib import response
 from django.contrib.auth.models import User
 
 
@@ -30,4 +31,41 @@ class TestUser(APITestCase):
                 "token": self.access_token
             }
         )
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_token_refresh(self):
+        response = self.client.post(
+            "/api/token/refresh/", {
+                "refresh": self.refresh_token
+            }
+        )
+        new_access_token = response.data['access']
+        new_refresh_token = response.data['refresh']
+        self.assertEqual(response.status_code, 200)
+
+        try_old_refresh_token = self.client.post(
+            "/api/token/refresh/", {
+                "refresh": self.refresh_token
+            }
+        )
+
+        self.assertEqual(try_old_refresh_token.status_code, 401)
+
+        try_old_access_token = self.client.post("/api/token/verify/", {
+            "token": self.access_token
+        })
+        # This will pass because the life span of access token is 15 min.
+        self.assertEqual(try_old_access_token.status_code, 200)
+
+        try_new_access_token = self.client.post("/api/token/verify/", {
+            "token": new_access_token
+        })
+
+        self.assertEqual(try_new_access_token.status_code, 200)
+
+    def test_check_user(self):
+        response = self.client.get(
+            "/api/user/", HTTP_AUTHORIZATION="Bearer " + self.access_token
+        )
+
         self.assertEqual(response.status_code, 200)

@@ -27,7 +27,7 @@ urlpatterns = [
     path("medicine/", medicine.MedicineViewList.as_view(), name="get"),
     path("medicine/search/", medicine.MedicineSearch.as_view(), name="search"),
     # User
-    path("user/", userActions.UserAction.as_view(), name="user"),
+    path("user/", userActions.UserView.as_view(), name="user"),
     # Auth
     # Auth: login
     path(
