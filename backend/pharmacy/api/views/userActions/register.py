@@ -9,19 +9,15 @@
 # All rights reserved.
 
 
-from telnetlib import STATUS
 from django.http import JsonResponse
 
-from pharmacy.api.views.userActions.token import serializer
 from ...serializers import RegisterSerializer, UserNameSerializer
 
 # Imports for registering a new user
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-from rest_framework import filters
 from rest_framework import status
-
 
 
 class Register(generics.CreateAPIView):
@@ -48,17 +44,23 @@ class UserNameAvailable(generics.CreateAPIView):
     # show if username is not available
     def get(self, request):
         queryset = User.objects.all()
-        username = request.query_params.get('username', None)
+        username = request.query_params.get("username", None)
         if username:
             if queryset.filter(username=username).exists():
-                return Response({
-                    "status": "Username is not available"
-                }, status=302)
+                return Response(
+                    {"status": "Username is not available"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             else:
-                return Response({
-                    "status": "Username is available",
-                }, status=204)
-        return JsonResponse({
-            "status": "Please send a GET request to this endpoint with a query parameter 'username'",
-            "example": "GET /api/register/search/?username=your_username",
-        })
+                return Response(
+                    {
+                        "status": "Username is available",
+                    },
+                    status=status.HTTP_200_OK,
+                )
+        return JsonResponse(
+            {
+                "status": "Please send a GET request to this endpoint with a query parameter 'username'",
+                "example": "GET /api/register/search/?username=your_username",
+            }
+        )

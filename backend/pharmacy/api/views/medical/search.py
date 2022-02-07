@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -21,11 +21,9 @@ from rest_framework import generics
 from rest_framework import filters
 
 
-
 @permission_classes([IsAuthenticated])
 class MedicalSearch(generics.ListCreateAPIView):
-    search_fields = ['name', 'address', 'phone']
+    search_fields = ["name", "address", "phone"]
     filter_backends = (filters.SearchFilter,)
     queryset = Medical.objects.all()
     serializer_class = MedicalSerializer
-

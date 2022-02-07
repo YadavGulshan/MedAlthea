@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -8,11 +8,12 @@
 #
 # All rights reserved.
 
-__all__ = ['Medical']
+__all__ = ["Medical"]
 
 from .list import MedicalViewList
 from .search import MedicalSearch
 from .views import MedicalView
+
 
 class Medical(MedicalView, MedicalSearch, MedicalViewList):
     """views.medical"""
