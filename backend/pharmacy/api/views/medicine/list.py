@@ -17,10 +17,13 @@ from ...serializers import MedicineSerializer
 
 # Imports for caching
 from rest_framework.views import APIView
+from rest_framework import generics
+
 
 
 @permission_classes([IsAuthenticated])
-class MedicineViewList(APIView):
+class MedicineViewList(generics.ListCreateAPIView):
+    serializer_class = MedicineSerializer
     def get(self, request, format=None):
         medicine = Medicine.objects.all()
         serializer = MedicineSerializer(medicine, many=True)

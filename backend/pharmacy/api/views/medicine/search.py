@@ -23,6 +23,7 @@ from rest_framework import filters
 
 @permission_classes([IsAuthenticated])
 class MedicineSearch(generics.ListCreateAPIView):
+    serializer_class = MedicineSerializer
     search_fields = ['name', 'description']
     filter_backends = (filters.SearchFilter,)
     queryset= Medicine.objects.all()
