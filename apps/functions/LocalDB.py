@@ -11,21 +11,21 @@ class LocalDB:
         ''')
 
     def addNewToken(self, access, refresh):
-        self.cur.execute('INSERT INTO tokens VALUES (?,datetime(\'now\'), ?, datetime(\'now\'))', (access, refresh))
+        self.cur.execute("INSERT INTO tokens VALUES (?,datetime('now'), ?, datetime('now'))", (refresh, access))
         self.con.commit()
         return 200
 
     def getAccessToken(self):
-        response = self.cur.execute('''SELECT accesstoken Alastused FROM tokens''')
+        response = self.cur.execute('''SELECT accesstoken, Alastused FROM tokens''')
         self.con.commit()
         return response.fetchall()[0]
 
     def addNewAccessToken(self, access):
-        self.cur.execute('''UPDATE tokens SET accesstoken = ? Alastused=datetime('now')''', access)
+        self.cur.execute('''UPDATE tokens SET accesstoken = ?, Alastused=datetime('now')''', access)
         self.con.commit()
 
     def getRefreshToken(self):
-        response = self.cur.execute('''SELECT refresh Rlastused FROM tokens''')
+        response = self.cur.execute('''SELECT refresh, Rlastused FROM tokens''')
         self.con.commit()
         return response.fetchall()[0]
 

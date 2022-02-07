@@ -11,9 +11,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Pharma services</string>
   </property>
-  <widget class="QWidget" name="titleB" native="true">
+  <widget class="QWidget" name="Pharmaservices" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -38,7 +38,6 @@
     </property>
     <property name="font">
      <font>
-      <family>MS Shell Dlg 2</family>
       <pointsize>48</pointsize>
      </font>
     </property>
@@ -189,7 +188,6 @@ color: rgb(255,255,255);</string>
     <property name="font">
      <font>
       <pointsize>12</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>

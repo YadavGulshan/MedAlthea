@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>PharmaServices</class>
+ <widget class="QDialog" name="PharmaServices">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Pharma Services</string>
   </property>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
@@ -36,11 +36,12 @@
     </property>
     <property name="font">
      <font>
-      <family>Open Sans</family>
       <pointsize>28</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>LOGIN</string>
@@ -151,6 +152,9 @@ background-color: rgb(85, 0, 255);}
       <pointsize>11</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);</string>
+    </property>
     <property name="text">
      <string>Not a member yet?</string>
     </property>
@@ -167,12 +171,11 @@ background-color: rgb(85, 0, 255);}
     <property name="font">
      <font>
       <pointsize>9</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">*{border:none;}
+     <string notr="true">*{border:none;color: rgb(0, 0, 0);}
 </string>
     </property>
     <property name="text">

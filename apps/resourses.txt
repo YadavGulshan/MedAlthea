@@ -10,5 +10,7 @@ https://www.tutorialspoint.com/how-to-get-the-longitude-and-latitude-of-a-city-u
 dammy text
 https://loremipsum.io/
 
+format = '%Y-%m-%d %H:%M:%S'
+# https://ide.geeksforgeeks.org/kveOpwDqbT
 
 https://reqbin.com/req/python/5k564bhv/get-request-bearer-token-authorization-header-example
