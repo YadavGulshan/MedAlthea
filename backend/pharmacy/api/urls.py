@@ -8,10 +8,7 @@
 
 from django.conf import settings
 from django.urls import path
-from rest_framework_simplejwt.views import (
-    TokenRefreshView,
-    TokenVerifyView
-)
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf.urls.static import static
@@ -22,33 +19,36 @@ from pharmacy.api.views.medical.user import MyMedical
 
 urlpatterns = [
     # For getting the api view: i.e medical list and all
-    path('', medical.MedicalViewList.as_view(), name='get'),
-    path('<int:pk>/', medical.MedicalView.as_view(), name='get'),
-    path('search/', medical.MedicalSearch.as_view(), name='search'),
-    path('mymedical/', MyMedical.as_view(), name='mymedical'),
-
+    path("", medical.MedicalViewList.as_view(), name="get"),
+    path("<int:pk>/", medical.MedicalView.as_view(), name="get"),
+    path("search/", medical.MedicalSearch.as_view(), name="search"),
+    path("mymedical/", MyMedical.as_view(), name="mymedical"),
     # For medicine
-    path('medicine/', medicine.MedicineViewList.as_view(), name='get'),
-    path('medicine/search/', medicine.MedicineSearch.as_view(), name='search'),
-
+    path("medicine/", medicine.MedicineViewList.as_view(), name="get"),
+    path("medicine/search/", medicine.MedicineSearch.as_view(), name="search"),
     # User
-    path('user/', userActions.UserAction.as_view(), name='user'),
-
+    path("user/", userActions.UserAction.as_view(), name="user"),
     # Auth
-
     # Auth: login
-    path('token/', userActions.token.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-
+    path(
+        "token/",
+        userActions.token.MyTokenObtainPairView.as_view(),
+        name="token_obtain_pair",
+    ),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     # Auth: register user
-    path('register/', userActions.Register.as_view(), name='register'),
-    path('register/search/', userActions.register.UserNameAvailable.as_view(), name='serch'),
-
+    path("register/", userActions.Register.as_view(), name="register"),
+    path(
+        "register/search/",
+        userActions.register.UserNameAvailable.as_view(),
+        name="serch",
+    ),
     # Utilities goes here.
-    path('distance/', mapper.CalculateDistance.as_view(), name="calculate_distance"),
-    path('nearbymedical/', mapper.DisplayNearbyMedical.as_view(), name="nearby_medical")
-
+    path("distance/", mapper.CalculateDistance.as_view(), name="calculate_distance"),
+    path(
+        "nearbymedical/", mapper.DisplayNearbyMedical.as_view(), name="nearby_medical"
+    ),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
@@ -56,7 +56,6 @@ urlpatterns = format_suffix_patterns(urlpatterns)
 
 # For media files
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:
     urlpatterns += staticfiles_urlpatterns()

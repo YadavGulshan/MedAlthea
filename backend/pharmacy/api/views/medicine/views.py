@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,

@@ -18,40 +18,93 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Medical',
+            name="Medical",
             fields=[
-                ('medicalId', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('createdAt', models.DateTimeField(auto_now_add=True)),
-                ('name', models.CharField(max_length=20)),
-                ('address', models.CharField(max_length=100)),
-                ('pincode', models.IntegerField()),
-                ('latitude', models.FloatField()),
-                ('longitude', models.FloatField()),
-                ('phone', phonenumber_field.modelfields.PhoneNumberField(max_length=128, region=None)),
-                ('email', models.EmailField(max_length=100)),
-                ('website', models.URLField(blank=True, max_length=100)),
-                ('image', models.ImageField(upload_to='images/')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "medicalId",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("createdAt", models.DateTimeField(auto_now_add=True)),
+                ("name", models.CharField(max_length=20)),
+                ("address", models.CharField(max_length=100)),
+                ("pincode", models.IntegerField()),
+                ("latitude", models.FloatField()),
+                ("longitude", models.FloatField()),
+                (
+                    "phone",
+                    phonenumber_field.modelfields.PhoneNumberField(
+                        max_length=128, region=None
+                    ),
+                ),
+                ("email", models.EmailField(max_length=100)),
+                ("website", models.URLField(blank=True, max_length=100)),
+                ("image", models.ImageField(upload_to="images/")),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Medicine',
+            name="Medicine",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('createdAt', models.DateTimeField(auto_now_add=True)),
-                ('name', models.CharField(max_length=20)),
-                ('description', models.CharField(max_length=100)),
-                ('price', models.IntegerField()),
-                ('quantity', models.IntegerField()),
-                ('medicalId', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pharmacy.medical')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("createdAt", models.DateTimeField(auto_now_add=True)),
+                ("name", models.CharField(max_length=20)),
+                ("description", models.CharField(max_length=100)),
+                ("price", models.IntegerField()),
+                ("quantity", models.IntegerField()),
+                (
+                    "medicalId",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="pharmacy.medical",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='MedicineClass',
+            name="MedicineClass",
             fields=[
-                ('medicine_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='pharmacy.medicine')),
+                (
+                    "medicine_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="pharmacy.medicine",
+                    ),
+                ),
             ],
-            bases=(pharmacy.api.views.medicine.list.MedicineViewList, pharmacy.api.views.medicine.search.MedicineSearch, 'pharmacy.medicine'),
+            bases=(
+                pharmacy.api.views.medicine.list.MedicineViewList,
+                pharmacy.api.views.medicine.search.MedicineSearch,
+                "pharmacy.medicine",
+            ),
         ),
     ]

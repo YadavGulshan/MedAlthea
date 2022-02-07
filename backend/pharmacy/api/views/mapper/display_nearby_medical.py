@@ -16,17 +16,19 @@ from rest_framework.decorators import permission_classes
 
 from pharmacy.models import Medical
 
+
 @permission_classes([IsAuthenticated])
 class DisplayNearbyMedical(APIView):
     """
-    This class will use distance api endpoint 
+    This class will use distance api endpoint
     and check for lat and log of medicals listed and then it will show them
     """
+
     def post(self, request):
         """
         This method will check the request for given pincode and will throw the medicals having pincode similar to request
         """
-        pincode = request.data.get('pincode')
+        pincode = request.data.get("pincode")
         medical = Medical.objects.filter(pincode__contains=pincode)
         """
         Here we are checking the pincode of medicals similar to request pincode

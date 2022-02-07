@@ -25,14 +25,15 @@ class CalculateDistance(generics.CreateAPIView):
     """
 
     serializer_class = None
+
     def post(self, request):
         """
         This method will calculate the distance between two points
         """
-        lat1 = float(request.data.get('lat1'))
-        lon1 = float(request.data.get('lon1'))
-        lat2 = float(request.data.get('lat2'))
-        lon2 = float(request.data.get('lon2'))
+        lat1 = float(request.data.get("lat1"))
+        lon1 = float(request.data.get("lon1"))
+        lat2 = float(request.data.get("lat2"))
+        lon2 = float(request.data.get("lon2"))
 
         radius = 6371  # km
         dlat = (lat2 - lat1) * (3.14 / 180)
@@ -44,14 +45,15 @@ class CalculateDistance(generics.CreateAPIView):
         dlon is the difference between longitude of two points
         """
 
-        O_rad_lat = (lat1 * 3.14 / 180)
-        O_rad_lon = (lon1 * 3.14 / 180)
+        O_rad_lat = lat1 * 3.14 / 180
+        O_rad_lon = lon1 * 3.14 / 180
 
-        D_rad_lat = (lat2 * 3.14 / 180)
-        D_rad_lon = (lon2 * 3.14 / 180)
+        D_rad_lat = lat2 * 3.14 / 180
+        D_rad_lon = lon2 * 3.14 / 180
 
-        a = (sin(dlat/2)*sin(dlat/2) + cos(O_rad_lat)
-             * cos(D_rad_lat)*sin(dlon/2)*sin(dlon/2))
+        a = sin(dlat / 2) * sin(dlat / 2) + cos(O_rad_lat) * cos(D_rad_lat) * sin(
+            dlon / 2
+        ) * sin(dlon / 2)
         """
         a is the value of the formula
         
@@ -64,12 +66,14 @@ class CalculateDistance(generics.CreateAPIView):
         """
 
         a = a.real
-        c = 2*atan2(sqrt(a).real, sqrt(1-a).real)
-        d = radius*c
+        c = 2 * atan2(sqrt(a).real, sqrt(1 - a).real)
+        d = radius * c
         """
         d is the distance between two points
         """
 
-        return Response({
-            "distance": d,
-        })
+        return Response(
+            {
+                "distance": d,
+            }
+        )

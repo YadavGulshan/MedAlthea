@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -8,10 +8,11 @@
 #
 # All rights reserved.
 
-__all__ = ['token']
+__all__ = ["token"]
 
 from .serializer import MyTokenObtainPairSerializer
 from .view import MyTokenObtainPairView
+
 
 class MyToken(MyTokenObtainPairSerializer, MyTokenObtainPairView):
     """userActions.token"""

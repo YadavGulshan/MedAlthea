@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -16,6 +16,7 @@ from rest_framework.response import Response
 from pharmacy.api.serializers import MedicalSerializer
 from pharmacy.models import Medical
 
+
 @permission_classes([IsAuthenticated])
 class MyMedical(generics.ListCreateAPIView):
     serializer_class = MedicalSerializer
@@ -24,5 +25,3 @@ class MyMedical(generics.ListCreateAPIView):
         medical = Medical.objects.filter(user=request.user)
         serializer = MedicalSerializer(medical, many=True)
         return Response(serializer.data)
-
-    

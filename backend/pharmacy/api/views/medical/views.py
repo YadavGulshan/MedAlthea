@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -27,11 +27,11 @@ from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 
 # A method decorator to cache the view for 60 seconds
-@method_decorator(cache_page(60), name='get')
+@method_decorator(cache_page(60), name="get")
 # A method decorator to vary on the cookie
-@method_decorator(vary_on_cookie, name='get')
+@method_decorator(vary_on_cookie, name="get")
 # A method decorator to vary on the headers
-@method_decorator(vary_on_headers, name='get')
+@method_decorator(vary_on_headers, name="get")
 # Allow only authenticated users to access this view
 @permission_classes([IsAuthenticated])
 class MedicalView(APIView):
