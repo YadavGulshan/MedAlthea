@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/PharmaService > project,
@@ -52,19 +52,19 @@ INSTALLED_APPS = [
     # Apps
     'pharmacy',
 
-    # Tailwind stuff: maybe useless.... TODO: Remove if unused!
-    'tailwind',
-    'theme',
-    'django_browser_reload',
-
     # For api
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
-    
+
     # Django model stuff
-    'phonenumber_field'
+    'phonenumber_field',
+
+    'drf_yasg',
+
+    # For reload func
+    'livesync',
 ]
 
 MIDDLEWARE = [
@@ -75,11 +75,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Browser reload installed when setting up tailwind
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
     # CORS
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+
+    # Reload
+    'livesync.core.middleware.DjangoLiveSyncMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -156,9 +157,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-TAILWIND_APP_NAME = 'theme'
-
-
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -167,7 +165,7 @@ INTERNAL_IPS = [
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
@@ -203,9 +201,28 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Dealing with media!
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+DJANGO_LIVESYNC = {
+    'PORT': 9999, 
+    'HOST': ''
+}
+
+
+# Swagger settings
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Auth Token eg [Bearer (JWT) ]': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+           
+}

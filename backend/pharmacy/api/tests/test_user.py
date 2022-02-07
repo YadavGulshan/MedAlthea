@@ -47,34 +47,3 @@ class userAuthTest(APITestCase):
     def test_username_not_exist(self):
         response = self.client.get('/api/register/search/?username=testuser')
         self.assertEqual(response.status_code, 204)
-
-    def test_user_create_medical_shops(self):
-        for i in range(10):
-            # Login and get the access token
-            response = self.client.post(
-                '/api/token/', {
-                    'username': 'testuser' + str(i),
-                    'password': 'top_secret' + str(i)
-                }
-            )
-
-            access_token = response.data['access']
-            # print(access_token)
-            self.assertEqual(response.status_code, 200)
-
-            # Create a medical shop
-            response = self.client.post('/api/', {
-                'name': 'TestUser' + str(i),
-                'address': 'TestUser Medical Shop Address' + str(i),
-                'pincode': 400607,
-                'phone': '+91123456789'+str(i),
-                'latitude': random(),
-                'longitude': random(),
-                'email': 'testuser' + str(i) + '@email.com',
-                'website': 'https://testuser' + str(i) + '.com',
-            }, HTTP_AUTHORIZATION='Bearer ' + access_token)
-            self.assertEqual(response.status_code, 201)
-
-
-        response = self.client.get('/api/', HTTP_AUTHORIZATION='Bearer ' + access_token)
-        self.assertEqual(response.status_code, 200)

@@ -17,10 +17,13 @@ from ...serializers import MedicineSerializer
 
 # Imports for caching
 from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework import status
 
 
 @permission_classes([IsAuthenticated])
-class MedicineViewList(APIView):
+class MedicineViewList(generics.ListCreateAPIView):
+    serializer_class = MedicineSerializer
     def get(self, request, format=None):
         medicine = Medicine.objects.all()
         serializer = MedicineSerializer(medicine, many=True)
@@ -28,9 +31,16 @@ class MedicineViewList(APIView):
 
     def post(self, request):
         serializer = MedicineSerializer(data=request.data)
+                # Make serializer mutable
+        serializer.initial_data = serializer.initial_data.copy()
         # Set the user to the logged in user
         serializer.initial_data['user'] = request.user.id
+
+        
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            # Check if the user is staff
+            if request.user.is_staff:
+                serializer.save()
+                return Response(serializer.data, status=201)
+            return Response(serializer.errors, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)

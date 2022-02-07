@@ -17,11 +17,11 @@ from pharmacy.models import Medicine
 from ...serializers import MedicineSerializer
 
 # Imports for caching
-from rest_framework.views import APIView
+from rest_framework import generics
 
 
 @permission_classes([IsAuthenticated])
-class MedicineView(APIView):
+class MedicineView(generics.RetrieveUpdateDestroyAPIView):
     def getObject(self, pk):
         try:
             return Medicine.objects.filter(pk=pk)

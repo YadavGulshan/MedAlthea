@@ -9,36 +9,28 @@
 # All rights reserved.
 
 
+from telnetlib import STATUS
 from django.http import JsonResponse
-from ...serializers import RegisterSerializer
+
+from pharmacy.api.views.userActions.token import serializer
+from ...serializers import RegisterSerializer, UserNameSerializer
 
 # Imports for registering a new user
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import filters
+from rest_framework import status
+
 
 
 class Register(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
     """
     CreateAPIView is a generic class-based view that allows you to handle POST requests.
 
     This class is used to register a new user.
     """
-
-    def get(self, request):
-        """
-        This method will throw the syntax of the required json input
-        """
-        return JsonResponse({
-            "status": "Please send a POST request to this endpoint.",
-            "examples": {
-                "username": "your_username",
-                "email": "your_email@example.com",
-                "first_name": "First_Name",
-                "last_name": "Last_Name",
-            }
-        })
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -46,18 +38,19 @@ class Register(generics.CreateAPIView):
             account = serializer.save()
             account.set_active = True
 
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserNameAvailable(generics.CreateAPIView):
-    queryset = User.objects.all()
+    serializer_class = UserNameSerializer
 
     # show if username is not available
     def get(self, request):
+        queryset = User.objects.all()
         username = request.query_params.get('username', None)
         if username:
-            if self.queryset.filter(username=username).exists():
+            if queryset.filter(username=username).exists():
                 return Response({
                     "status": "Username is not available"
                 }, status=302)

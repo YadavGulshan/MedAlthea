@@ -8,25 +8,21 @@
 #
 # All rights reserved.
 
+from rest_framework import generics
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-from pharmacy.models import Medicine
-from ...serializers import MedicineSerializer
-
-# Imports for registering a new user
-from rest_framework import generics
-
-# Imports used in search functionality
-from rest_framework import filters
-
+from pharmacy.api.serializers import MedicalSerializer
+from pharmacy.models import Medical
 
 @permission_classes([IsAuthenticated])
-class MedicineSearch(generics.ListCreateAPIView):
-    serializer_class = MedicineSerializer
-    search_fields = ['name', 'description']
-    filter_backends = (filters.SearchFilter,)
-    queryset= Medicine.objects.all()
-    serializer_class = MedicineSerializer
+class MyMedical(generics.ListCreateAPIView):
+    serializer_class = MedicalSerializer
 
+    def get(self, request):
+        medical = Medical.objects.filter(user=request.user)
+        serializer = MedicalSerializer(medical, many=True)
+        return Response(serializer.data)
 
+    

@@ -10,32 +10,21 @@
 
 from cmath import cos, sin, sqrt
 from math import atan2
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics
+
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 
+
 @permission_classes([IsAuthenticated])
-class CalculateDistance(APIView):
+class CalculateDistance(generics.CreateAPIView):
     """
     This class is used to calculate the distance between two points
     """
 
-    def get(self, request):
-        """
-        This method will throw the syntax of the required json input
-        """
-        return Response({
-            "status": "Please send a POST request to this endpoint.",
-            "examples": {
-                "lat1": "latitude1",
-                "lon1": "longitude1",
-                "lat2": "latitude2",
-                "lon2": "longitude2",
-            }
-        })
-
+    serializer_class = None
     def post(self, request):
         """
         This method will calculate the distance between two points
