@@ -21,21 +21,6 @@ class CalculateDistance(APIView):
     """
     This class is used to calculate the distance between two points
     """
-
-    def get(self, request):
-        """
-        This method will throw the syntax of the required json input
-        """
-        return Response({
-            "status": "Please send a POST request to this endpoint.",
-            "examples": {
-                "lat1": "latitude1",
-                "lon1": "longitude1",
-                "lat2": "latitude2",
-                "lon2": "longitude2",
-            }
-        })
-
     def post(self, request):
         """
         This method will calculate the distance between two points

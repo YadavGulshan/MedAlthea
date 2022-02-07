@@ -26,20 +26,6 @@ class Register(generics.CreateAPIView):
     This class is used to register a new user.
     """
 
-    def get(self, request):
-        """
-        This method will throw the syntax of the required json input
-        """
-        return JsonResponse({
-            "status": "Please send a POST request to this endpoint.",
-            "examples": {
-                "username": "your_username",
-                "email": "your_email@example.com",
-                "first_name": "First_Name",
-                "last_name": "Last_Name",
-            }
-        })
-
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
