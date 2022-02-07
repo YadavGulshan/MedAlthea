@@ -53,11 +53,11 @@ class UserNameAvailable(generics.CreateAPIView):
             if queryset.filter(username=username).exists():
                 return Response({
                     "status": "Username is not available"
-                }, status=302)
+                }, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({
                     "status": "Username is available",
-                }, status=204)
+                }, status=status.HTTP_200_OK)
         return JsonResponse({
             "status": "Please send a GET request to this endpoint with a query parameter 'username'",
             "example": "GET /api/register/search/?username=your_username",

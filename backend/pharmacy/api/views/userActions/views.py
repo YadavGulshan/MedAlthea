@@ -13,8 +13,8 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 
-# Imports for caching
 from rest_framework.views import APIView
+from rest_framework import status
 
 @permission_classes([IsAuthenticated])
 class UserView(APIView):
@@ -25,4 +25,4 @@ class UserView(APIView):
             'username': current_user.username,
             'email': current_user.email,
         }
-        return Response(user, status=200)
+        return Response(user, status=status.HTTP_200_OK)
