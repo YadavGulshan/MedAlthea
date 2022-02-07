@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     # Apps
     'pharmacy',
 
-    'django_browser_reload',
-
     # For api
     'rest_framework',
     'rest_framework_simplejwt',
@@ -63,8 +61,10 @@ INSTALLED_APPS = [
     # Django model stuff
     'phonenumber_field',
 
-    'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
     'drf_yasg',
+
+    # For reload func
+    'livesync',
 ]
 
 MIDDLEWARE = [
@@ -75,11 +75,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Browser reload installed when setting up tailwind
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
     # CORS
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+
+    # Reload
+    'livesync.core.middleware.DjangoLiveSyncMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -156,9 +157,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-TAILWIND_APP_NAME = 'theme'
-
-
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -209,3 +207,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Dealing with media!
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+DJANGO_LIVESYNC = {
+    'PORT': 9999, 
+    'HOST': ''
+}
