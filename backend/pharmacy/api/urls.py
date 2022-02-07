@@ -41,7 +41,7 @@ urlpatterns = [
 
     # Auth: register user
     path('register/', userActions.Register.as_view(), name='register'),
-    path('register/search/', userActions.register.UserNameAvailable.as_view(), name='register'),
+    path('register/search/', userActions.register.UserNameAvailable.as_view(), name='serch'),
 
     # Utilities goes here.
     path('distance/', mapper.CalculateDistance.as_view(), name="calculate_distance"),

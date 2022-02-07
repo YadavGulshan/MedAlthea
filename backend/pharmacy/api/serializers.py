@@ -85,3 +85,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class LoginSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True, min_length=8)
+    username = serializers.CharField(write_only=True, required=True)
+    
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+        
+class UserNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username',)
