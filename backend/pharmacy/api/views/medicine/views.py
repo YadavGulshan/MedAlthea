@@ -15,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from pharmacy.models import Medicine
 from ...serializers import MedicineSerializer
+from rest_framework import status
 
 # Imports for caching
 from rest_framework import generics
@@ -37,17 +38,17 @@ class MedicineView(generics.RetrieveUpdateDestroyAPIView):
         medicine = self.getObject(pk)
         # Ensure that the user is the owner of the medicine
         if medicine[0].user.id != request.user.id:
-            return Response("HTTP 403 Forbidden", status=403)
+            return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
         serializer = MedicineSerializer(medicine, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         medicine = self.getObject(pk)
         # Ensure that the user is the owner of the medicine
         if medicine[0].user.id != request.user.id:
-            return Response("HTTP 403 Forbidden", status=403)
+            return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
         medicine.delete()
-        return Response("Deleted", status=200)
+        return Response("Deleted", status=status.HTTP_202_ACCEPTED)
