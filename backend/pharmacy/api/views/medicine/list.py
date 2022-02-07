@@ -31,9 +31,15 @@ class MedicineViewList(generics.ListCreateAPIView):
 
     def post(self, request):
         serializer = MedicineSerializer(data=request.data)
+                # Make serializer mutable
+        serializer.initial_data = serializer.initial_data.copy()
         # Set the user to the logged in user
         serializer.initial_data['user'] = request.user.id
+
+        
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
+            # Check if the user is staff
+            if request.user.is_staff:
+                serializer.save()
+                return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)

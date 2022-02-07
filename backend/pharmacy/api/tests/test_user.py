@@ -75,6 +75,59 @@ class userAuthTest(APITestCase):
             }, HTTP_AUTHORIZATION='Bearer ' + access_token)
             self.assertEqual(response.status_code, 201)
 
-
-        response = self.client.get('/api/', HTTP_AUTHORIZATION='Bearer ' + access_token)
+        # Get all the medical shops
+        response = self.client.get(
+            '/api/', HTTP_AUTHORIZATION='Bearer ' + access_token)
         self.assertEqual(response.status_code, 200)
+
+    def test_user_create_medical_shops_without_token(self):
+        response = self.client.post('/api/', {
+            'name': 'TestUser',
+            'address': 'TestUser Medical Shop Address',
+            'pincode': 400607,
+            'phone': '+91123456789',
+            'latitude': random(),
+            'longitude': random(),
+            'email': 'testuser' + '@email.com',
+            'website': 'https://testuser' + '.com',
+        })
+        self.assertEqual(response.status_code, 401)
+
+    def test_user_create_medical_shops_with_token_without_data(self):
+        '''Login and then perform the post'''
+        response = self.client.post(
+            '/api/token/', {'username': 'testuser1', 'password': 'top_secret1'})
+        access_token = response.data['access']
+
+        response = self.client.post(
+            '/api/', {}, HTTP_AUTHORIZATION='Bearer ' + access_token)
+        self.assertEqual(response.status_code, 406)
+
+    def test_user_create_medicine(self):
+        response = self.client.post(
+            '/api/token/', {
+                'username': 'testuser1',
+                'password': 'top_secret1'
+            }
+        )
+        access_token = response.data['access']
+
+        response = self.client.post('/api/medicine/', {
+            'name': 'TestMedicine',
+            'description': 'TestMedicine Description',
+            'price': 100,
+            'quantity': 100,
+            'medicalId': 2
+        }, HTTP_AUTHORIZATION='Bearer ' + access_token)
+        print(response.data)
+
+        # self.assertEqual(response.status_code, 201)
+
+    def test_user_create_medicine_without_token(self):
+        response = self.client.post('/api/medicine/', {
+            'name': 'TestMedicine',
+            'description': 'TestMedicine Description',
+            'price': 100,
+            'quantity': 100,
+        })
+        self.assertEqual(response.status_code, 401)

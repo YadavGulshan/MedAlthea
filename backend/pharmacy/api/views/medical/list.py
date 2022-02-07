@@ -18,6 +18,7 @@ from ...serializers import MedicalSerializer
 
 from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework import status
 
 @permission_classes([IsAuthenticated])
 class MedicalViewList(generics.CreateAPIView):
@@ -37,4 +38,4 @@ class MedicalViewList(generics.CreateAPIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
