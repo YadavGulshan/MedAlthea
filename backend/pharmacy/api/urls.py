@@ -35,7 +35,7 @@ from pharmacy.api.views.userActions.token.view import MyTokenObtainPairView
 # from . import Medical
 
 urlpatterns = [
-    # For getting the api view: i.e medical list and all
+    # For getting the api view: i.e. medical list and all
     path('', MedicalViewList.as_view(), name='get'),
     path('<int:pk>/', MedicalView.as_view(), name='get'),
     path('search/', MedicalSearch.as_view(), name='search'),

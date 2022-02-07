@@ -3,7 +3,7 @@ import sys
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget, QDialog, QGridLayout, QLineEdit
 # from Frames.welcome_frame import welcomeFrame
-from Frames.output import Ui_Dialog as lf
+from Frames.output import Ui_Dialog
 
 # initializing GUI application
 app = QApplication(sys.argv)
@@ -22,8 +22,6 @@ window.setWindowTitle("Get Your Medicine!!")
 grid = QGridLayout()
 
 # welcomeFrame(grid)
-class loginFrame(QDialog):
-    def __init__(self):
 
 
 # window.setLayout(grid)
