@@ -9,7 +9,7 @@
 # All rights reserved.
 
 
-from random import random
+from urllib import response
 from django.contrib.auth.models import User
 
 
@@ -49,6 +49,3 @@ class userAuthTest(APITestCase):
     def test_username_not_exist(self):
         response = self.client.get("/api/register/search/?username=testuser1")
         self.assertEqual(response.status_code, 200)
-
-    def test_refresh_token(self):
-        pass
