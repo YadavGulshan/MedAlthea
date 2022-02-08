@@ -57,7 +57,7 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
                     medicine = self.client.post(
                         "/api/medicine/",
                         {
-                            "name": medicineNames.medicineNames[random.randint(0, 10)],
+                            "name": medicineNames.medicineNames[random.randint(0, len(medicineNames.medicineNames)-1)],
                             "description": "TestMedicine Description",
                             "price": "{0:2}".format(random.randint(1, 100)),
                             "quantity": "{0:2}".format(random.randint(1, 100)),
@@ -69,4 +69,8 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
                 print("KeyError")
 
     def test_dryrun(self):
-        pass
+        response = self.client.get("/api/medicine/",{
+            # "pincode": "560037",
+            # "name" : "TestMedicine",
+        }, HTTP_AUTHORIZATION=self.header)
+        print(response.data[0]['name'])

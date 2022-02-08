@@ -66,10 +66,10 @@ class IntegrationTestMedicine(APITestCase):
             "/api/medicine/search/?search=TestMedicine",
             HTTP_AUTHORIZATION="Bearer " + self.access_token,
         )
-        self.assertEqual(searchMyMedicine.data["results"][0]["name"], "TestMedicine")
+        self.assertEqual(searchMyMedicine.data[0]["name"], "TestMedicine")
 
         search_unlisted_medicine = self.client.get(
             "/api/medicine/search/?search=someRandomMedicine",
             HTTP_AUTHORIZATION="Bearer " + self.access_token,
         )
-        self.assertEqual(search_unlisted_medicine.data["results"], [])
+        self.assertEqual(search_unlisted_medicine.data, [])
