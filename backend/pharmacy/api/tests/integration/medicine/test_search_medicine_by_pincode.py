@@ -65,8 +65,8 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
                         },
                         HTTP_AUTHORIZATION=self.header,
                     )
-            except Exception as e:
-                print("Exception: ", e)
+            except KeyError:
+                print("KeyError")
 
     def test_dryrun(self):
         pass
