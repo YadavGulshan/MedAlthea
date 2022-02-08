@@ -66,6 +66,6 @@ class medicalTest(APITestCase):
 
     def test_user_create_medical_shops_with_token_without_data(self):
         response = self.client.post(
-            "/api/", {}, HTTP_AUTHORIZATION="Bearer " + self.access_token
+            "/api/", HTTP_AUTHORIZATION="Bearer " + self.access_token
         )
         self.assertEqual(response.status_code, 406)
