@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
 
-class TestUser(APITestCase):
+class IntegrationTestUser(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.client = APIClient()

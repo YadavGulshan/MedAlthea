@@ -12,7 +12,7 @@ from random import random
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
 
-class TestMedicine(APITestCase):
+class IntegrationTestMedicine(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.client = APIClient()
