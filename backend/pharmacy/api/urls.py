@@ -50,7 +50,7 @@ urlpatterns = [
         "nearbymedical/", mapper.DisplayNearbyMedical.as_view(), name="nearby_medical"
     ),
     path(
-        "nearbymedicine/search/",
+        "nearbymedicine/",
         mapper.MedicineSearch.as_view(),
         name="nearby_medicine",
     ),

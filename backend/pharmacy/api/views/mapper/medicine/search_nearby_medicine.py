@@ -24,15 +24,15 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
     and check for lat and long of medicals listed and then it will show them
     """
 
-    def get(self, request):
+    def post(self, request):
         """
         This method will check the request for given pincode and will throw the medicals having pincode similar to request
         """
         pincode = request.data.get("pincode")
         name = request.data.get("name")
         medicineMedical = Medicine.objects.filter(name__contains=name)
-        medlical = medicineMedical
-        print(medlical)
+        # medlical = medicineMedical
+        # print(medlical)
 
         """
         Here we are checking the pincode of medicals similar to request pincode

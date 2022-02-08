@@ -57,7 +57,9 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
                     medicine = self.client.post(
                         "/api/medicine/",
                         {
-                            "name": medicineNames.medicineNames[random.randint(0, len(medicineNames.medicineNames)-1)],
+                            "name": medicineNames.medicineNames[
+                                random.randint(0, len(medicineNames.medicineNames) - 1)
+                            ],
                             "description": "TestMedicine Description",
                             "price": "{0:2}".format(random.randint(1, 100)),
                             "quantity": "{0:2}".format(random.randint(1, 100)),
@@ -68,9 +70,40 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
             except KeyError:
                 print("KeyError")
 
+        testmedicalShop = self.client.post(
+            "/api/",
+            {
+                "name": "MedicalShop",
+                "address": "TestUser Medical Shop Address",
+                "pincode": 400607,
+                "phone": "+91" + str(random.randint(10**9, 10**10 - 1)),
+                "latitude": random.random(),
+                "longitude": random.random(),
+                "email": "someemail@email.com",
+            },
+            HTTP_AUTHORIZATION=self.header,
+        )
+        testmedicalId = testmedicalShop.data["medicalId"]
+
+        test_medicine = self.client.post(
+            "/api/medicine/",
+            {
+                "name": "TestMedicine",
+                "description": "TestMedicine Description",
+                "price": "{0:2}".format(random.randint(1, 100)),
+                "quantity": "{0:2}".format(random.randint(1, 100)),
+                "medicalId": testmedicalId,
+            },
+            HTTP_AUTHORIZATION=self.header,
+        )
+
     def test_dryrun(self):
-        response = self.client.get("/api/medicine/",{
-            # "pincode": "560037",
-            # "name" : "TestMedicine",
-        }, HTTP_AUTHORIZATION=self.header)
-        print(response.data[0]['name'])
+        response = self.client.post(
+            "/api/nearbymedicine/",
+            {
+                "pincode": "560037",
+                "name": "TestMedicine",
+            },
+            HTTP_AUTHORIZATION=self.header,
+        )
+        print(response.data)
