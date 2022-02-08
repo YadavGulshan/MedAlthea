@@ -49,6 +49,11 @@ urlpatterns = [
     path(
         "nearbymedical/", mapper.DisplayNearbyMedical.as_view(), name="nearby_medical"
     ),
+    path(
+        "nearbymedicine/",
+        mapper.MedicineSearch.as_view(),
+        name="nearby_medicine",
+    ),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -1,3 +1,11 @@
+# Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
+#
+# This file is part of < https://github.com/Yadavgulshan/PharmaService > project,
+# and is released under the "BSD 3-Clause License Agreement".
+# Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
+#
+# All rights reserved.
+
 from random import random
 from django.contrib.auth.models import User
 
@@ -58,6 +66,6 @@ class medicalTest(APITestCase):
 
     def test_user_create_medical_shops_with_token_without_data(self):
         response = self.client.post(
-            "/api/", {}, HTTP_AUTHORIZATION="Bearer " + self.access_token
+            "/api/", HTTP_AUTHORIZATION="Bearer " + self.access_token
         )
         self.assertEqual(response.status_code, 406)

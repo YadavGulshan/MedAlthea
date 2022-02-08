@@ -37,8 +37,7 @@ class userAuthTest(APITestCase):
 
     def test_unauthenticated_user(self):
         response = self.client.post(
-            "/api/token/", {"username": "testuser1",
-                            "password": "wrong_password"}
+            "/api/token/", {"username": "testuser1", "password": "wrong_password"}
         )
         self.assertEqual(response.status_code, 401)
 

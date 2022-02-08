@@ -12,7 +12,7 @@ from random import random
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
 
-class TestMedicine(APITestCase):
+class IntegrationTestMedicine(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.client = APIClient()
@@ -49,4 +49,27 @@ class TestMedicine(APITestCase):
         self.medicalId = response.data["medicalId"]
 
     def test_create_and_search_medicine(self):
-        pass
+        response = self.client.post(
+            "/api/medicine/",
+            {
+                "name": "TestMedicine",
+                "description": "TestMedicine Description",
+                "price": 100,
+                "quantity": 100,
+                "medicalId": self.medicalId,
+            },
+            HTTP_AUTHORIZATION="Bearer " + self.access_token,
+        )
+        self.assertEqual(response.status_code, 201)
+
+        searchMyMedicine = self.client.get(
+            "/api/medicine/search/?search=TestMedicine",
+            HTTP_AUTHORIZATION="Bearer " + self.access_token,
+        )
+        self.assertEqual(searchMyMedicine.data[0]["name"], "TestMedicine")
+
+        search_unlisted_medicine = self.client.get(
+            "/api/medicine/search/?search=someRandomMedicine",
+            HTTP_AUTHORIZATION="Bearer " + self.access_token,
+        )
+        self.assertEqual(search_unlisted_medicine.data, [])
