@@ -37,7 +37,7 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
         medical = []
         for med in medicineMedical:
             id = med.medicalId
-            print("search func: ", id.name)
+            # print("search func: ", id.name)
             # print(Medical.objects.get(pincode=id.pincode))
             # Look for id in medical model
             # and then check for the pincode

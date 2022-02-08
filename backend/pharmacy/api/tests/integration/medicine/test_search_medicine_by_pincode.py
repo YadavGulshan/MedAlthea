@@ -69,6 +69,7 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
                     )
             except KeyError:
                 print("KeyError")
+                print("Reason: That random.randint part of the code is unable to generate mobile number" )
 
         try:
             testmedicalShop = self.client.post(
