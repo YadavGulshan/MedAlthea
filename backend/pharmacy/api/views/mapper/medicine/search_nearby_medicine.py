@@ -33,7 +33,7 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
         medicineMedical = Medicine.objects.filter(name__contains=name)
         medlical = medicineMedical
         print(medlical)
-        
+
         """
         Here we are checking the pincode of medicals similar to request pincode
         """

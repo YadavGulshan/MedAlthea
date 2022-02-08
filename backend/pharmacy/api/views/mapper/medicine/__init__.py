@@ -8,7 +8,7 @@
 #
 # All rights reserved.
 
-__all__ = ['MedicineSearch']
+__all__ = ["MedicineSearch"]
 
 from .search_nearby_medicine import DisplayNearbyMedicineSearchedByUser
 
