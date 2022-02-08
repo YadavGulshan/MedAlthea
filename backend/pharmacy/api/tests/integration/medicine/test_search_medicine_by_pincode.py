@@ -70,40 +70,44 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
             except KeyError:
                 print("KeyError")
 
-        testmedicalShop = self.client.post(
-            "/api/",
-            {
-                "name": "MedicalShop",
-                "address": "TestUser Medical Shop Address",
-                "pincode": 400607,
-                "phone": "+91" + str(random.randint(10**9, 10**10 - 1)),
-                "latitude": random.random(),
-                "longitude": random.random(),
-                "email": "someemail@email.com",
-            },
-            HTTP_AUTHORIZATION=self.header,
-        )
-        testmedicalId = testmedicalShop.data["medicalId"]
+        try:
+            testmedicalShop = self.client.post(
+                "/api/",
+                {
+                    "name": "MedicalShop",
+                    "address": "TestUser Medical Shop Address",
+                    "pincode": 400607,
+                    "phone": "+917965656565",
+                    "latitude": random.random(),
+                    "longitude": random.random(),
+                    "email": "someemail@email.com",
+                },
+                HTTP_AUTHORIZATION=self.header,
+            )
+            testmedicalId = testmedicalShop.data["medicalId"]
 
-        test_medicine = self.client.post(
-            "/api/medicine/",
-            {
-                "name": "TestMedicine",
-                "description": "TestMedicine Description",
-                "price": "{0:2}".format(random.randint(1, 100)),
-                "quantity": "{0:2}".format(random.randint(1, 100)),
-                "medicalId": testmedicalId,
-            },
-            HTTP_AUTHORIZATION=self.header,
-        )
+            test_medicine = self.client.post(
+                "/api/medicine/",
+                {
+                    "name": "TestMedicine",
+                    "description": "TestMedicine Description",
+                    "price": "{0:2}".format(random.randint(1, 100)),
+                    "quantity": "{0:2}".format(random.randint(1, 100)),
+                    "medicalId": testmedicalId,
+                },
+                HTTP_AUTHORIZATION=self.header,
+            )
+        except Exception as e:
+            print(e, "at setUp")
 
     def test_dryrun(self):
         response = self.client.post(
             "/api/nearbymedicine/",
             {
-                "pincode": "560037",
+                "pincode": "4006",
                 "name": "TestMedicine",
             },
             HTTP_AUTHORIZATION=self.header,
         )
-        print(response.data)
+        # print(response.data)
+        self.assertEqual(response.status_code, 200)

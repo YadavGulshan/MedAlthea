@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from pharmacy.api.serializers import MedicineSerializer
 
-from pharmacy.models import Medicine
+from pharmacy.models import Medical, Medicine
 
 
 @permission_classes([IsAuthenticated])
@@ -31,11 +31,21 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
         pincode = request.data.get("pincode")
         name = request.data.get("name")
         medicineMedical = Medicine.objects.filter(name__contains=name)
-        # medlical = medicineMedical
-        # print(medlical)
 
-        """
-        Here we are checking the pincode of medicals similar to request pincode
-        """
-        serializer = MedicineSerializer(medicineMedical, many=True)
+        # Now we have to check for the pincode of the medicals and then we will show the medicals
+        # which are near to the user
+        medical = []
+        for med in medicineMedical:
+            id = med.medicalId
+            print("search func: ", id.name)
+            # print(Medical.objects.get(pincode=id.pincode))
+            # Look for id in medical model
+            # and then check for the pincode
+            result = Medical.objects.filter(pincode=id.pincode).filter(
+                pincode__contains=pincode
+            )
+            # print("result: ", result)
+            if result:
+                medical.append(med)
+        serializer = MedicineSerializer(medical, many=True)
         return Response(serializer.data, status=200)
