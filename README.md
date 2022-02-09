@@ -54,6 +54,7 @@ sudo systemctl start docker
 ```
 
 **Building the Docker Image**
+
 Now change the directory to backend folder and build the docker image.
 ```
 cd backend
