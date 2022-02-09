@@ -29,18 +29,20 @@ The backend of this project is packaged as a set of Docker microservices. And th
 
 We aim to make this project a success by working hard and making this project better and better everyday.
 
-<div style="margin:10px rounded">
+<div style="margin:10px">
 <img src="assets/medical_app.svg" alt="MedAlthea Medical App design" align="center" width="100%" style="border-radius: 10px;">
 </div>
 
-<div style="margin-top: 20px;">
-<b>Table of Content: </b>
+
+
+**Table of Content:**
 
 - [Installation](#installation)
 - [Architecture](#architecture)
 - [Contributing](#contributing)
 - [License](#license)
-</div>
+
+
 
 ## Installation
 Since as of now only backend is available, installation won't be much of a hassle.
