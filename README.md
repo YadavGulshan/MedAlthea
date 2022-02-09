@@ -36,7 +36,6 @@ We aim to make this project a success by working hard and making this project be
 
 
 **Table of Content:**
-
 - [Installation](#installation)
 - [Architecture](#architecture)
 - [Contributing](#contributing)
