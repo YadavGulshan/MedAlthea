@@ -1,5 +1,4 @@
-<div style="text-align: center; display: flex; flex-direction: column; margin-bottom: 10px;">
-    <img src="assets/logo.svg" alt="MedAlthea" style="width: 100%;">
+<img src="assets/logo.svg" alt="MedAlthea" align="center" width="100%">
     <p align="center">
         <b>
             A service to get the medicines needed at critical moments.
@@ -16,7 +15,6 @@
         <a href="https://t.me/gyprojects"><img src="https://img.shields.io/badge/Telegram-join-blue"></a>
         <a href="https://github.com/yadavgulshan/pharmaservice"><img src="https://github.com/yadavgulshan/pharmaservice/actions/workflows/django.yml/badge.svg?branch=master"></a>
     </p>
-</div>
 
 MedAlthea is a free and open-source service to get the medicines needed at critical moments.
 
