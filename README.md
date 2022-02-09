@@ -16,27 +16,31 @@
         <a href="https://github.com/yadavgulshan/pharmaservice"><img src="https://github.com/yadavgulshan/pharmaservice/actions/workflows/django.yml/badge.svg?branch=master"></a>
     </p>
 
-<p align="center"> MedAlthea is a free and open-source service to get the medicines needed at critical moments.</p>
+<p align="center"><b>MedAlthea is a free and open-source service to get the medicines needed at critical moments.</b></p>
 
-<b> 
-<a href="https://github.com/yadavgulshan/medalthea">Will be released for public use soon. </a>   
-</b>
+<p align="center"> 
+<a href="https://github.com/yadavgulshan/medalthea">Project will be released for public use soon. </a>   
+</p>
 
 MedAlthea is a project built on Python, and Flutter designed to help the one in critical need of medicines.
 
 The backend of this project is packaged as a set of Docker microservices. And the frontend is built on Flutter for faster development without compromising with performance and user experience.
 
+
 We aim to make this project a success by working hard and making this project better and better everyday.
 
-<div style="margin:10px">
-<img src="assets/medical_app.svg" alt="MedAlthea Medical App design" align="center" width="100%">
+<div style="margin:10px rounded">
+<img src="assets/medical_app.svg" alt="MedAlthea Medical App design" align="center" width="100%" style="border-radius: 10px;">
 </div>
-Table of Content: 
+
+<div style="margin-top: 20px;">
+<b>Table of Content: </b>
 
 - [Installation](#installation)
 - [Architecture](#architecture)
 - [Contributing](#contributing)
 - [License](#license)
+</div>
 
 ## Installation
 Since as of now only backend is available, installation won't be much of a hassle.
