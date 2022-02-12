@@ -76,9 +76,9 @@ class MedicalView(APITestCase):
         )
 
         # poping the name field
-        beforeUpdate.pop('name')
-        afterUpdate.pop('name')
-        
+        beforeUpdate.pop("name")
+        afterUpdate.pop("name")
+
         # Ensuring that other fields are not changed
         self.assertEqual(
             beforeUpdate,

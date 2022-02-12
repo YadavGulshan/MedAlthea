@@ -59,18 +59,41 @@ class MedicalView(APIView):
         )
 
         # Don't allow the user to update these values
-        updateEmail = request.data.get("email") 
-        updatePhone = request.data.get("phone") 
+        updateEmail = request.data.get("email")
+        updatePhone = request.data.get("phone")
         if updatePhone or updateEmail is not None:
             return Response("HTTP 400 Bad Request", status=status.HTTP_400_BAD_REQUEST)
 
-
-        updateAddress = request.data.get("address") != None and request.data.get("address") or medical[0].address
-        updatePincode = request.data.get("pincode") != None and request.data.get("pincode") or medical[0].pincode
-        updateLatitude = request.data.get("latitude") != None and request.data.get("latitude") or medical[0].latitude
-        updateLongitude = request.data.get("longitude") != None and request.data.get("longitude") or medical[0].longitude
-        updateWebsite = request.data.get("website") != None and request.data.get("website") or medical[0].website
-        updateImage = request.data.get("image") != None and request.data.get("image") or medical[0].image
+        updateAddress = (
+            request.data.get("address") != None
+            and request.data.get("address")
+            or medical[0].address
+        )
+        updatePincode = (
+            request.data.get("pincode") != None
+            and request.data.get("pincode")
+            or medical[0].pincode
+        )
+        updateLatitude = (
+            request.data.get("latitude") != None
+            and request.data.get("latitude")
+            or medical[0].latitude
+        )
+        updateLongitude = (
+            request.data.get("longitude") != None
+            and request.data.get("longitude")
+            or medical[0].longitude
+        )
+        updateWebsite = (
+            request.data.get("website") != None
+            and request.data.get("website")
+            or medical[0].website
+        )
+        updateImage = (
+            request.data.get("image") != None
+            and request.data.get("image")
+            or medical[0].image
+        )
 
         # Update specific fields
         medical.all().update(
