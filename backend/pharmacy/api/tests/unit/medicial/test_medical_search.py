@@ -7,6 +7,7 @@
 # All rights reserved.
 
 from random import random
+from urllib import response
 from django.contrib.auth.models import User
 
 
@@ -20,7 +21,6 @@ class SearchMedicalShop(APITestCase):
         self.factory, self.client, self.header = Service.setup_auth_user(self)
 
 
-    def test_setup(self):
-        print("Setup")
-        print(self.factory, self.client, self.header)
-        pass        
+    def test_search(self):
+        response = self.client.get('/api/search/?search=medical', format='json', HTTP_AUTHORIZATION=self.header)
+        pass

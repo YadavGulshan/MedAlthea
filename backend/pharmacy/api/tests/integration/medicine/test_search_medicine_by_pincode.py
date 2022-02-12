@@ -68,8 +68,7 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
                         HTTP_AUTHORIZATION=self.header,
                     )
             except KeyError:
-                print("KeyError")
-                print("Reason: That random.randint part of the code is unable to generate mobile number" )
+                pass
 
         try:
             testmedicalShop = self.client.post(

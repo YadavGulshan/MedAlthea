@@ -13,46 +13,20 @@ from django.contrib.auth.models import User
 
 from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
+from pharmacy.api.tests.setup import Service
+
 
 class medicinetest(APITestCase):
     def setUp(self):
-        self.factory = APIRequestFactory()
-        self.client = APIClient()
-        self.user = User.objects.create_user(
-            username="testuser",
-            password="top_secret",
-            email="testuser@email.com",
-            first_name="test",
-            last_name="user",
-            is_staff=True,
-        )
-
-        # Login and get the token
-        response = self.client.post(
-            "/api/token/", {"username": "testuser", "password": "top_secret"}
-        )
-        self.access_token = response.data["access"]
+        self.factory, self.client, self.header = Service.setup_auth_user(self)
 
         # Create a medical shop
-        response = self.client.post(
-            "/api/",
-            {
-                "name": "TestUser",
-                "address": "TestUser Medical Shop Address",
-                "pincode": 400607,
-                "phone": "+911234567891",
-                "latitude": random(),
-                "longitude": random(),
-                "email": "testuser" + "@email.com",
-                "website": "https://testuser" + ".com",
-            },
-            HTTP_AUTHORIZATION="Bearer " + self.access_token,
-        )
+        response = Service.setupMedicalShop(self.client, self.header)
         self.medicalId = response.data["medicalId"]
 
     def test_user_create_medicine(self):
         response = self.client.get(
-            "/api/mymedical/", HTTP_AUTHORIZATION="Bearer " + self.access_token
+            "/api/mymedical/", HTTP_AUTHORIZATION=self.header
         )
         self.assertEqual(response.status_code, 200)
 
@@ -65,7 +39,7 @@ class medicinetest(APITestCase):
                 "quantity": 100,
                 "medicalId": self.medicalId,
             },
-            HTTP_AUTHORIZATION="Bearer " + self.access_token,
+            HTTP_AUTHORIZATION=self.header,
         )
 
         self.assertEqual(response.status_code, 201)
