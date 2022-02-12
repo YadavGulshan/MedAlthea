@@ -44,8 +44,13 @@ class MedicalOwner(APITestCase):
         response = self.client.get("/api/mymedical/", HTTP_AUTHORIZATION=self.header)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
+        self.assertEqual(response.data[0]["name"], "Test Medical")
+        self.assertNotEqual(response.data[1]["name"], "India Medical")
+
 
         response = self.client.get("/api/mymedical/", HTTP_AUTHORIZATION=self.header2)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["name"], "India Medical")
+        self.assertEqual(response.data[0]["email"], "IndiaMedical@email.com")
+        self.assertNotEqual(response.data[0]["phone"], "+912626333322")
