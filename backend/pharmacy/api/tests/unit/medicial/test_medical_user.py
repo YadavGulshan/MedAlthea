@@ -47,7 +47,6 @@ class MedicalOwner(APITestCase):
         self.assertEqual(response.data[0]["name"], "Test Medical")
         self.assertNotEqual(response.data[1]["name"], "India Medical")
 
-
         response = self.client.get("/api/mymedical/", HTTP_AUTHORIZATION=self.header2)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)

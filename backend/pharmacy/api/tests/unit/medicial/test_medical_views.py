@@ -6,12 +6,13 @@
 #
 # All rights reserved.
 
-__all__ = ["setupService"]
+from random import random
 
-from .setup_auth_user import setup
-from .setup_medical_shop import setupMedical
-from .setup_medicine import setupMedicine
+from rest_framework.test import APITestCase
+
+from pharmacy.api.tests.setup import Service
 
 
-class Service(setup, setupMedical, setupMedicine):
-    """setup"""
+class MedicalView(APITestCase):
+    def setUp(self) -> None:
+        pass
