@@ -45,10 +45,10 @@ class MedicalView(APITestCase):
             email="IndiaMedical@email.com",
             phone="+912162262325",
         )
-    
+
     def test_get_medical_by_id(self):
         response = self.client.get("/api/1/", HTTP_AUTHORIZATION=self.header)
-        self.assertEqual(response.data[0]['name'], "Test Medical")
+        self.assertEqual(response.data[0]["name"], "Test Medical")
 
     def test_update_medical_name_by_id(self):
         response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header)
@@ -60,7 +60,7 @@ class MedicalView(APITestCase):
         response = self.client.put(
             "/api/{}/".format(medId),
             {
-                "name": "Gulshan Medical",
+                "name": "Gulshan medical",
             },
             HTTP_AUTHORIZATION=self.header,
         )
@@ -70,7 +70,10 @@ class MedicalView(APITestCase):
         afterUpdate = response.data[0]
 
         # Ensure that the name of the medical shop is updated
-        self.assertEqual(afterUpdate["name"], "Gulshan Medical")
+        self.assertEqual(
+            afterUpdate["name"],
+            "Gulshan medical",
+        )
 
         # Ensuring that other fields are not changed
         self.assertEqual(beforeUpdate["phone"], afterUpdate["phone"])
@@ -82,3 +85,32 @@ class MedicalView(APITestCase):
         self.assertEqual(beforeUpdate["website"], afterUpdate["website"])
         self.assertEqual(beforeUpdate["image"], afterUpdate["image"])
 
+    def test_update_email(self):
+        response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header)
+        medId = response.data[0]["medicalId"]
+
+        # Updating the email of the medical shop
+        response = self.client.put(
+            "/api/{}/".format(medId),
+            {
+                "email": "somemedical@email.com",
+            },
+            HTTP_AUTHORIZATION=self.header,
+        )
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_update_phone(self):
+        response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header)
+        medId = response.data[0]["medicalId"]
+
+        # Updating the phone of the medical shop
+        response = self.client.put(
+            "/api/{}/".format(medId),
+            {
+                "phone": "1234567890",
+            },
+            HTTP_AUTHORIZATION=self.header,
+        )
+
+        self.assertEqual(response.status_code, 400)

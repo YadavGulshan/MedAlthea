@@ -52,26 +52,35 @@ class MedicalView(APIView):
         serializer = MedicalSerializer(medical, data=request.data)
 
         # Check the provided data
-        updateName = request.data.get("name")
-        updateEmail = request.data.get("email")
-        updatePhone = request.data.get("phone")
-        updateAddress = request.data.get("address")
-        updatePincode = request.data.get("pincode")
-        updateLatitude = request.data.get("latitude")
-        updateLongitude = request.data.get("longitude")
-        updateWebsite = request.data.get("website")
-        updateImage = request.data.get("image")
+        updateName = (
+            request.data.get("name") != None
+            and request.data.get("name")
+            or medical[0].name
+        )
+
+        # Don't allow the user to update these values
+        updateEmail = request.data.get("email") 
+        updatePhone = request.data.get("phone") 
+        if updatePhone or updateEmail is not None:
+            return Response("HTTP 400 Bad Request", status=status.HTTP_400_BAD_REQUEST)
+
+
+        updateAddress = request.data.get("address") != None and request.data.get("address") or medical[0].address
+        updatePincode = request.data.get("pincode") != None and request.data.get("pincode") or medical[0].pincode
+        updateLatitude = request.data.get("latitude") != None and request.data.get("latitude") or medical[0].latitude
+        updateLongitude = request.data.get("longitude") != None and request.data.get("longitude") or medical[0].longitude
+        updateWebsite = request.data.get("website") != None and request.data.get("website") or medical[0].website
+        updateImage = request.data.get("image") != None and request.data.get("image") or medical[0].image
+
         # Update specific fields
         medical.all().update(
-            name=updateName != None and updateName or medical[0].name,
-            email=updateEmail != None and updateEmail or medical[0].email,
-            phone=updatePhone != None and updatePhone or medical[0].phone,
-            address=updateAddress != None and updateAddress or medical[0].address,
-            pincode=updatePincode != None and updatePincode or medical[0].pincode,
-            latitude=updateLatitude != None and updateLatitude or medical[0].latitude,
-            longitude=updateLongitude != None and updateLongitude or medical[0].longitude,
-            website=updateWebsite != None and updateWebsite or medical[0].website,
-            image=updateImage != None and updateImage or medical[0].image,
+            name=updateName,
+            address=updateAddress,
+            pincode=updatePincode,
+            latitude=updateLatitude,
+            longitude=updateLongitude,
+            website=updateWebsite,
+            image=updateImage,
         )
         return Response("Updated", status=status.HTTP_202_ACCEPTED)
         # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
