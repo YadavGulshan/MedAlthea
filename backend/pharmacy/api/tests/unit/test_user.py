@@ -9,8 +9,6 @@
 # All rights reserved.
 
 
-
-
 from rest_framework.test import APITestCase
 
 from pharmacy.api.tests.setup import Service
