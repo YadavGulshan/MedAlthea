@@ -18,34 +18,33 @@ class medicinetest(APITestCase):
 
         # Create a medical shop
         response = Service.setupMedicalShop(self.client, self.header)
-        self.medicalId = response.data["medicalId"]
+        self.medicalId: int = response.data["medicalId"]
 
     def test_user_create_medicine(self):
         response = self.client.get("/api/mymedical/", HTTP_AUTHORIZATION=self.header)
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.post(
-            "/api/medicine/",
-            {
-                "name": "TestMedicine",
-                "description": "TestMedicine Description",
-                "price": 100,
-                "quantity": 100,
-                "medicalId": self.medicalId,
-            },
-            HTTP_AUTHORIZATION=self.header,
+        # Seting up the payload for creating a medicine
+        response = Service.setupMedicineForAShop(
+            client=self.client,
+            header=self.header,
+            medicalId=self.medicalId,
+            name="DOLO 650",
+            description="A Medicine to relieve headache",
+            price=32,
+            quantity=100,
         )
 
         self.assertEqual(response.status_code, 201)
 
     def test_user_create_medicine_without_token(self):
-        response = self.client.post(
-            "/api/medicine/",
-            {
-                "name": "TestMedicine",
-                "description": "TestMedicine Description",
-                "price": 100,
-                "quantity": 100,
-            },
+        response = Service.setupMedicineForAShop(
+            client=self.client,
+            header=None,
+            medicalId=self.medicalId,
+            name="DOLO 650",
+            description="A Medicine to relieve headache",
+            price=32,
+            quantity=100,
         )
         self.assertEqual(response.status_code, 401)

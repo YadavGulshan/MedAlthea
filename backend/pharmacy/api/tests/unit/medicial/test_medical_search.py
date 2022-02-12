@@ -29,9 +29,14 @@ class SearchMedicalShop(APITestCase):
             "email": "pawan" + "@email.com",
             "website": "https://pawan" + ".com",
         }
-        Service.setupCustomMedical(client=self.client, header=self.header, payload=payload)
-        Service.setupCustomMedical(client=self.client, header=self.header, payload=Service.medicalShopTemplate())
-
+        Service.setupCustomMedical(
+            client=self.client, header=self.header, payload=payload
+        )
+        Service.setupCustomMedical(
+            client=self.client,
+            header=self.header,
+            payload=Service.medicalShopTemplate(),
+        )
 
     def test_search(self):
         response = self.client.get(
@@ -39,7 +44,7 @@ class SearchMedicalShop(APITestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
-        
+
         response = self.client.get(
             "/api/search/?search=Pawan", format="json", HTTP_AUTHORIZATION=self.header
         )
