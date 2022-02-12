@@ -9,25 +9,14 @@
 # All rights reserved.
 
 
-from urllib import response
-from django.contrib.auth.models import User
+from rest_framework.test import APITestCase
 
-
-from rest_framework.test import APIRequestFactory, APITestCase, APIClient
+from pharmacy.api.tests.setup import Service
 
 
 class userAuthTest(APITestCase):
     def setUp(self):
-        self.factory = APIRequestFactory()
-        self.client = APIClient()
-
-        self.user = User.objects.create_user(
-            username="testuser",
-            password="top_secret",
-            email="testuser@email.com",
-            first_name="test",
-            last_name="user",
-        )
+        self.factory, self.client, self.header = Service.setup_auth_user()
 
     def test_user_login(self):
         response = self.client.post(

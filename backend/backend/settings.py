@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     "corsheaders",
     # Django model stuff
     "phonenumber_field",
-    "drf_yasg",
     # For reload func
     "livesync",
 ]
@@ -202,13 +201,13 @@ MEDIA_URL = "/media/"
 DJANGO_LIVESYNC = {"PORT": 9999, "HOST": ""}
 
 
-# Swagger settings
-SWAGGER_SETTINGS = {
-    "SECURITY_DEFINITIONS": {
-        "Auth Token eg [Bearer (JWT) ]": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header",
-        }
-    },
-}
+# # Swagger settings
+# SWAGGER_SETTINGS = {
+#     "SECURITY_DEFINITIONS": {
+#         "Auth Token eg [Bearer (JWT) ]": {
+#             "type": "apiKey",
+#             "name": "Authorization",
+#             "in": "header",
+#         }
+#     },
+# }
