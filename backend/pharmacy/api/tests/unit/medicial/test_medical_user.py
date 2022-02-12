@@ -16,6 +16,12 @@ from pharmacy.api.tests.setup import Service
 class MedicalOwner(APITestCase):
     def setUp(self):
         self.factory, self.client, self.header = Service.setup_auth_user()
+        self.header2 = Service.setup_auth_user(
+            username="Pawan",
+            email="pawan@email.com",
+        )[2]
+
+        # Medical shop for user 1
         Service.setupMedicalShop(self.client, self.header)
         Service.setupMedicalShop(
             self.client,
@@ -25,7 +31,21 @@ class MedicalOwner(APITestCase):
             phone="+912626333322",
         )
 
+        # Medical shop for user 2, i.e Pawan
+        Service.setupMedicalShop(
+            client=self.client,
+            header=self.header2,
+            name="India Medical",
+            email="IndiaMedical@email.com",
+            phone="+912162262325",
+        )
+
     def test_owner_owns(self):
         response = self.client.get("/api/mymedical/", HTTP_AUTHORIZATION=self.header)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
+
+        response = self.client.get("/api/mymedical/", HTTP_AUTHORIZATION=self.header2)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]["name"], "India Medical")
