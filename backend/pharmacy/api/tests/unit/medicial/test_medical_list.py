@@ -8,7 +8,7 @@
 
 from random import random
 
-from rest_framework.test import  APITestCase
+from rest_framework.test import APITestCase
 
 from pharmacy.api.tests.setup import Service
 
@@ -19,48 +19,21 @@ class CreateAndGetMedicals(APITestCase):
 
     def test_create_medical_shops(self):
         # Create a medical shop
-        response = self.client.post(
-            "/api/",
-            {
-                "name": "TestUser",
-                "address": "TestUser Medical Shop Address",
-                "pincode": 400607,
-                "phone": "+911234567891",
-                "latitude": random(),
-                "longitude": random(),
-                "email": "testuser" + "@email.com",
-                "website": "https://testuser" + ".com",
-            },
-            HTTP_AUTHORIZATION=self.header,
-        )
+        response = Service.setupMedicalShop(self.client, self.header)
         self.assertEqual(response.status_code, 201)
 
     def test_user_create_medical_shops_without_token(self):
-        response = self.client.post(
-            "/api/",
-            {
-                "name": "TestUser",
-                "address": "TestUser Medical Shop Address",
-                "pincode": 400607,
-                "phone": "+91123456789",
-                "latitude": random(),
-                "longitude": random(),
-                "email": "testuser" + "@email.com",
-                "website": "https://testuser" + ".com",
-            },
-        )
+        response = self.client.post("/api/", Service.medicalShopTemplate())
         self.assertEqual(response.status_code, 401)
 
     def test_user_create_medical_shops_with_token_without_data(self):
-        response = self.client.post(
-            "/api/", HTTP_AUTHORIZATION=self.header
-        )
+        response = self.client.post("/api/", HTTP_AUTHORIZATION=self.header)
         self.assertEqual(response.status_code, 406)
 
     def test_get_list_of_medical(self):
         response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_get_list_of_medical_without_token(self):
         response = self.client.get("/api/")
         self.assertEqual(response.status_code, 401)

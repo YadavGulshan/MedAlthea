@@ -7,11 +7,7 @@
 # All rights reserved.
 
 
-from random import random
-from django.contrib.auth.models import User
-
-
-from rest_framework.test import APIRequestFactory, APITestCase, APIClient
+from rest_framework.test import APITestCase
 
 from pharmacy.api.tests.setup import Service
 
@@ -25,9 +21,7 @@ class medicinetest(APITestCase):
         self.medicalId = response.data["medicalId"]
 
     def test_user_create_medicine(self):
-        response = self.client.get(
-            "/api/mymedical/", HTTP_AUTHORIZATION=self.header
-        )
+        response = self.client.get("/api/mymedical/", HTTP_AUTHORIZATION=self.header)
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(

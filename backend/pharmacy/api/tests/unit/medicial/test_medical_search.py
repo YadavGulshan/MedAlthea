@@ -11,7 +11,7 @@ from urllib import response
 from django.contrib.auth.models import User
 
 
-from rest_framework.test import  APITestCase
+from rest_framework.test import APITestCase
 
 from pharmacy.api.tests.setup import Service
 
@@ -20,7 +20,8 @@ class SearchMedicalShop(APITestCase):
     def setUp(self):
         self.factory, self.client, self.header = Service.setup_auth_user(self)
 
-
     def test_search(self):
-        response = self.client.get('/api/search/?search=medical', format='json', HTTP_AUTHORIZATION=self.header)
+        response = self.client.get(
+            "/api/search/?search=medical", format="json", HTTP_AUTHORIZATION=self.header
+        )
         pass

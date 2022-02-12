@@ -16,10 +16,9 @@ from django.urls import include, path
 from rest_framework import permissions
 
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("api/", include("pharmacy.api.urls")),
-    path('', lambda request: redirect('api/')),
+    path("", lambda request: redirect("api/")),
 ]
