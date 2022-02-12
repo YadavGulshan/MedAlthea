@@ -60,7 +60,7 @@ class MedicalView(APITestCase):
         response = self.client.put(
             "/api/{}/".format(medId),
             {
-                "name": "Gulshan medical",
+                "name": "new medical name",
             },
             HTTP_AUTHORIZATION=self.header,
         )
@@ -72,18 +72,18 @@ class MedicalView(APITestCase):
         # Ensure that the name of the medical shop is updated
         self.assertEqual(
             afterUpdate["name"],
-            "Gulshan medical",
+            "new medical name",
         )
 
+        # poping the name field
+        beforeUpdate.pop('name')
+        afterUpdate.pop('name')
+        
         # Ensuring that other fields are not changed
-        self.assertEqual(beforeUpdate["phone"], afterUpdate["phone"])
-        self.assertEqual(beforeUpdate["email"], afterUpdate["email"])
-        self.assertEqual(beforeUpdate["address"], afterUpdate["address"])
-        self.assertEqual(beforeUpdate["pincode"], afterUpdate["pincode"])
-        self.assertEqual(beforeUpdate["latitude"], afterUpdate["latitude"])
-        self.assertEqual(beforeUpdate["longitude"], afterUpdate["longitude"])
-        self.assertEqual(beforeUpdate["website"], afterUpdate["website"])
-        self.assertEqual(beforeUpdate["image"], afterUpdate["image"])
+        self.assertEqual(
+            beforeUpdate,
+            afterUpdate,
+        )
 
     def test_update_email(self):
         response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header)
