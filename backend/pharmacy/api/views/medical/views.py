@@ -50,10 +50,35 @@ class MedicalView(APIView):
         if medical[0].user.id != request.user.id:
             return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
         serializer = MedicalSerializer(medical, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check the provided data
+        updateName = request.data.get("name")
+        updateEmail = request.data.get("email")
+        updatePhone = request.data.get("phone")
+        updateAddress = request.data.get("address")
+        updatePincode = request.data.get("pincode")
+        updateLatitude = request.data.get("latitude")
+        updateLongitude = request.data.get("longitude")
+        updateWebsite = request.data.get("website")
+        updateImage = request.data.get("image")
+        # Update specific fields
+        medical.all().update(
+            name=updateName != None and updateName or medical[0].name,
+            email=updateEmail != None and updateEmail or medical[0].email,
+            phone=updatePhone != None and updatePhone or medical[0].phone,
+            address=updateAddress != None and updateAddress or medical[0].address,
+            pincode=updatePincode != None and updatePincode or medical[0].pincode,
+            latitude=updateLatitude != None and updateLatitude or medical[0].latitude,
+            longitude=updateLongitude != None and updateLongitude or medical[0].longitude,
+            website=updateWebsite != None and updateWebsite or medical[0].website,
+            image=updateImage != None and updateImage or medical[0].image,
+        )
+        return Response("Updated", status=status.HTTP_202_ACCEPTED)
+        # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         medical = self.getObject(pk)
