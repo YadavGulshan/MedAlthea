@@ -14,7 +14,7 @@ from pharmacy.api.tests.setup import Service
 
 class medicinetest(APITestCase):
     def setUp(self):
-        self.factory, self.client, self.header = Service.setup_auth_user(self)
+        self.factory, self.client, self.header = Service.setup_auth_user()
 
         # Create a medical shop
         response = Service.setupMedicalShop(self.client, self.header)

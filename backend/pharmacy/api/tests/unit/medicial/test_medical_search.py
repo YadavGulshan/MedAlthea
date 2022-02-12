@@ -18,7 +18,7 @@ from pharmacy.api.tests.setup import Service
 
 class SearchMedicalShop(APITestCase):
     def setUp(self):
-        self.factory, self.client, self.header = Service.setup_auth_user(self)
+        self.factory, self.client, self.header = Service.setup_auth_user()
         payload = {
             "name": "Pawan Medical",
             "address": "Pawan Medical Shop Address",

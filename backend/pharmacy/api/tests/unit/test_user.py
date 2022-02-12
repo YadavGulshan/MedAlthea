@@ -20,7 +20,7 @@ from pharmacy.api.tests.setup import Service
 
 class userAuthTest(APITestCase):
     def setUp(self):
-        self.factory, self.client, self.header = Service.setup_auth_user(self)
+        self.factory, self.client, self.header = Service.setup_auth_user()
 
     def test_user_login(self):
         response = self.client.post(

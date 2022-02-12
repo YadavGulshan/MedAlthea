@@ -5,7 +5,7 @@ from rest_framework.test import APIRequestFactory, APITestCase, APIClient
 
 
 class setup:
-    def setup_auth_user(self):
+    def setup_auth_user():
         factory = APIRequestFactory()
         client = APIClient()
         user = User.objects.create_user(
