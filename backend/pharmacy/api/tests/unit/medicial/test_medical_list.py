@@ -7,28 +7,15 @@
 # All rights reserved.
 
 from random import random
-from django.contrib.auth.models import User
+
+from rest_framework.test import  APITestCase
+
+from pharmacy.api.tests.setup import Service
 
 
-from rest_framework.test import APIRequestFactory, APITestCase, APIClient
-
-
-class medicalTest(APITestCase):
+class CreateAndGetMedicals(APITestCase):
     def setUp(self):
-        self.factory = APIRequestFactory()
-        self.client = APIClient()
-        self.user = User.objects.create_user(
-            username="testuser",
-            password="top_secret",
-            email="testuser@email.com",
-            first_name="test",
-            last_name="user",
-            is_staff=True,
-        )
-        response = self.client.post(
-            "/api/token/", {"username": "testuser", "password": "top_secret"}
-        )
-        self.access_token = response.data["access"]
+        self.factory, self.client, self.header = Service.setup_auth_user(self)
 
     def test_create_medical_shops(self):
         # Create a medical shop
@@ -44,7 +31,7 @@ class medicalTest(APITestCase):
                 "email": "testuser" + "@email.com",
                 "website": "https://testuser" + ".com",
             },
-            HTTP_AUTHORIZATION="Bearer " + self.access_token,
+            HTTP_AUTHORIZATION=self.header,
         )
         self.assertEqual(response.status_code, 201)
 
@@ -66,6 +53,14 @@ class medicalTest(APITestCase):
 
     def test_user_create_medical_shops_with_token_without_data(self):
         response = self.client.post(
-            "/api/", HTTP_AUTHORIZATION="Bearer " + self.access_token
+            "/api/", HTTP_AUTHORIZATION=self.header
         )
         self.assertEqual(response.status_code, 406)
+
+    def test_get_list_of_medical(self):
+        response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_get_list_of_medical_without_token(self):
+        response = self.client.get("/api/")
+        self.assertEqual(response.status_code, 401)
