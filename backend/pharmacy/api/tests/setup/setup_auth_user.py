@@ -9,7 +9,7 @@
 from django.contrib.auth.models import User
 
 
-from rest_framework.test import APIRequestFactory, APITestCase, APIClient
+from rest_framework.test import APIClient, APIRequestFactory
 
 
 class setup:
@@ -18,21 +18,23 @@ class setup:
         client = APIClient()
 
         username = str(
-            kwargs.get("username") != None and kwargs.get("username") or "testuser",
+            kwargs.get("username") is not None and kwargs.get("username") or "testuser",
         )
         password = str(
-            kwargs.get("password") != None and kwargs.get("password") or "top_secret",
+            kwargs.get("password") is not None
+            and kwargs.get("password")
+            or "top_secret",
         )
         email = str(
-            kwargs.get("email") != None
+            kwargs.get("email") is not None
             and kwargs.get("email")
             or "testemail@email.com",
         )
         first_name = str(
-            kwargs.get("first_name") != None and kwargs.get("first_name") or "Test",
+            kwargs.get("first_name") is not None and kwargs.get("first_name") or "Test",
         )
         last_name = str(
-            kwargs.get("last_name") != None and kwargs.get("last_name") or "User",
+            kwargs.get("last_name") is not None and kwargs.get("last_name") or "User",
         )
 
         user = User.objects.create_user(

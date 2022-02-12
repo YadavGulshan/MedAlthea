@@ -6,11 +6,8 @@
 #
 # All rights reserved.
 
-from unicodedata import name
-from django.contrib.auth.models import User
 
-
-from rest_framework.test import APIRequestFactory, APITestCase, APIClient
+from rest_framework.test import APIClient
 
 
 class setupMedicine:
@@ -26,19 +23,25 @@ class setupMedicine:
     def setupMedicineForAShop(client: APIClient, header: str, medicalId: int, **kwargs):
 
         # Extract the payload
-        name: str = kwargs.get("name")
-        description: str = kwargs.get("description")
-        price: int = kwargs.get("price")
-        quantity: int = kwargs.get("quantity")
+        name: str = (
+            kwargs.get("name") is not None and kwargs.get("name") or "TestMedicine"
+        )
+        description: str = (
+            kwargs.get("description") is not None
+            and kwargs.get("description")
+            or "TestMedicine Description"
+        )
+        price: int = kwargs.get("price") is not None and kwargs.get("price") or 100
+        quantity: int = (
+            kwargs.get("quantity") is not None and kwargs.get("quantity") or 100
+        )
 
         # Payload
         payload = {
-            "name": name != None and name or "TestMedicine",
-            "description": description != None
-            and description
-            or "Test Medicine Description",
-            "price": price != None and price or 100,
-            "quantity": quantity != None and quantity or 100,
+            "name": name,
+            "description": description,
+            "price": price,
+            "quantity": quantity,
             "medicalId": medicalId,
         }
 

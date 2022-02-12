@@ -6,9 +6,6 @@
 #
 # All rights reserved.
 
-from random import random
-from urllib import response
-from black import diff
 
 from rest_framework.test import APITestCase
 
@@ -114,3 +111,43 @@ class MedicalView(APITestCase):
         )
 
         self.assertEqual(response.status_code, 400)
+
+    def test_update_by_another_user(self):
+        response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header2)
+        self.assertEqual(response.status_code, 200)
+        medId = response.data[0]["medicalId"]
+
+        # Updating the name of the medical shop
+        response = self.client.put(
+            "/api/{}/".format(medId),
+            {
+                "name": "new medical name",
+            },
+            HTTP_AUTHORIZATION=self.header2,
+        )
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_delete_medical_shop(self):
+        response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header)
+        medId = response.data[0]["medicalId"]
+
+        # Deleting the medical shop
+        response = self.client.delete(
+            "/api/{}/".format(medId),
+            HTTP_AUTHORIZATION=self.header,
+        )
+
+        self.assertEqual(response.status_code, 204)
+
+    def test_delete_medical_shop_by_another_user(self):
+        response = self.client.get("/api/", HTTP_AUTHORIZATION=self.header2)
+        medId = response.data[0]["medicalId"]
+
+        # Deleting the medical shop
+        response = self.client.delete(
+            "/api/{}/".format(medId),
+            HTTP_AUTHORIZATION=self.header2,
+        )
+
+        self.assertEqual(response.status_code, 403)

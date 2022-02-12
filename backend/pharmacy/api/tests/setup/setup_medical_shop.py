@@ -7,8 +7,6 @@
 # All rights reserved.
 
 from random import random
-from urllib import response
-from django.contrib.auth.models import User
 
 
 from rest_framework.test import APIClient
@@ -28,29 +26,33 @@ class setupMedical:
         }
 
     def setupMedicalShop(client: APIClient, header: str, **kwargs):
-        name = (kwargs.get("name") != None and kwargs.get("name") or "Test Medical",)
+        name = (
+            kwargs.get("name") is not None and kwargs.get("name") or "Test Medical",
+        )
         address = (
-            kwargs.get("address") != None
+            kwargs.get("address") is not None
             and kwargs.get("address")
             or "TestUser Medical Shop Address",
         )
-        pincode = (kwargs.get("pincode") != None and kwargs.get("pincode") or 400607,)
+        pincode = (
+            kwargs.get("pincode") is not None and kwargs.get("pincode") or 400607,
+        )
         phone = (
-            kwargs.get("phone") != None and kwargs.get("phone") or "+911234567891",
+            kwargs.get("phone") is not None and kwargs.get("phone") or "+911234567891",
         )
         latitude = (
-            kwargs.get("latitude") != None and kwargs.get("latitude") or random(),
+            kwargs.get("latitude") is not None and kwargs.get("latitude") or random(),
         )
         longitude = (
-            kwargs.get("longitude") != None and kwargs.get("longitude") or random(),
+            kwargs.get("longitude") is not None and kwargs.get("longitude") or random(),
         )
         email = (
-            kwargs.get("email") != None
+            kwargs.get("email") is not None
             and kwargs.get("email")
             or "testuser" + "@email.com",
         )
         website = (
-            kwargs.get("website") != None
+            kwargs.get("website") is not None
             and kwargs.get("website")
             or "https://testuser" + ".com",
         )

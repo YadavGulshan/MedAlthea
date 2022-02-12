@@ -9,11 +9,9 @@
 # All rights reserved.
 
 
-from urllib import response
-from django.contrib.auth.models import User
 
 
-from rest_framework.test import APIRequestFactory, APITestCase, APIClient
+from rest_framework.test import APITestCase
 
 from pharmacy.api.tests.setup import Service
 

@@ -6,7 +6,6 @@
 #
 # All rights reserved.
 
-from random import random
 
 from rest_framework.test import APITestCase
 

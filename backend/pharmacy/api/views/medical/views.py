@@ -118,4 +118,4 @@ class MedicalView(APIView):
         if medical[0].user.id != request.user.id:
             return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
         medical.delete()
-        return Response("Deleted", status=status.HTTP_202_ACCEPTED)
+        return Response("Deleted", status=status.HTTP_204_NO_CONTENT)
