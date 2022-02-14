@@ -14,6 +14,7 @@ class LocalDB:
         self.cur.execute('''DELETE FROM tokens''')
         self.cur.execute("INSERT INTO tokens VALUES (?,datetime('now'), ?, datetime('now'))", (refresh, access))
         self.con.commit()
+        print("Token Added! ✅")
         return 200
 
     def getAccessToken(self):

@@ -1,7 +1,5 @@
-
 import requests
-import json as js
-
+from apps.functions.LocalDB import LocalDB
 
 getTokenUrl = "http://localhost:8000/api/token/"
 
@@ -11,12 +9,18 @@ def getTokens(username, password):
         "username": username,
         "password": password
     }
-    tokens = requests.post(getTokenUrl, json=user_credential)
+    try:
+        tokens = requests.post(getTokenUrl, json=user_credential)
+        DB = LocalDB()
+        access = tokens.json().get('access')
+        refresh = tokens.json().get('refresh')
+        DB.addNewToken(access, refresh)
 
-    print(tokens.status_code)
-    filename = "userName.json"
-    if tokens.status_code == 200:
-        with open(filename, "w") as f:
-            js.dump(tokens.json(), f)
+        return tokens
 
-    return tokens
+    except Exception as e:
+        print(e)
+        return {}
+
+
+getTokens("rahulyadav", "1234")
