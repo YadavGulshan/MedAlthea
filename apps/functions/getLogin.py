@@ -1,26 +1,27 @@
 import requests
-from apps.functions.LocalDB import LocalDB
-
+import functions
 getTokenUrl = "http://localhost:8000/api/token/"
 
 
-def getTokens(username, password):
-    user_credential = {
+class getLogin:
+    def getTokens(username, password):
+        user_credential = {
         "username": username,
         "password": password
     }
-    try:
-        tokens = requests.post(getTokenUrl, json=user_credential)
-        DB = LocalDB()
-        access = tokens.json().get('access')
-        refresh = tokens.json().get('refresh')
-        DB.addNewToken(access, refresh)
+        try:
+            tokens = requests.post(getTokenUrl, json=user_credential)
+            DB = functions.LocalDB()
+            access = tokens.json().get('access')
+            refresh = tokens.json().get('refresh')
+            DB.addNewToken(access, refresh)
 
-        return tokens
+            return tokens
 
-    except Exception as e:
-        print(e)
-        return {}
+        except Exception as e:
+            print(e)
+            return {}
 
 
-getTokens("rahulyadav", "1234")
+if '__name__' == '__main__':
+    getLogin.getTokens("rahulyadav", "1234")

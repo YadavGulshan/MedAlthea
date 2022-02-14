@@ -1,9 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import functions
+from .signUp import signUpFrame
 
-from apps.Frames.signUp import signUpFrame
-from apps.functions.getLogin import getTokens
-
-class Ui_PharmaServices(object):
+class LoginFrame(object):
     def __init__(self, widget1):
         self.widgetstacket = widget1
 
@@ -120,7 +119,7 @@ class Ui_PharmaServices(object):
             self.message.setText("All Field are required!")
         else:
             self.message.setText("")
-            token = getTokens(userName_text, password_text)
+            token = functions.getLogin.getTokens(userName_text, password_text)
             if token.status_code == 200:
                 print('success!')
             else:
