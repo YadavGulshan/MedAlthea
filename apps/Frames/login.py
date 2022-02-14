@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import functions
 from .signUp import signUpFrame
 
+
 class LoginFrame(object):
     def __init__(self, widget1):
         self.widgetstacket = widget1
@@ -28,13 +29,15 @@ class LoginFrame(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.UserName.setFont(font)
-        self.UserName.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
-                                    "border-radius:20px;\n"
-                                    "border:2px solid black;\n"
-                                    "padding:10px;\n"
-                                    "color: rgb(52, 52, 52);\n"
-                                    "\n"
-                                    "")
+        self.UserName.setStyleSheet(
+            "border:2px solid rgb(85, 0, 255);\n"
+            "border-radius:20px;\n"
+            "border:2px solid black;\n"
+            "padding:10px;\n"
+            "color: rgb(52, 52, 52);\n"
+            "\n"
+            ""
+        )
         self.UserName.setText("")
         self.UserName.setObjectName("Email")
         self.Password = QtWidgets.QLineEdit(self.widget)
@@ -42,13 +45,15 @@ class LoginFrame(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Password.setFont(font)
-        self.Password.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
-                                    "border-radius:20px;\n"
-                                    "border:2px solid black;\n"
-                                    "padding:10px;\n"
-                                    "color: rgb(52, 52, 52);\n"
-                                    "\n"
-                                    "")
+        self.Password.setStyleSheet(
+            "border:2px solid rgb(85, 0, 255);\n"
+            "border-radius:20px;\n"
+            "border:2px solid black;\n"
+            "padding:10px;\n"
+            "color: rgb(52, 52, 52);\n"
+            "\n"
+            ""
+        )
         self.Password.setText("")
         self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.Password.setObjectName("Password")
@@ -57,12 +62,14 @@ class LoginFrame(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.SignIn_button.setFont(font)
-        self.SignIn_button.setStyleSheet("*{border-radius:20px;\n"
-                                         "color: rgb(255, 255, 255);\n"
-                                         "background-color: rgb(85, 0, 255);}\n"
-                                         "*:hover{\n"
-                                         "    background-color: rgb(85, 85, 255);\n"
-                                         "}")
+        self.SignIn_button.setStyleSheet(
+            "*{border-radius:20px;\n"
+            "color: rgb(255, 255, 255);\n"
+            "background-color: rgb(85, 0, 255);}\n"
+            "*:hover{\n"
+            "    background-color: rgb(85, 85, 255);\n"
+            "}"
+        )
         self.SignIn_button.setObjectName("SignIn_button")
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setEnabled(True)
@@ -78,13 +85,15 @@ class LoginFrame(object):
         font.setPointSize(9)
         font.setBold(False)
         self.signup.setFont(font)
-        self.signup.setStyleSheet("*{border-radius:20px;\n"
-                                  "border:none;\n"
-                                  "color: rgb(255, 255, 255);\n"
-                                  "background-color: rgb(85, 0, 255);}\n"
-                                  "*:hover{\n"
-                                  "    background-color: rgb(85, 85, 255);\n"
-                                  "}")
+        self.signup.setStyleSheet(
+            "*{border-radius:20px;\n"
+            "border:none;\n"
+            "color: rgb(255, 255, 255);\n"
+            "background-color: rgb(85, 0, 255);}\n"
+            "*:hover{\n"
+            "    background-color: rgb(85, 85, 255);\n"
+            "}"
+        )
         self.signup.setObjectName("signup")
         self.message = QtWidgets.QLabel(self.widget)
         self.message.setGeometry(QtCore.QRect(310, 410, 271, 16))
@@ -121,7 +130,7 @@ class LoginFrame(object):
             self.message.setText("")
             token = functions.getLogin.getTokens(userName_text, password_text)
             if token.status_code == 200:
-                print('success!')
+                print("success!")
             else:
                 self.message.setText("UserName Or Password is incorrect ")
 

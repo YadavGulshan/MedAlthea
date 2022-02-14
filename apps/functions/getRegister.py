@@ -1,6 +1,7 @@
 import requests as rs
 
-registerUrl = 'http://127.0.0.1:8000/api/register/'
+registerUrl = "http://127.0.0.1:8000/api/register/"
+
 
 class getRegister:
     def userLogin(userDetails):
@@ -14,6 +15,6 @@ class getRegister:
         response = rs.post(registerUrl, json=userDetails)
         res = response.json()
         if response.status_code == 200:
-            print('register success')
+            print("register success")
         else:
             print(res)
