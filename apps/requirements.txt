@@ -1,8 +1,13 @@
+certifi==2021.10.8
+charset-normalizer==2.0.12
 geographiclib==1.52
 geopy==2.2.0
+idna==3.3
 packaging==21.3
 pyparsing==3.0.7
 PyQt5==5.15.6
 PyQt5-Qt5==5.15.2
 PyQt5-sip==12.9.0
+requests==2.27.1
 toml==0.10.2
+urllib3==1.26.8
