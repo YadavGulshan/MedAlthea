@@ -1,8 +1,5 @@
-
 import requests
-import json as js
-
-
+import functions
 getTokenUrl = "http://localhost:8000/api/token/"
 
 
@@ -12,12 +9,19 @@ class getLogin:
         "username": username,
         "password": password
     }
-        tokens = requests.post(getTokenUrl, json=user_credential)
-    
-        print(tokens.status_code)
-        filename = "userName.json"
-        if tokens.status_code == 200:
-            with open(filename, "w") as f:
-                js.dump(tokens.json(), f)
-    
-        return tokens
+        try:
+            tokens = requests.post(getTokenUrl, json=user_credential)
+            DB = functions.LocalDB()
+            access = tokens.json().get('access')
+            refresh = tokens.json().get('refresh')
+            DB.addNewToken(access, refresh)
+
+            return tokens
+
+        except Exception as e:
+            print(e)
+            return {}
+
+
+if '__name__' == '__main__':
+    getLogin.getTokens("rahulyadav", "1234")
