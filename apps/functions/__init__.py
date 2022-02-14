@@ -1,4 +1,4 @@
-__all__ = ['functions']
+__all__ = ["functions"]
 
 from .getData import getData
 from .localdb import LocalDB

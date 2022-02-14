@@ -15,20 +15,20 @@ def welcomeFrame(grid):
     icon.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
     icon.setStyleSheet(
-        '''
+        """
         *{
             margin: 0;
             padding: 0;
             margin-top: 50px;
         }
-        '''
+        """
     )
 
     # Welcome Quotes
     logo = QLabel()
     logo.setText("Get your Medicine !!")
     logo.setStyleSheet(  # style is given by using normal css
-        '''
+        """
         *{
             color: #313552;
             font-family: "JetBrains Mono";
@@ -39,7 +39,7 @@ def welcomeFrame(grid):
             margin-bottom: 50px;
         }
 
-    '''
+    """
     )
 
     # set the alignment
@@ -49,7 +49,8 @@ def welcomeFrame(grid):
     text_box.setPlaceholderText("Search Your Medicine")
     # text_box.setMaximumWidth(500)
     text_box.resize(80, 40)
-    text_box.setStyleSheet('''
+    text_box.setStyleSheet(
+        """
         *{
             color: #313552;
             margin:0px;
@@ -61,14 +62,15 @@ def welcomeFrame(grid):
         *::placeholder{
             color: #313540
         }
-    ''')
+    """
+    )
     # add search button
     button = QPushButton("Search")
     button.setCursor(QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
     button.resize(10, 40)
     button.clicked.connect(lambda: searchMedicine(text_box))
     button.setStyleSheet(
-        '''
+        """
         *{
             color
             padding: 10px 10px;
@@ -83,7 +85,7 @@ def welcomeFrame(grid):
 
         }
 
-        '''
+        """
     )
 
     # added to grid

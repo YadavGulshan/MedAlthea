@@ -1,19 +1,17 @@
 import requests
 import functions
+
 getTokenUrl = "http://localhost:8000/api/token/"
 
 
 class getLogin:
     def getTokens(username, password):
-        user_credential = {
-        "username": username,
-        "password": password
-    }
+        user_credential = {"username": username, "password": password}
         try:
             tokens = requests.post(getTokenUrl, json=user_credential)
             DB = functions.LocalDB()
-            access = tokens.json().get('access')
-            refresh = tokens.json().get('refresh')
+            access = tokens.json().get("access")
+            refresh = tokens.json().get("refresh")
             DB.addNewToken(access, refresh)
 
             return tokens
@@ -23,5 +21,5 @@ class getLogin:
             return {}
 
 
-if '__name__' == '__main__':
+if "__name__" == "__main__":
     getLogin.getTokens("rahulyadav", "1234")
