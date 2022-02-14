@@ -1,10 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from apps.Frames.signUp import signUpFrame
+from apps.functions.getLogin import getTokens
 
 class Ui_PharmaServices(object):
+    def __init__(self, widget1):
+        self.widgetstacket = widget1
+
     def setupUi(self, PharmaServices):
-        PharmaServices.setObjectName("PharmaServices")
+        PharmaServices.setObjectName("loginscreen")
         PharmaServices.resize(900, 850)
+
         self.widget = QtWidgets.QWidget(PharmaServices)
         self.widget.setGeometry(QtCore.QRect(0, 0, 921, 850))
         self.widget.setStyleSheet("background-color :rgb(255, 255, 255)")
@@ -18,20 +24,20 @@ class Ui_PharmaServices(object):
         self.Title.setStyleSheet("color: rgb(0, 0, 0);")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
-        self.Email = QtWidgets.QLineEdit(self.widget)
-        self.Email.setGeometry(QtCore.QRect(280, 260, 330, 50))
+        self.UserName = QtWidgets.QLineEdit(self.widget)
+        self.UserName.setGeometry(QtCore.QRect(280, 260, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.Email.setFont(font)
-        self.Email.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
-                                 "border-radius:20px;\n"
-                                 "border:2px solid black;\n"
-                                 "padding:10px;\n"
-                                 "color: rgb(52, 52, 52);\n"
-                                 "\n"
-                                 "")
-        self.Email.setText("")
-        self.Email.setObjectName("Email")
+        self.UserName.setFont(font)
+        self.UserName.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                    "border-radius:20px;\n"
+                                    "border:2px solid black;\n"
+                                    "padding:10px;\n"
+                                    "color: rgb(52, 52, 52);\n"
+                                    "\n"
+                                    "")
+        self.UserName.setText("")
+        self.UserName.setObjectName("Email")
         self.Password = QtWidgets.QLineEdit(self.widget)
         self.Password.setGeometry(QtCore.QRect(280, 350, 331, 50))
         font = QtGui.QFont()
@@ -91,7 +97,7 @@ class Ui_PharmaServices(object):
         QtCore.QMetaObject.connectSlotsByName(PharmaServices)
         PharmaServices.setTabOrder(self.SignIn_button, self.signup)
         PharmaServices.setTabOrder(self.signup, self.Password)
-        PharmaServices.setTabOrder(self.Password, self.Email)
+        PharmaServices.setTabOrder(self.Password, self.UserName)
 
         # click events on button
         self.SignIn_button.clicked.connect(self.getLogin)
@@ -99,16 +105,30 @@ class Ui_PharmaServices(object):
 
     def retranslateUi(self, PharmaServices):
         _translate = QtCore.QCoreApplication.translate
-        PharmaServices.setWindowTitle(_translate("PharmaServices", "Pharma Services"))
-        self.Title.setText(_translate("PharmaServices", "LOGIN"))
-        self.Email.setPlaceholderText(_translate("PharmaServices", "Email"))
-        self.Password.setPlaceholderText(_translate("PharmaServices", "Password"))
-        self.SignIn_button.setText(_translate("PharmaServices", "SIGN IN"))
-        self.label_4.setText(_translate("PharmaServices", "Not a member yet?"))
-        self.signup.setText(_translate("PharmaServices", "Signup"))
+        PharmaServices.setWindowTitle(_translate("loginscreen", "Pharma Services"))
+        self.Title.setText(_translate("loginscreen", "LOGIN"))
+        self.UserName.setPlaceholderText(_translate("loginscreen", "User Name"))
+        self.Password.setPlaceholderText(_translate("loginscreen", "Password"))
+        self.SignIn_button.setText(_translate("loginscreen", "SIGN IN"))
+        self.label_4.setText(_translate("loginscreen", "Not a member yet?"))
+        self.signup.setText(_translate("loginscreen", "Signup"))
 
     def getLogin(self):
-        print("get clicked")
+        userName_text = self.UserName.text()
+        password_text = self.Password.text()
+        if len(userName_text) == 0 or len(password_text):
+            self.message.setText("All Field are required!")
+        else:
+            self.message.setText("")
+            token = getTokens(userName_text, password_text)
+            if token.status_code == 200:
+                print('success!')
+            else:
+                self.message.setText("UserName Or Password is incorrect ")
 
     def OpenSignUp(self):
         print("get clicked")
+        signUpScreen = QtWidgets.QDialog()
+        signUp = signUpFrame()
+        signUp.setupUi(signUpScreen)
+        self.widgetstacket.addWidget(signUpScreen)

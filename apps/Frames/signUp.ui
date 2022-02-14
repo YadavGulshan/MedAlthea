@@ -207,7 +207,7 @@ background-color: rgb(85, 0, 255);}
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="Email_2">
+   <widget class="QLineEdit" name="l_name">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -237,7 +237,7 @@ color: rgb(52, 52, 52);
      <string>Email</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="Email_3">
+   <widget class="QLineEdit" name="F_name">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -267,7 +267,7 @@ color: rgb(52, 52, 52);
      <string>Email</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="Email_4">
+   <widget class="QLineEdit" name="city">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -297,7 +297,7 @@ color: rgb(52, 52, 52);
      <string>Email</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="Password_2">
+   <widget class="QLineEdit" name="C_Password">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -327,7 +327,7 @@ color: rgb(52, 52, 52);
      <enum>QLineEdit::Password</enum>
     </property>
     <property name="placeholderText">
-     <string>Password</string>
+     <string>Confirm Password</string>
     </property>
    </widget>
   </widget>
