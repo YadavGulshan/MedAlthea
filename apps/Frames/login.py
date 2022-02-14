@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import functions
 
 class Ui_PharmaServices(object):
     def setupUi(self, PharmaServices):
@@ -108,6 +108,7 @@ class Ui_PharmaServices(object):
         self.signup.setText(_translate("PharmaServices", "Signup"))
 
     def getLogin(self):
+        functions.getLogin.getTokens(self.Email.text(), self.Password.text())
         print("get clicked")
 
     def OpenSignUp(self):
