@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -9,7 +9,7 @@
 # All rights reserved.
 
 
-__all__ = ['UserActions']
+__all__ = ["UserActions"]
 
 from .token import MyToken
 from .register import Register
@@ -17,4 +17,7 @@ from .views import UserView
 
 
 class UserAction(MyToken, Register, UserView):
-    """User Actions for registering, getting the user info using access token and also for generating the jwt token with user details in it..."""
+    """
+    User Actions for registering,
+    getting the user info using access token
+    and also for generating the jwt token with user details in it..."""

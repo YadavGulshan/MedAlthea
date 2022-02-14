@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -8,8 +8,6 @@
 #
 # All rights reserved.
 
-from dataclasses import field
-from phonenumbers import PhoneNumber
 from rest_framework import serializers
 from pharmacy.models import Medical, Medicine
 
@@ -22,14 +20,14 @@ from django.contrib.auth.password_validation import validate_password
 class MedicalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medical
-        fields = '__all__'
+        fields = "__all__"
 
 
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medicine
-        fields = '__all__'
-    
+        fields = "__all__"
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     """
@@ -45,57 +43,67 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     To get the access token, you must perform a login with the credentials
     """
-    email = serializers.EmailField(validators=[
-                              UniqueValidator(queryset=User.objects.all())])
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+
+    email = serializers.EmailField(
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password]
+    )
     password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name')
+        fields = (
+            "username",
+            "password",
+            "password2",
+            "email",
+            "first_name",
+            "last_name",
+        )
         extra_kwargs = {
-            'first_name': {'required': True},
-            'last_name': {'required': True}
+            "first_name": {"required": True},
+            "last_name": {"required": True},
         }
 
     def validatePassword(self, attr):
         """
         This method is used to validate the password and password2 fields
         """
-        if attr['password'] !=attr['password2']:
-            raise serializers.ValidationError('Passwords must match')
+        if attr["password"] != attr["password2"]:
+            raise serializers.ValidationError("Passwords must match")
         return attr
 
-
-        
     def create(self, validated_data):
         """
         This method is used to create a new user
         """
         user = User.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
+            username=validated_data["username"],
+            email=validated_data["email"],
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
         )
         # Set the user to staff
         user.is_staff = True
         user.set_active = True
-        user.set_password(validated_data['password'])
+        user.set_password(validated_data["password"])
         user.save()
 
         return user
 
+
 class LoginSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, min_length=8)
     username = serializers.CharField(write_only=True, required=True)
-    
 
     class Meta:
         model = User
-        fields = ('username', 'password')
-        
+        fields = ("username", "password")
+
+
 class UserNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ("username",)

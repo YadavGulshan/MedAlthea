@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -12,5 +12,5 @@ from django.apps import AppConfig
 
 
 class PharmacyConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'pharmacy'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "pharmacy"

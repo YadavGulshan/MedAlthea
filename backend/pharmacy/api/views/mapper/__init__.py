@@ -8,10 +8,12 @@
 #
 # All rights reserved.
 
-__all__ = ['Mapper']
+__all__ = ["Mapper"]
 
 from pharmacy.api.views.mapper.distance import CalculateDistance
 from .display_nearby_medical import DisplayNearbyMedical
+from .medicine import MedicineSearch
 
-class Mapper(CalculateDistance, DisplayNearbyMedical):
+
+class Mapper(CalculateDistance, DisplayNearbyMedical, MedicineSearch):
     """views.mapper"""

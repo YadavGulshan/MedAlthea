@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring
-# 
+#
 # Copyright (C) 2022 by YadavGulshan@Github, < https://github.com/YadavGulshan >.
 #
 # This file is part of < https://github.com/Yadavgulshan/pharmaService > project,
@@ -13,16 +13,17 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 
-# Imports for caching
 from rest_framework.views import APIView
+from rest_framework import status
+
 
 @permission_classes([IsAuthenticated])
 class UserView(APIView):
     def get(self, request, format=None):
         current_user = request.user
         user = {
-            'id': current_user.id,
-            'username': current_user.username,
-            'email': current_user.email,
+            "id": current_user.id,
+            "username": current_user.username,
+            "email": current_user.email,
         }
-        return Response(user, status=200)
+        return Response(user, status=status.HTTP_200_OK)
