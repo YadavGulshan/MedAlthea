@@ -5,5 +5,6 @@ from .localdb import LocalDB
 from .getRegister import getRegister
 from .getLogin import getLogin
 
+
 class functions(getData, LocalDB, getRegister, getLogin):
     """functions.init"""

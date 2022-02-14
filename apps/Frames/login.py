@@ -115,7 +115,7 @@ class LoginFrame(object):
     def getLogin(self):
         userName_text = self.UserName.text()
         password_text = self.Password.text()
-        if len(userName_text) == 0 or len(password_text):
+        if len(userName_text) == 0 or len(password_text)==0:
             self.message.setText("All Field are required!")
         else:
             self.message.setText("")
