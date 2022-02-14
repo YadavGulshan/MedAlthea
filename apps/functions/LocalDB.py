@@ -11,6 +11,7 @@ class LocalDB:
         ''')
 
     def addNewToken(self, access, refresh):
+        self.cur.execute('''DELETE FROM tokens''')
         self.cur.execute("INSERT INTO tokens VALUES (?,datetime('now'), ?, datetime('now'))", (refresh, access))
         self.con.commit()
         return 200
@@ -20,7 +21,7 @@ class LocalDB:
         self.con.commit()
         return response.fetchall()[0]
 
-    def addNewAccessToken(self, access):
+    def updateAccessToken(self, access):
         self.cur.execute('''UPDATE tokens SET accesstoken = ?, Alastused=datetime('now')''', access)
         self.con.commit()
 

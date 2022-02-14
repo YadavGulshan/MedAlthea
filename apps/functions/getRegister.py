@@ -9,16 +9,11 @@ def userLogin(userDetails):
     # password2 = userDetails.password2
     # email = userDetails.email
     # firstname = userDetails.firstname
-    # lastname = userDetails.lastname
+    # is_staff=?
 
     response = rs.post(registerUrl, json=userDetails)
     res = response.json()
     if response.status_code == 200:
         print('register success')
-
-    # elif response.status_code == 400:
-    #     if res['email'] | res['username']:
-    #         print(res['email'])
-    #         print(res['username'])
     else:
         print(res)

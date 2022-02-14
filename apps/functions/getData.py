@@ -1,46 +1,32 @@
-import json
-
-from datetime import datetime
-
-import requests
 from requests.structures import CaseInsensitiveDict
 import requests as rs
-import json as js
 import LocalDB
-
 
 con = LocalDB.LocalDB()
 
 
-def makerequest(token, url):
+def makerequest(token, url, body):
     headers = CaseInsensitiveDict()
     headers["Accept"] = "application/json"
     headers["Authorization"] = "Bearer {}".format(token)
-    resp = requests.get(url, headers=headers)
-
+    resp = rs.get(url, headers=headers, json=body)
     return resp
 
 
 def searchMedicine(MedicineName):
-    url = "http://localhost:8000/api/token/"
-    res = con.getAccessToken()
-    token = res[1]
-
-    makerequest()
+    data = con.getAccessToken()
+    resp = makerequest(data[0], "http://localhost:8000/api/medicine/search/?search={}".format(MedicineName), {})
+    return resp
 
 
 def searchUserName(username):
-    res = con.getAccessToken()
-
-    token = res[0]
-
-
-def calculateDistance(lat1, long1, lat2, long2):
-    token = res[0]
+    resp = makerequest({}, "http://localhost:8000/api/register/search/?username={}".format(username), {})
+    return resp
 
 
-def getNearByShop():
-    con = LocalDB.LocalDB()
-    res = con.getAccessToken()
+def getNearByShop(pincode):
+    data = con.getAccessToken()
+    return makerequest(data[0], "http://localhost:8000/api/nearbymedical/", pincode)
 
-    token = res[0]
+def addMedicine():
+    pass
