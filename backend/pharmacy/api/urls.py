@@ -18,6 +18,7 @@ from pharmacy.api.views import userActions, medicine, medical, mapper
 from pharmacy.api.views.medical.user import MyMedical
 
 urlpatterns = [
+
     # For getting the api view: i.e medical list and all
     path("", medical.MedicalViewList.as_view(), name="get"),
     path("<int:pk>/", medical.MedicalView.as_view(), name="get"),
