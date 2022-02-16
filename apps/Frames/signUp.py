@@ -1,11 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+# from .login import LoginFrame
 
 
 class signUpFrame(object):
-    def setupUi(self, PharmaServices):
-        PharmaServices.setObjectName("loginscreen")
-        PharmaServices.resize(900, 850)
-        self.widget = QtWidgets.QWidget(PharmaServices)
+    def setupUi(self, signUp, Widget):
+        self.Widget = Widget
+        signUp.setObjectName("signUp")
+        signUp.resize(900, 850)
+        self.widget = QtWidgets.QWidget(signUp)
         self.widget.setGeometry(QtCore.QRect(0, 0, 921, 850))
         self.widget.setStyleSheet("background-color :rgb(255, 255, 255)")
         self.widget.setObjectName("widget")
@@ -18,56 +20,50 @@ class signUpFrame(object):
         self.Title.setStyleSheet("color: rgb(0, 0, 0);")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
-        self.Email = QtWidgets.QLineEdit(self.widget)
-        self.Email.setGeometry(QtCore.QRect(500, 310, 330, 50))
+        self.F_name = QtWidgets.QLineEdit(self.widget)
+        self.F_name.setGeometry(QtCore.QRect(120, 310, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.Email.setFont(font)
-        self.Email.setStyleSheet(
-            "border:2px solid rgb(85, 0, 255);\n"
-            "border-radius:20px;\n"
-            "border:2px solid black;\n"
-            "padding:10px;\n"
-            "color: rgb(52, 52, 52);\n"
-            "\n"
-            ""
-        )
-        self.Email.setText("")
-        self.Email.setObjectName("Email")
+        self.F_name.setFont(font)
+        self.F_name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                  "border-radius:20px;\n"
+                                  "border:2px solid black;\n"
+                                  "padding:10px;\n"
+                                  "color: rgb(52, 52, 52);\n"
+                                  "\n"
+                                  "")
+        self.F_name.setText("")
+        self.F_name.setObjectName("F_name")
         self.Password = QtWidgets.QLineEdit(self.widget)
         self.Password.setGeometry(QtCore.QRect(500, 400, 331, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.Password.setFont(font)
-        self.Password.setStyleSheet(
-            "border:2px solid rgb(85, 0, 255);\n"
-            "border-radius:20px;\n"
-            "border:2px solid black;\n"
-            "padding:10px;\n"
-            "color: rgb(52, 52, 52);\n"
-            "\n"
-            ""
-        )
+        self.Password.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                    "border-radius:20px;\n"
+                                    "border:2px solid black;\n"
+                                    "padding:10px;\n"
+                                    "color: rgb(52, 52, 52);\n"
+                                    "\n"
+                                    "")
         self.Password.setText("")
         self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.Password.setObjectName("Password")
-        self.Signup_button = QtWidgets.QPushButton(self.widget)
-        self.Signup_button.setGeometry(QtCore.QRect(310, 620, 321, 41))
+        self.SignIn_button = QtWidgets.QPushButton(self.widget)
+        self.SignIn_button.setGeometry(QtCore.QRect(310, 620, 321, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.Signup_button.setFont(font)
-        self.Signup_button.setStyleSheet(
-            "*{border-radius:20px;\n"
-            "color: rgb(255, 255, 255);\n"
-            "background-color: rgb(85, 0, 255);}\n"
-            "*:hover{\n"
-            "    background-color: rgb(85, 85, 255);\n"
-            "}"
-        )
-        self.Signup_button.setObjectName("SignIn_button")
+        self.SignIn_button.setFont(font)
+        self.SignIn_button.setStyleSheet("*{border-radius:20px;\n"
+                                         "color: rgb(255, 255, 255);\n"
+                                         "background-color: rgb(85, 0, 255);}\n"
+                                         "*:hover{\n"
+                                         "    background-color: rgb(85, 85, 255);\n"
+                                         "}")
+        self.SignIn_button.setObjectName("SignIn_button")
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setEnabled(True)
-        self.label_4.setGeometry(QtCore.QRect(340, 690, 127, 18))
+        self.label_4.setGeometry(QtCore.QRect(350, 690, 130, 18))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label_4.setFont(font)
@@ -79,18 +75,16 @@ class signUpFrame(object):
         font.setPointSize(9)
         font.setBold(False)
         self.login.setFont(font)
-        self.login.setStyleSheet(
-            "*{border-radius:20px;\n"
-            "border:none;\n"
-            "color: rgb(255, 255, 255);\n"
-            "background-color: rgb(85, 0, 255);}\n"
-            "*:hover{\n"
-            "    background-color: rgb(85, 85, 255);\n"
-            "}"
-        )
-        self.login.setObjectName("signup")
+        self.login.setStyleSheet("*{border-radius:20px;\n"
+                                 "border:none;\n"
+                                 "color: rgb(255, 255, 255);\n"
+                                 "background-color: rgb(85, 0, 255);}\n"
+                                 "*:hover{\n"
+                                 "    background-color: rgb(85, 85, 255);\n"
+                                 "}")
+        self.login.setObjectName("login")
         self.message = QtWidgets.QLabel(self.widget)
-        self.message.setGeometry(QtCore.QRect(340, 560, 271, 16))
+        self.message.setGeometry(QtCore.QRect(330, 590, 271, 16))
         self.message.setStyleSheet("color: rgb(194, 0, 0);")
         self.message.setText("")
         self.message.setObjectName("message")
@@ -99,47 +93,42 @@ class signUpFrame(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.l_name.setFont(font)
-        self.l_name.setStyleSheet(
-            "border:2px solid rgb(85, 0, 255);\n"
-            "border-radius:20px;\n"
-            "border:2px solid black;\n"
-            "padding:10px;\n"
-            "color: rgb(52, 52, 52);\n"
-            "\n"
-            ""
-        )
+        self.l_name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                  "border-radius:20px;\n"
+                                  "border:2px solid black;\n"
+                                  "padding:10px;\n"
+                                  "color: rgb(52, 52, 52);\n"
+                                  "\n"
+                                  "")
         self.l_name.setText("")
         self.l_name.setObjectName("l_name")
-        self.F_name = QtWidgets.QLineEdit(self.widget)
-        self.F_name.setGeometry(QtCore.QRect(120, 310, 330, 50))
+
+        self.Email = QtWidgets.QLineEdit(self.widget)
+        self.Email.setGeometry(QtCore.QRect(500, 310, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.F_name.setFont(font)
-        self.F_name.setStyleSheet(
-            "border:2px solid rgb(85, 0, 255);\n"
-            "border-radius:20px;\n"
-            "border:2px solid black;\n"
-            "padding:10px;\n"
-            "color: rgb(52, 52, 52);\n"
-            "\n"
-            ""
-        )
-        self.F_name.setText("")
-        self.F_name.setObjectName("F_name")
+        self.Email.setFont(font)
+        self.Email.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                 "border-radius:20px;\n"
+                                 "border:2px solid black;\n"
+                                 "padding:10px;\n"
+                                 "color: rgb(52, 52, 52);\n"
+                                 "\n"
+                                 "")
+        self.Email.setText("")
+        self.Email.setObjectName("Email")
         self.city = QtWidgets.QLineEdit(self.widget)
         self.city.setGeometry(QtCore.QRect(120, 490, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.city.setFont(font)
-        self.city.setStyleSheet(
-            "border:2px solid rgb(85, 0, 255);\n"
-            "border-radius:20px;\n"
-            "border:2px solid black;\n"
-            "padding:10px;\n"
-            "color: rgb(52, 52, 52);\n"
-            "\n"
-            ""
-        )
+        self.city.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                "border-radius:20px;\n"
+                                "border:2px solid black;\n"
+                                "padding:10px;\n"
+                                "color: rgb(52, 52, 52);\n"
+                                "\n"
+                                "")
         self.city.setText("")
         self.city.setObjectName("city")
         self.C_Password = QtWidgets.QLineEdit(self.widget)
@@ -147,37 +136,50 @@ class signUpFrame(object):
         font = QtGui.QFont()
         font.setPointSize(18)
         self.C_Password.setFont(font)
-        self.C_Password.setStyleSheet(
-            "border:2px solid rgb(85, 0, 255);\n"
-            "border-radius:20px;\n"
-            "border:2px solid black;\n"
-            "padding:10px;\n"
-            "color: rgb(52, 52, 52);\n"
-            "\n"
-            ""
-        )
+        self.C_Password.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                      "border-radius:20px;\n"
+                                      "border:2px solid black;\n"
+                                      "padding:10px;\n"
+                                      "color: rgb(52, 52, 52);\n"
+                                      "\n"
+                                      "")
         self.C_Password.setText("")
         self.C_Password.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.C_Password.setObjectName("Password_2")
+        self.C_Password.setObjectName("C_Password")
+        self.checkBox = QtWidgets.QCheckBox(self.widget)
+        self.checkBox.setGeometry(QtCore.QRect(420, 560, 111, 22))
+        self.checkBox.setStyleSheet("color: rgb(18, 18, 18);")
+        self.checkBox.setObjectName("checkBox")
 
-        self.retranslateUi(PharmaServices)
-        QtCore.QMetaObject.connectSlotsByName(PharmaServices)
-        PharmaServices.setTabOrder(self.Signup_button, self.login)
-        PharmaServices.setTabOrder(self.login, self.Password)
-        PharmaServices.setTabOrder(self.Password, self.Email)
+        self.retranslateUi(signUp)
+        QtCore.QMetaObject.connectSlotsByName(signUp)
+        signUp.setTabOrder(self.F_name, self.l_name)
+        signUp.setTabOrder(self.l_name, self.city)
+        signUp.setTabOrder(self.Email, self.Password)
+        signUp.setTabOrder(self.Password, self.C_Password)
+        self.F_name.setFocusPolicy(QtCore.Qt.StrongFocus)
 
-    def retranslateUi(self, PharmaServices):
+        self.login.clicked.connect(self.loadLogin)
+
+
+    def retranslateUi(self, signUp):
         _translate = QtCore.QCoreApplication.translate
-        PharmaServices.setWindowTitle(_translate("loginscreen", "Pharma Services"))
-        self.Title.setText(_translate("loginscreen", "Sign Up"))
-        self.Email.setPlaceholderText(_translate("loginscreen", "Email"))
-        self.Password.setPlaceholderText(_translate("loginscreen", "Password"))
-        self.Signup_button.setText(_translate("loginscreen", "Sign Up"))
-        self.label_4.setText(_translate("loginscreen", "Already a Member?"))
-        self.login.setText(_translate("loginscreen", "Login"))
-        self.l_name.setPlaceholderText(_translate("loginscreen", "Last Name"))
-        self.F_name.setPlaceholderText(_translate("loginscreen", "First Name"))
-        self.city.setPlaceholderText(_translate("loginscreen", "City"))
-        self.C_Password.setPlaceholderText(
-            _translate("loginscreen", "Confirm Password")
-        )
+        signUp.setWindowTitle(_translate("signUp", "Sign Up"))
+        self.Title.setText(_translate("signUp", "Sign Up"))
+        self.Email.setPlaceholderText(_translate("signUp", "Email"))
+        self.Password.setPlaceholderText(_translate("signUp", "Password"))
+        self.SignIn_button.setText(_translate("signUp", "Sign Up"))
+        self.label_4.setText(_translate("signUp", "Already a member?"))
+        self.login.setText(_translate("signUp", "Login"))
+        self.l_name.setPlaceholderText(_translate("signUp", "Last Name"))
+        self.F_name.setPlaceholderText(_translate("signUp", "First Name"))
+        self.city.setPlaceholderText(_translate("signUp", "City"))
+        self.C_Password.setPlaceholderText(_translate("signUp", "Confirm Password"))
+        self.checkBox.setText(_translate("signUp", "Have A Shop ?"))
+
+    def loadLogin(self):
+        # loginScreen = QtWidgets.QDialog()
+        # login = LoginFrame(self.Widget)
+        # login.setupUi(loginScreen)
+        print("click")
+        self.Widget.setCurrentIndex(self.Widget.currentIndex() - 2)
