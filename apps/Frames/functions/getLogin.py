@@ -1,16 +1,17 @@
 import requests
+from .localdb import LocalDB
 
-getTokenUrl = "http://localhost:8000/api/token/"
+getTokenUrl = "http://127.0.0.1:8000/api/token/"
 
 
-def getTokens(self, username, password):
+def getTokens(username, password):
     user_credential = {
         "username": username,
         "password": password
     }
     try:
         tokens = requests.post(getTokenUrl, json=user_credential)
-        DB = functions.LocalDB()
+        DB = LocalDB()
         access = tokens.json().get("access")
         refresh = tokens.json().get("refresh")
         DB.addNewToken(access, refresh)
@@ -21,5 +22,6 @@ def getTokens(self, username, password):
         print(e)
         return {}
 
-# if "__name__" == "__main__":
-#     getLogin.getTokens("rahulyadav", "1234")
+
+# token = getTokens("rahulyadav", "1234")
+# print(token.status_code)
