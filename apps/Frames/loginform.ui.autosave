@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>signUp</class>
- <widget class="QDialog" name="signUp">
+ <class>PharmaServices</class>
+ <widget class="QDialog" name="PharmaServices">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Sign Up</string>
+   <string>Pharma Services</string>
   </property>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
@@ -28,10 +28,10 @@
    <widget class="QLabel" name="Title">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>210</y>
-      <width>105</width>
-      <height>33</height>
+      <x>360</x>
+      <y>180</y>
+      <width>161</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -44,7 +44,7 @@
      <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
-     <string>Sign Up</string>
+     <string>LOGIN</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -53,8 +53,8 @@
    <widget class="QLineEdit" name="Email">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>310</y>
+      <x>280</x>
+      <y>260</y>
       <width>330</width>
       <height>50</height>
      </rect>
@@ -63,9 +63,6 @@
      <font>
       <pointsize>18</pointsize>
      </font>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::StrongFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">border:2px solid rgb(85, 0, 255);
@@ -86,8 +83,8 @@ color: rgb(52, 52, 52);
    <widget class="QLineEdit" name="Password">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>400</y>
+      <x>280</x>
+      <y>350</y>
       <width>331</width>
       <height>50</height>
      </rect>
@@ -119,8 +116,8 @@ color: rgb(52, 52, 52);
    <widget class="QPushButton" name="SignIn_button">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>620</y>
+      <x>280</x>
+      <y>440</y>
       <width>321</width>
       <height>41</height>
      </rect>
@@ -139,7 +136,7 @@ background-color: rgb(85, 0, 255);}
 }</string>
     </property>
     <property name="text">
-     <string>Sign Up</string>
+     <string>SIGN IN</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -148,9 +145,9 @@ background-color: rgb(85, 0, 255);}
     </property>
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>690</y>
-      <width>127</width>
+      <x>340</x>
+      <y>510</y>
+      <width>131</width>
       <height>18</height>
      </rect>
     </property>
@@ -169,8 +166,8 @@ background-color: rgb(85, 0, 255);}
    <widget class="QPushButton" name="signup">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>680</y>
+      <x>480</x>
+      <y>500</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -191,14 +188,14 @@ background-color: rgb(85, 0, 255);}
 }</string>
     </property>
     <property name="text">
-     <string>Login</string>
+     <string>Signup</string>
     </property>
    </widget>
    <widget class="QLabel" name="message">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>590</y>
+      <x>310</x>
+      <y>410</y>
       <width>271</width>
       <height>16</height>
      </rect>
@@ -208,145 +205,6 @@ background-color: rgb(85, 0, 255);}
     </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="l_name">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>400</y>
-      <width>330</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border:2px solid rgb(85, 0, 255);
-border-radius:20px;
-border:2px solid black;
-padding:10px;
-color: rgb(52, 52, 52);
-
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>Last Name</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="F_name">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>310</y>
-      <width>330</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border:2px solid rgb(85, 0, 255);
-border-radius:20px;
-border:2px solid black;
-padding:10px;
-color: rgb(52, 52, 52);
-
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>First Name</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="city">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>490</y>
-      <width>330</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border:2px solid rgb(85, 0, 255);
-border-radius:20px;
-border:2px solid black;
-padding:10px;
-color: rgb(52, 52, 52);
-
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>City</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="C_Password">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>490</y>
-      <width>331</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border:2px solid rgb(85, 0, 255);
-border-radius:20px;
-border:2px solid black;
-padding:10px;
-color: rgb(52, 52, 52);
-
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
-    </property>
-    <property name="placeholderText">
-     <string>Confirm Password</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>560</y>
-      <width>111</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(18, 18, 18);</string>
-    </property>
-    <property name="text">
-     <string>Have A Shop ?</string>
     </property>
    </widget>
   </widget>

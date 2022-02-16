@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import functions
+from .functions import getLogin
 from .signUp import signUpFrame
 
 
@@ -73,7 +73,7 @@ class LoginFrame(object):
         self.SignIn_button.setObjectName("SignIn_button")
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setEnabled(True)
-        self.label_4.setGeometry(QtCore.QRect(340, 510, 127, 18))
+        self.label_4.setGeometry(QtCore.QRect(340, 510, 130, 18))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label_4.setFont(font)
@@ -124,19 +124,19 @@ class LoginFrame(object):
     def getLogin(self):
         userName_text = self.UserName.text()
         password_text = self.Password.text()
-        if len(userName_text) == 0 or len(password_text):
+        if len(userName_text) == 0 or len(password_text) == 0:
             self.message.setText("All Field are required!")
         else:
             self.message.setText("")
-            token = functions.getLogin.getTokens(userName_text, password_text)
+            token = getLogin.getTokens(userName_text, password_text)
             if token.status_code == 200:
                 print("success!")
             else:
                 self.message.setText("UserName Or Password is incorrect ")
 
     def OpenSignUp(self):
-        print("get clicked")
         signUpScreen = QtWidgets.QDialog()
         signUp = signUpFrame()
-        signUp.setupUi(signUpScreen)
+        signUp.setupUi(signUpScreen, self.widgetstacket)
         self.widgetstacket.addWidget(signUpScreen)
+        self.widgetstacket.setCurrentIndex(self.widgetstacket.currentIndex()+1)

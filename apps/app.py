@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
 
 # from Frames.login import loginform
-from Frames import LoginFrame
+from Frames.login import LoginFrame
 
 # welcomeFrame(grid)
 
