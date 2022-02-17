@@ -37,3 +37,10 @@ class LocalDB:
         response = self.cur.execute("""SELECT refresh, Rlastused FROM tokens""")
         self.con.commit()
         return response.fetchall()[0]
+
+    def getTokens(self):
+        response = self.cur.execute('''SELECT * FROM tokens''')
+        self.con.commit()
+        return response.fetchall()
+
+

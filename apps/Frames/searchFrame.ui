@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>768</width>
-    <height>614</height>
+    <width>900</width>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,9 +19,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>140</x>
      <y>50</y>
-     <width>603</width>
+     <width>641</width>
      <height>134</height>
     </rect>
    </property>
@@ -35,20 +35,6 @@ font-size: 48px;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>250</y>
-     <width>281</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-radius: 12px;
-background-color: rgb(255, 86, 68);</string>
    </property>
   </widget>
  </widget>
