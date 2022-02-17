@@ -1,5 +1,4 @@
 # importing depended modules
-# from signal import SIGHUP
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
@@ -46,45 +45,47 @@ if len(TOKENS) == 0:
     signUp = signUpFrame()
     signUp.setupUi(signUpScreen)
 
+
     def openLogin():
         widget.removeWidget(signUpScreen)
         widget.addWidget(loginScreen)
 
+
     def getSignUp():
-        firstname_text=signUp.F_name.text()
-        lastname_text=signUp.l_name.text()
-        city_text=signUp.city.text()
-        email_text=signUp.F_name.text()
-        password_text=signUp.Password.text()
-        c_password_text=signUp.C_Password.text()
-        if len(firstname_text)==0 or len(lastname_text)==0 or len(city_text)==0 or len(email_text)==0 or len(password_text)==0 or len(c_password_text)==0:
+        firstname_text = signUp.F_name.text()
+        lastname_text = signUp.l_name.text()
+        city_text = signUp.city.text()
+        email_text = signUp.email.text()
+        password_text = signUp.Password.text()
+        c_password_text = signUp.C_Password.text()
+
+        if len(firstname_text) == 0 or len(lastname_text) == 0 or len(city_text) == 0 or len(email_text) == 0 or len(
+                password_text) == 0 or len(c_password_text) == 0:
             signUp.message.setText("All fields are required")
         else:
-            if password_text==c_password_text:
-                print("password match")
-                if check(email_text):
-                    print("Valid email")
-                else:
-                    print("Invalid email")
-        
-    def check(email):  
-        regex = '/^w+[+.w-]*@([w-]+.)*w+[w-]*.([a-z]{2,4}|d+)$/i'
+            if len(password_text) > 8:
+                if password_text == c_password_text:
+                    pass
+                    print(email_text)
+                    if check(email_text):
+                        pass
+                    else:
+                        pass
 
-        if(re.search(regex,email)):  
-            return True  
-        else:  
+
+    def check(email):
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+
+        if re.fullmatch(regex, email):
+            return True
+        else:
             return False
 
-
-
-
-        
-
-        print('click')
 
     def openSignUp():
         widget.removeWidget(loginScreen)
         widget.addWidget(signUpScreen)
+
 
     def getLogin():
         username_text = login.UserName.text()
@@ -99,6 +100,7 @@ if len(TOKENS) == 0:
             else:
                 login.message.setText("UserName Or Password is incorrect ")
 
+
     # adding click events to buttons
     login.SignIn_button.clicked.connect(getLogin)
     login.signup.clicked.connect(openSignUp)
@@ -110,12 +112,6 @@ else:
     search = Ui_Form()
     search.setupUi(searchScreen)
     widget.addWidget(searchScreen)
-
-
-
-
-
-
 
 # set height and width
 widget.setFixedWidth(900)
