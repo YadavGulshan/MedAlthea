@@ -4,8 +4,7 @@ from .signUp import signUpFrame
 
 
 class LoginFrame(object):
-    def __init__(self, widget1):
-        self.widgetstacket = widget1
+
 
     def setupUi(self, PharmaServices):
         PharmaServices.setObjectName("loginscreen")
@@ -107,10 +106,6 @@ class LoginFrame(object):
         PharmaServices.setTabOrder(self.signup, self.Password)
         PharmaServices.setTabOrder(self.Password, self.UserName)
 
-        # click events on button
-        self.SignIn_button.clicked.connect(self.getLogin)
-        self.signup.clicked.connect(self.OpenSignUp)
-
     def retranslateUi(self, PharmaServices):
         _translate = QtCore.QCoreApplication.translate
         PharmaServices.setWindowTitle(_translate("loginscreen", "Pharma Services"))
@@ -121,22 +116,4 @@ class LoginFrame(object):
         self.label_4.setText(_translate("loginscreen", "Not a member yet?"))
         self.signup.setText(_translate("loginscreen", "Signup"))
 
-    def getLogin(self):
-        userName_text = self.UserName.text()
-        password_text = self.Password.text()
-        if len(userName_text) == 0 or len(password_text) == 0:
-            self.message.setText("All Field are required!")
-        else:
-            self.message.setText("")
-            token = getLogin.getTokens(userName_text, password_text)
-            if token.status_code == 200:
-                print("success!")
-            else:
-                self.message.setText("UserName Or Password is incorrect ")
 
-    def OpenSignUp(self):
-        signUpScreen = QtWidgets.QDialog()
-        signUp = signUpFrame()
-        signUp.setupUi(signUpScreen, self.widgetstacket)
-        self.widgetstacket.addWidget(signUpScreen)
-        self.widgetstacket.setCurrentIndex(self.widgetstacket.currentIndex()+1)

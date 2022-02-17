@@ -37,20 +37,6 @@ font-size: 48px;</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>250</y>
-     <width>281</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-radius: 12px;
-background-color: rgb(255, 86, 68);</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
