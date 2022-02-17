@@ -6,9 +6,10 @@ from PyQt5.QtWidgets import QApplication
 # importing LocalDb
 from Frames.functions.localdb import LocalDB
 from Frames.functions.getLogin import getTokens
+
 # importing Frames
 from Frames.login import LoginFrame
-
+from Frames.searchFrame import Ui_Form
 from Frames.signUp import signUpFrame
 
 # initializing GUI application
@@ -30,7 +31,7 @@ DB = LocalDB()
 TOKENS = DB.getTokens()
 # checking weather the user already login or not
 
-if len(TOKENS) != 0:
+if len(TOKENS) == 0:
 
     # initializing login screen
     loginScreen = QtWidgets.QDialog()
@@ -73,7 +74,11 @@ if len(TOKENS) != 0:
     signUp.LoginIn_button.clicked.connect(getSingUp)
     signUp.login.clicked.connect(openLogin)
 
-# else:
+else:
+    searchScreen = QtWidgets.QDialog()
+    search = Ui_Form()
+    search.setupUi(searchScreen)
+    widget.addWidget(searchScreen)
 
 
 
