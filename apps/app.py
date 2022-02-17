@@ -1,7 +1,9 @@
 # importing depended modules
+# from signal import SIGHUP
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
+import re
 
 # importing LocalDb
 from Frames.functions.localdb import LocalDB
@@ -48,7 +50,36 @@ if len(TOKENS) == 0:
         widget.removeWidget(signUpScreen)
         widget.addWidget(loginScreen)
 
-    def getSingUp():
+    def getSignUp():
+        firstname_text=signUp.F_name.text()
+        lastname_text=signUp.l_name.text()
+        city_text=signUp.city.text()
+        email_text=signUp.F_name.text()
+        password_text=signUp.Password.text()
+        c_password_text=signUp.C_Password.text()
+        if len(firstname_text)==0 or len(lastname_text)==0 or len(city_text)==0 or len(email_text)==0 or len(password_text)==0 or len(c_password_text)==0:
+            signUp.message.setText("All fields are required")
+        else:
+            if password_text==c_password_text:
+                print("password match")
+                if check(email_text):
+                    print("Valid email")
+                else:
+                    print("Invalid email")
+        
+    def check(email):  
+        regex = '/^w+[+.w-]*@([w-]+.)*w+[w-]*.([a-z]{2,4}|d+)$/i'
+
+        if(re.search(regex,email)):  
+            return True  
+        else:  
+            return False
+
+
+
+
+        
+
         print('click')
 
     def openSignUp():
@@ -71,7 +102,7 @@ if len(TOKENS) == 0:
     # adding click events to buttons
     login.SignIn_button.clicked.connect(getLogin)
     login.signup.clicked.connect(openSignUp)
-    signUp.LoginIn_button.clicked.connect(getSingUp)
+    signUp.LoginIn_button.clicked.connect(getSignUp)
     signUp.login.clicked.connect(openLogin)
 
 else:
