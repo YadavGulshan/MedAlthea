@@ -5,3 +5,13 @@
 # Please see < https://github.com/YadavGulshan/pharmaService/blob/master/LICENCE >
 #
 # All rights reserved.
+
+__all__ = ["setupService"]
+
+from .setup_auth_user import setup
+from .setup_medical_shop import setupMedical
+from .setup_medicine import setupMedicine
+
+
+class Service(setup, setupMedical, setupMedicine):
+    """setup"""

@@ -18,6 +18,7 @@ from pharmacy.api.views import userActions, medicine, medical, mapper
 from pharmacy.api.views.medical.user import MyMedical
 
 urlpatterns = [
+
     # For getting the api view: i.e medical list and all
     path("", medical.MedicalViewList.as_view(), name="get"),
     path("<int:pk>/", medical.MedicalView.as_view(), name="get"),
@@ -48,6 +49,11 @@ urlpatterns = [
     path("distance/", mapper.CalculateDistance.as_view(), name="calculate_distance"),
     path(
         "nearbymedical/", mapper.DisplayNearbyMedical.as_view(), name="nearby_medical"
+    ),
+    path(
+        "nearbymedicine/",
+        mapper.MedicineSearch.as_view(),
+        name="nearby_medicine",
     ),
 ]
 
