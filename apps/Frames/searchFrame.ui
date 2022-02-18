@@ -53,13 +53,14 @@ font-size: 48px;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-top-left-radius: 10px;
+    <string notr="true">*{border-top-left-radius: 10px;
 border-bottom-left-radius: 10px;
 border: 1px solid rgb(104, 110, 171);
 color: rgb(41, 41, 41);
 padding: 5px;
 padding-left: 15px;
-font-size: 15px</string>
+font-size: 15px;}
+</string>
    </property>
    <property name="placeholderText">
     <string>search......</string>
@@ -90,7 +91,7 @@ border:none;</string>
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../Downloads/search.png</normaloff>../../../../Downloads/search.png</iconset>
+     <normaloff>../images/search.png</normaloff>../images/search.png</iconset>
    </property>
    <property name="iconSize">
     <size>
@@ -135,14 +136,7 @@ border:none;</string>
    <property name="styleSheet">
     <string notr="true">border:none;
 out;ine:none;
-QScrollBar{background : lightgreen;}
-QScrollBar::handle{
-background : pink;
-}
-QScrollBar::handle::pressed
-{
-background : red;
-}</string>
+</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::NoFrame</enum>
@@ -161,8 +155,8 @@ background : red;
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>960</width>
-      <height>327</height>
+      <width>901</width>
+      <height>341</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -204,33 +198,70 @@ background : red;
        <property name="minimumSize">
         <size>
          <width>300</width>
-         <height>200</height>
+         <height>250</height>
         </size>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(142, 154, 247);
 border-radius: 20px;</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QWidget" name="widget_3" native="true">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>300</width>
-         <height>200</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(142, 154, 247);
-border-radius: 20px;</string>
-       </property>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>130</y>
+          <width>301</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>190</y>
+          <width>121</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(104, 110, 171);
+color: rgb(254, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>301</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
       </widget>
      </item>
      <item>
@@ -244,13 +275,71 @@ border-radius: 20px;</string>
        <property name="minimumSize">
         <size>
          <width>300</width>
-         <height>200</height>
+         <height>250</height>
         </size>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(142, 154, 247);
 border-radius: 20px;</string>
        </property>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>130</y>
+          <width>301</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Microsoft Sans Serif</family>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>190</y>
+          <width>121</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(104, 110, 171);
+color: rgb(254, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>301</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
       </widget>
      </item>
     </layout>

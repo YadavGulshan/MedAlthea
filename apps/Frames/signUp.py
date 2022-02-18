@@ -76,48 +76,48 @@ class signUpFrame(object):
         self.message.setText("")
         self.message.setAlignment(QtCore.Qt.AlignCenter)
         self.message.setObjectName("message")
-        self.l_name = QtWidgets.QLineEdit(self.widget)
-        self.l_name.setGeometry(QtCore.QRect(120, 400, 330, 50))
+        self.F_Name = QtWidgets.QLineEdit(self.widget)
+        self.F_Name.setGeometry(QtCore.QRect(120, 400, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.l_name.setFont(font)
-        self.l_name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+        self.F_Name.setFont(font)
+        self.F_Name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                   "border-radius:20px;\n"
                                   "border:2px solid black;\n"
                                   "padding:10px;\n"
                                   "color: rgb(52, 52, 52);\n"
                                   "\n"
                                   "")
-        self.l_name.setText("")
-        self.l_name.setObjectName("l_name")
-        self.F_name = QtWidgets.QLineEdit(self.widget)
-        self.F_name.setGeometry(QtCore.QRect(120, 310, 330, 50))
+        self.F_Name.setText("")
+        self.F_Name.setObjectName("l_name")
+        self.UserName = QtWidgets.QLineEdit(self.widget)
+        self.UserName.setGeometry(QtCore.QRect(120, 310, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.F_name.setFont(font)
-        self.F_name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+        self.UserName.setFont(font)
+        self.UserName.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                   "border-radius:20px;\n"
                                   "border:2px solid black;\n"
                                   "padding:10px;\n"
                                   "color: rgb(52, 52, 52);\n"
                                   "\n"
                                   "")
-        self.F_name.setText("")
-        self.F_name.setObjectName("F_name")
-        self.city = QtWidgets.QLineEdit(self.widget)
-        self.city.setGeometry(QtCore.QRect(120, 490, 330, 50))
+        self.UserName.setText("")
+        self.UserName.setObjectName("F_name")
+        self.l_Name = QtWidgets.QLineEdit(self.widget)
+        self.l_Name.setGeometry(QtCore.QRect(120, 490, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.city.setFont(font)
-        self.city.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+        self.l_Name.setFont(font)
+        self.l_Name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                 "border-radius:20px;\n"
                                 "border:2px solid black;\n"
                                 "padding:10px;\n"
                                 "color: rgb(52, 52, 52);\n"
                                 "\n"
                                 "")
-        self.city.setText("")
-        self.city.setObjectName("city")
+        self.l_Name.setText("")
+        self.l_Name.setObjectName("city")
         self.C_Password = QtWidgets.QLineEdit(self.widget)
         self.C_Password.setGeometry(QtCore.QRect(500, 490, 331, 50))
         font = QtGui.QFont()
@@ -173,9 +173,9 @@ class signUpFrame(object):
 
         self.retranslateUi(signUp)
         QtCore.QMetaObject.connectSlotsByName(signUp)
-        signUp.setTabOrder(self.F_name, self.l_name)
-        signUp.setTabOrder(self.l_name, self.city)
-        signUp.setTabOrder(self.city, self.email)
+        signUp.setTabOrder(self.UserName, self.F_Name)
+        signUp.setTabOrder(self.F_Name, self.l_Name)
+        signUp.setTabOrder(self.l_Name, self.email)
         signUp.setTabOrder(self.email, self.Password)
         signUp.setTabOrder(self.Password, self.C_Password)
 
@@ -187,9 +187,9 @@ class signUpFrame(object):
         self.LoginIn_button.setText(_translate("signUp", "Sign Up"))
         self.label_4.setText(_translate("signUp", "Already a member?"))
         self.login.setText(_translate("signUp", "Login"))
-        self.l_name.setPlaceholderText(_translate("signUp", "Last Name"))
-        self.F_name.setPlaceholderText(_translate("signUp", "First Name"))
-        self.city.setPlaceholderText(_translate("signUp", "City"))
+        self.F_Name.setPlaceholderText(_translate("signUp", "First Name"))
+        self.UserName.setPlaceholderText(_translate("signUp", "UserName"))
+        self.l_Name.setPlaceholderText(_translate("signUp", "Last Name"))
         self.C_Password.setPlaceholderText(_translate("signUp", "Confirm Password"))
         self.checkBox.setText(_translate("signUp", "Have A Shop ?"))
         self.email.setPlaceholderText(_translate("signUp", "Email"))
