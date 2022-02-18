@@ -36,7 +36,9 @@
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>28</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -61,6 +63,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -94,6 +97,7 @@ color: rgb(52, 52, 52);
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -118,11 +122,12 @@ background-color: rgb(85, 0, 255);}
       <x>310</x>
       <y>680</y>
       <width>181</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>15</pointsize>
      </font>
     </property>
@@ -131,9 +136,6 @@ background-color: rgb(85, 0, 255);}
     </property>
     <property name="text">
      <string>Already a member?</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="signup">
@@ -147,7 +149,9 @@ background-color: rgb(85, 0, 255);}
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>9</pointsize>
+      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -167,23 +171,22 @@ background-color: rgb(85, 0, 255);}
    <widget class="QLabel" name="message">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>600</y>
+      <x>330</x>
+      <y>590</y>
       <width>271</width>
       <height>16</height>
      </rect>
     </property>
     <property name="font">
-     <font/>
+     <font>
+      <family>Microsoft Sans Serif</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(194, 0, 0);</string>
     </property>
     <property name="text">
      <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLineEdit" name="l_name">
@@ -197,6 +200,7 @@ background-color: rgb(85, 0, 255);}
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -227,6 +231,7 @@ color: rgb(52, 52, 52);
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -257,6 +262,7 @@ color: rgb(52, 52, 52);
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -287,6 +293,7 @@ color: rgb(52, 52, 52);
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -314,13 +321,13 @@ color: rgb(52, 52, 52);
      <rect>
       <x>420</x>
       <y>560</y>
-      <width>151</width>
-      <height>41</height>
+      <width>111</width>
+      <height>22</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>18</pointsize>
+      <family>Microsoft Sans Serif</family>
      </font>
     </property>
     <property name="styleSheet">
@@ -341,6 +348,7 @@ color: rgb(52, 52, 52);
     </property>
     <property name="font">
      <font>
+      <family>Microsoft Sans Serif</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -358,50 +366,6 @@ color: rgb(52, 52, 52);
     </property>
     <property name="placeholderText">
      <string>Email</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="message_email">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>370</y>
-      <width>271</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(194, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="message_pass">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>460</y>
-      <width>271</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(194, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
