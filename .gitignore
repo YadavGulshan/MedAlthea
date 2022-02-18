@@ -10,3 +10,4 @@ apps/examples-_
 *.sqlite3
 userName.json
 test.html
+.nvimlog
