@@ -1,4 +1,5 @@
 # importing depended modules
+from atexit import register
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
@@ -7,6 +8,7 @@ import re
 # importing LocalDb
 from Frames.functions.localdb import LocalDB
 from Frames.functions.getLogin import getTokens
+from Frames.functions.getRegister import getRegister
 
 # importing Frames
 from Frames.login import LoginFrame
@@ -58,19 +60,30 @@ if len(TOKENS) == 0:
         email_text = signUp.email.text()
         password_text = signUp.Password.text()
         c_password_text = signUp.C_Password.text()
+        checkbox=signUp.checkBox.isChecked()
+        register=getRegister()
+        userdata={}   
 
         if len(firstname_text) == 0 or len(lastname_text) == 0 or len(city_text) == 0 or len(email_text) == 0 or len(
                 password_text) == 0 or len(c_password_text) == 0:
             signUp.message.setText("All fields are required")
         else:
-            if len(password_text) > 8:
-                if password_text == c_password_text:
-                    pass
-                    print(email_text)
-                    if check(email_text):
-                        pass
-                    else:
-                        pass
+            if not(len(password_text)>=8):
+                signUp.message_pass.setText("Password must have 8 characters")
+            if not(password_text == c_password_text):
+                signUp.message_pass.setText("Password not match")
+                    
+            if not(check(email_text)):
+                signUp.message_email.setText("Enter a valid email")
+                    
+                       
+                
+                        
+            
+                    
+            
+                
+
 
 
     def check(email):
