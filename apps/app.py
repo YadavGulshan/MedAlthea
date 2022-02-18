@@ -52,9 +52,9 @@ if len(TOKENS) == 0:
 
 
     def getSignUp():
-        firstname_text = signUp.F_name.text()
-        lastname_text = signUp.l_name.text()
-        city_text = signUp.city.text()
+        firstname_text = signUp.UserName.text()
+        lastname_text = signUp.F_Name.text()
+        city_text = signUp.l_Name.text()
         email_text = signUp.email.text()
         password_text = signUp.Password.text()
         c_password_text = signUp.C_Password.text()
