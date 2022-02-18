@@ -1,6 +1,9 @@
 from requests.structures import CaseInsensitiveDict
 import requests as rs
 
+from localdb import LocalDB
+
+con = LocalDB()
 
 def makerequest(self, token, url, body):
     headers = CaseInsensitiveDict()
@@ -38,3 +41,13 @@ def getNearByShop(self, pincode):
 
 def addMedicine():
     pass
+
+def getnewtoken():
+    url = "http://localhost:8000/api/token/refresh/"
+    token = con.getRefreshToken()
+    refresh = {
+        "refresh": token[0][0] 
+    }
+    resp = rs.post(url, json=refresh)
+    con.addNewToken(resp.json().get("access"),resp.json().get("refresh"))
+    
