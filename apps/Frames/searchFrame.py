@@ -86,8 +86,8 @@ class Ui_Form(object):
         # sizePolicy.setHorizontalStretch(0)
         # sizePolicy.setVerticalStretch(0)
         # sizePolicy.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
-        self.scrollAreaWidgetContents.setSizePolicy(sizePolicy)
-        self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(0, 0))
+        # self.scrollAreaWidgetContents.setSizePolicy(sizePolicy)
+        # self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(0, 0))
         self.scrollAreaWidgetContents.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContents)
@@ -119,7 +119,6 @@ class Ui_Form(object):
         self.pushButton_3.setObjectName("pushButton_3")
         self.label_5 = QtWidgets.QLabel(self.widget_2)
         self.label_5.setGeometry(QtCore.QRect(0, 0, 301, 121))
-        self.label_5.setStyleSheet("")
         self.label_5.setObjectName("label_5")
         self.horizontalLayout.addWidget(self.widget_2)
         self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
@@ -163,7 +162,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "PharmaServices"))
-        self.label.setText(_translate("Form", "<html><head/><body><p>hmmm.. 🤔</p></body></html>"))
+        self.label.setText(_translate("Form", "<html><head/><body><p>hmm.. 🤔</p></body></html>"))
         self.lineEdit.setPlaceholderText(_translate("Form", "search......"))
         self.label_4.setText(_translate("Form", "TextLabel"))
         self.pushButton_3.setText(_translate("Form", "PushButton"))
