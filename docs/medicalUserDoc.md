@@ -89,3 +89,11 @@ For updating the medical shop details, Just  perform the `PUT` request on `/$id`
 **Deleting the Medical shop**
 
 Same as above but here, use the `DELETE` method.
+
+
+
+**Showing the medical shop owned by the user.**
+
+This could be used as the profile section or something where program will display all the medical shops registered by the user.
+
+Perform a `GET` request on `mymedical/` endpoint with the access token in the header.
