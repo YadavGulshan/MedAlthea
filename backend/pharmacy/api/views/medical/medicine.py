@@ -46,7 +46,6 @@ class MedicineViewByID(generics.CreateAPIView):
         if medical.user != request.user:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-        # medical = Medical.objects.filter(user=request.user)
         try:
             medicine = Medicine.objects.get(pk=pk)
         except Medicine.DoesNotExist:
