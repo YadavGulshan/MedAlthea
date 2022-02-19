@@ -96,7 +96,11 @@ ____
 > **401 Unauthorized** for unauthenticated login request.
 > 
 > > ```json
-> > 
+> > {
+> >   "detail": "No active account found with the given credentials"
+> > }
 > > ```
-> > 
-> > 
+
+___
+
+_
