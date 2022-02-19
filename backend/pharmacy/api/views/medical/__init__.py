@@ -10,10 +10,13 @@
 
 __all__ = ["Medical"]
 
+from pharmacy.api.views.medical.medicine import MedicineViewByID, MedicineViewList
 from .list import MedicalViewList
 from .search import MedicalSearch
 from .views import MedicalView
 
 
-class Medical(MedicalView, MedicalSearch, MedicalViewList):
+class Medical(
+    MedicalView, MedicalSearch, MedicalViewList, MedicineViewList, MedicineViewByID
+):
     """views.medical"""

@@ -15,15 +15,17 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from pharmacy.api.views import userActions, medicine, medical, mapper
+from pharmacy.api.views.medical.medicine import MedicineViewByID
 from pharmacy.api.views.medical.user import MyMedical
 
 urlpatterns = [
-
     # For getting the api view: i.e medical list and all
     path("", medical.MedicalViewList.as_view(), name="get"),
     path("<int:pk>/", medical.MedicalView.as_view(), name="get"),
     path("search/", medical.MedicalSearch.as_view(), name="search"),
     path("mymedical/", MyMedical.as_view(), name="mymedical"),
+    # For getting the list of medicine in specific medical
+    path("mymedical/<int:pk>/", MedicineViewByID.as_view(), name="mymedicalMedicne"),
     # For medicine
     path("medicine/", medicine.MedicineViewList.as_view(), name="get"),
     path("medicine/search/", medicine.MedicineSearch.as_view(), name="search"),
