@@ -54,27 +54,56 @@ if len(TOKENS) == 0:
 
 
     def getSignUp():
-        firstname_text = signUp.UserName.text()
-        lastname_text = signUp.F_Name.text()
-        city_text = signUp.l_Name.text()
+        username_text = signUp.UserName.text()
+        firstname_text = signUp.F_Name.text()
+        lastname_text = signUp.l_Name.text()
         email_text = signUp.email.text()
         password_text = signUp.Password.text()
         c_password_text = signUp.C_Password.text()
         checkbox=signUp.checkBox.isChecked()
         register=getRegister()
-        userdata={}   
+        valid = False  
 
-        if len(firstname_text) == 0 or len(lastname_text) == 0 or len(city_text) == 0 or len(email_text) == 0 or len(
+        if len(firstname_text) == 0 or len(lastname_text) == 0 or len(username_text) == 0 or len(email_text) == 0 or len(
                 password_text) == 0 or len(c_password_text) == 0:
             signUp.message.setText("All fields are required")
         else:
             if not(len(password_text)>=8):
                 signUp.message_pass.setText("Password must have 8 characters")
+                valid=False
+
+            else:
+                signUp.message_pass.setText("")
+                valid=True
             if not(password_text == c_password_text):
                 signUp.message_pass.setText("Password not match")
-                    
+                valid=False
+
+            else:
+                signUp.message_pass.setText("") 
+                valid=True      
             if not(check(email_text)):
                 signUp.message_email.setText("Enter a valid email")
+                valid=False
+            else:
+                signUp.message_email.setText("") 
+                valid=True  
+        if valid:
+            userdetails={
+                
+    "username": username_text,
+    "password":password_text,
+    "password2": password_text,
+    "email": email_text,
+    "first_name": firstname_text,
+    "last_name": lastname_text
+
+            }
+            getRegister.userLogin(userdetails)
+            openLogin()
+
+            
+
                     
                        
                 
