@@ -14,14 +14,13 @@ import DateTime
 
 class Ui_Form(object):
     def __init__(self):
-        db = LocalDB()
-        tokens = db.getTokens()
+        self.db = LocalDB()
+        tokens = self.db.getTokens()
         rLastUsed = DateTime.DateTime(tokens[0][1])
         print(rLastUsed)
         today = DateTime.DateTime()
         print(today)
-        day = today - rLastUsed
-        print(day)
+        self.day = today - rLastUsed
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
