@@ -42,6 +42,9 @@ class Medical(models.Model):
 class Medicine(models.Model):
     medicalId = models.ForeignKey("Medical", on_delete=models.CASCADE)
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    medicineId = models.AutoField(
+        auto_created=True, serialize=False, verbose_name="ID", primary_key=True
+    )
     createdAt = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=100)

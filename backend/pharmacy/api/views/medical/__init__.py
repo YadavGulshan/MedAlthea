@@ -10,10 +10,19 @@
 
 __all__ = ["Medical"]
 
+from .medicine import MedicineViewByID, MedicineViewList
+from .user import MyMedical
 from .list import MedicalViewList
 from .search import MedicalSearch
 from .views import MedicalView
 
 
-class Medical(MedicalView, MedicalSearch, MedicalViewList):
+class Medical(
+    MedicalView,
+    MedicalSearch,
+    MedicalViewList,
+    MedicineViewList,
+    MedicineViewByID,
+    MyMedical,
+):
     """views.medical"""
