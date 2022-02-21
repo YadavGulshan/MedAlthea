@@ -4,13 +4,15 @@
 
 **Note:** API endpoints starts with `/api/`
 
-**Table of Content**
-    - [Listing Medical Shops](#listing-medical-shops)
-    - [Add Medical Shop](#add-medical-shop)
-    - [Listing the owners medical shops](#listing-the-owners-medical-shops)
-    - [Updating the medical shop details](#updating-the-medical-shop-details)
-    - [Deleting the Medical shop](#deleting-the-medical-shop)
-- [Getting the list of nearby medical shops](#getting-the-list-of-nearby-medical-shops)
+**Table of Content:**
+
+  - [Listing Medical Shops](#listing-medical-shops)
+  - [Listing Medical Shops](#listing-medical-shops)
+  - [Add Medical Shop](#add-medical-shop)
+  - [Listing the owners medical shops](#listing-the-owners-medical-shops)
+  - [Updating the medical shop details](#updating-the-medical-shop-details)
+  - [Deleting the Medical shop](#deleting-the-medical-shop)
+  - [Getting the list of nearby medical shops](#getting-the-list-of-nearby-medical-shops)
 ### Listing Medical Shops
 
 Use `/`, i.e. http://yourdomain.com/api/ with access token in the header.
