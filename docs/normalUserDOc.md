@@ -4,6 +4,12 @@
 
 **Note:** All the doc related to auth is valid here too.
 
+**Table of Content:**
+  - [Getting the list of all the medicines](#getting-the-list-of-all-the-medicines)
+  - [Getting the list of medicine in nearby shops](#getting-the-list-of-medicine-in-nearby-shops)
+  - [Creating Medicine](#creating-medicine)
+  - [Updating Medicine](#updating-medicine)
+  - [Deleting Medicine](#deleting-medicine)
 ### Getting the list of all the medicines
 
 Perform a `GET` request on `medicine/` enpoint.
