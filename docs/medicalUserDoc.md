@@ -21,8 +21,6 @@ Use `/`, i.e. http://yourdomain.com/api/ with access token in the header.
 > payload = ""
 > 
 > response = requests.request("GET", reqUrl, data=payload,  headers=headersList)
-> 
-> 
 > ```
 > 
 > **Possible response:**
@@ -75,7 +73,6 @@ Perform a `POST` request on `/` endpoint with the details.
 > })
 > 
 > response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
-> 
 > ```
 > 
 > **Response:**
@@ -119,8 +116,6 @@ headersList = {
 payload = ""
 
 response = requests.request("GET", reqUrl, data=payload,  headers=headersList)
-
-
 ```
 
 > **Example response:**
@@ -176,7 +171,6 @@ payload = json.dumps({
   })
 
 response = requests.request("GET", reqUrl, data=payload,  headers=headersList)
-
 ```
 
 > **Example Response:**
@@ -234,7 +228,6 @@ payload = json.dumps({
   })
 
 response = requests.request("DELETE", reqUrl, data=payload,  headers=headersList)
-
 ```
 
 > **Expected response:**
@@ -245,35 +238,4 @@ response = requests.request("DELETE", reqUrl, data=payload,  headers=headersList
 > "Deleted"
 > ```
 
-
-
-### Adding Medicines
-
-`medicine/` This route will help you in getting the list of medicine in the whole marketplace and adding them.
-
-To add a Medicine, perform a `POST` request on this route with your access token. And remember that the user should own a medical shop.
-
-**Example Code:**
-
-```python
-import requests
-
-reqUrl = "http://127.0.0.1:8000/api/medicine/"
-
-headersList = {
- "Authorization": "Bearer GciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ1NDYwNjY1LCJpYXQiOjE2NDU0NTg4NjUsImp0aSI6Ijg3MTEzYzMzYjlkNTQyZWQ4OTY5NDBmZDQzNDg5MGY2IiwidXNlcl9pZCI6OCwidXNlcm5hbWUiOiJBVW5pcXVlVXNlcm5hbWVPZk1lZGljYWxTaG9wT3duZXIiLCJlbWFpbCI6ImV4YW1wbGUyQGVtYWlsLmNvbSJ9.ujd0vN92iVp4qyZSNA0-SsPAagXQ-QaXtx8Ue1wQWOo",
- "Content-Type": "application/json" 
-}
-
-payload = json.dumps({
-  "name": "DOLO650",
-  "description": "Best for your headache after checking some rust code",
-  "price": 32,
-  "quantity": 100,
-  "medicalId": 1
-})
-
-response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
-
-
-```
+# 
