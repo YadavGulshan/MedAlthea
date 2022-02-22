@@ -36,8 +36,9 @@ class MedicineView(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, pk):
         medicine = self.getObject(pk)
-        # Print the medicine details
-        print(medicine[0].name)
+        # Using a work around.... Attention needed here!!!
+        if len(medicine) == 0:
+            return Response("HTTP 404 Not Found", status=status.HTTP_404_NOT_FOUND)
         # Ensure that the user is the owner of the medicine
         if medicine[0].user.id != request.user.id:
             return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
