@@ -36,11 +36,23 @@ class MedicineView(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, pk):
         medicine = self.getObject(pk)
+        # Print the medicine details
+        print(medicine[0].name)
         # Ensure that the user is the owner of the medicine
         if medicine[0].user.id != request.user.id:
             return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
-        serializer = MedicineSerializer(medicine, data=request.data)
+        serializer = MedicineSerializer(medicine[0], data=request.data)
+
+        # Update the user to the logged in user
+        serializer.initial_data["user"] = request.user.id
+
+        # Make serializer mutable
+        # serializer.initial_data = serializer.initial_data.copy()
+        # Set the user to the logged in user
+        # serializer.initial_data["user"] = request.user.id
         if serializer.is_valid():
+            # Print all the data
+            # print(serializer.data)
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

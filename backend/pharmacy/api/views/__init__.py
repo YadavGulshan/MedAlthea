@@ -10,5 +10,5 @@
 
 
 from .medical import Medical
-from .medicine import Medicine
+from .medicine import MedicineClass
 from .userActions import UserAction
