@@ -70,7 +70,9 @@ ____
 ### Deleting Medicine
 
 ____
+### Searching the medicine
 
+____
+# Searching the medicine according to user's pincode
 
-
-
+___

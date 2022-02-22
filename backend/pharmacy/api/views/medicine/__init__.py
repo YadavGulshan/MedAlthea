@@ -13,8 +13,7 @@ __all__ = ["Medicine"]
 
 from .list import MedicineViewList
 from .search import MedicineSearch
-from .views import Medicine
+from .views import MedicineView
 
-
-class MedicineClass(MedicineViewList, MedicineSearch, Medicine):
+class MedicineClass(MedicineViewList, MedicineSearch, MedicineView):
     """view.medicine"""
