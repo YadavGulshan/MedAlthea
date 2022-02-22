@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import re
+from .functions.getData import checkAvailableUser
 
 
 class signUpFrame(object):
@@ -14,9 +15,8 @@ class signUpFrame(object):
         self.Title.setGeometry(QtCore.QRect(390, 180, 151, 61))
         font = QtGui.QFont()
         font.setPointSize(28)
-        font.setBold(True)
         self.Title.setFont(font)
-        self.Title.setStyleSheet("color: rgb(0, 0, 0);")
+        self.Title.setStyleSheet("color: rgb(0, 0, 0);font-weight:bold;")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
         self.Password = QtWidgets.QLineEdit(self.widget)
@@ -36,7 +36,6 @@ class signUpFrame(object):
         self.Password.setObjectName("Password")
         self.LoginIn_button = QtWidgets.QPushButton(self.widget)
         self.LoginIn_button.setGeometry(QtCore.QRect(310, 620, 321, 41))
-
         font.setPointSize(12)
         self.LoginIn_button.setFont(font)
         self.LoginIn_button.setStyleSheet("*{border-radius:20px;\n"
@@ -105,8 +104,15 @@ class signUpFrame(object):
                                     "")
         self.UserName.setText("")
         self.UserName.setObjectName("F_name")
+        self.message_username = QtWidgets.QLabel(self.widget)
+        self.message_username.setGeometry(QtCore.QRect(110, 370, 271, 16))
+        self.message_username.setStyleSheet("color: rgb(194, 0, 0);")
+        self.message_username.setText("")
+        self.message_username.setAlignment(QtCore.Qt.AlignCenter)
+        self.message_username.setObjectName("message_username")
+
         self.l_Name = QtWidgets.QLineEdit(self.widget)
-        self.l_Name.setGeometry(QtCore.QRect(120, 490, 330, 50))
+        self.l_Name.setGeometry(QtCore.QRect(110, 490, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.l_Name.setFont(font)
@@ -230,6 +236,14 @@ class signUpFrame(object):
             else:
                 self.message_email.setText("")
                 valid = True
+            reply = checkAvailableUser(self.username_text)
+            if reply.status_code == 200:
+                self.message_username.setText("")
+                valid = True
+            else:
+                self.message_username.setText("username already exist")
+                valid = False
+        return valid
 
     def check(self):
         regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')

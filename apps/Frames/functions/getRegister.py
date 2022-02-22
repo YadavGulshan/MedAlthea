@@ -7,8 +7,9 @@ def userLogin(userDetails):
 
     response = rs.post(registerUrl, json=userDetails)
     res = response.json()
-    if response.status_code == 200:
+    if response.status_code == 201:
         print("register success")
+        return response
     elif response.status_code == 400:
         print("sorry something went wrong!!")
     else:
