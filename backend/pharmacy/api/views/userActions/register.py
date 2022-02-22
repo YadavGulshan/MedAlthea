@@ -30,10 +30,18 @@ class Register(generics.CreateAPIView):
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
+        
         if serializer.is_valid():
             account = serializer.save()
-            account.set_active = True
+            if "isStaff" not in request.data:
+                account.is_staff = False
+            
+            if "isStaff" in request.data:
+                if request.data["isStaff"]:
+                    account.is_staff = True
 
+            account.save()
+           
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
