@@ -192,6 +192,10 @@ Remember that you need to proved the access token, else backend won't allow you 
 **Noticed Bug:**
 
 > When you'll try updating the medicine which doesn't exist, backend gives you a 500 response.
+> 
+> > Fixes applied for now:
+> > 
+> > [Bug Fixes!! by YadavGulshan · Pull Request #47 · YadavGulshan/MedAlthea · GitHub](https://github.com/YadavGulshan/MedAlthea/pull/47/commits/26c85e7ca3332652a1c8576abde92fed604f7067)
 
 ____
 
