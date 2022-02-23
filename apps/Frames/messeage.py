@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class UI_Message(object):
     def setupUi(self, Dialog, text):
+        self.text = text
         Dialog.setObjectName("Dialog")
         Dialog.resize(900, 850)
         self.widget = QtWidgets.QWidget(Dialog)
@@ -29,4 +30,4 @@ class UI_Message(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label.setText(_translate("Dialog", "TextLabel"))
+        self.label.setText(_translate("Dialog", self.text))

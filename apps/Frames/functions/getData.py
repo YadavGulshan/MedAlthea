@@ -1,4 +1,4 @@
-import DateTime
+import datetime
 from requests.structures import CaseInsensitiveDict
 import requests as rs
 
@@ -11,14 +11,17 @@ headers["Accept"] = "application/json"
 
 
 def is_valid(time):
-    lastUsed = DateTime.DateTime(time)
-    today = DateTime.DateTime()
-    day = lastUsed-today
-    minutes = day * 60
+    lastUsed = datetime.datetime.strptime(time, "%Y-%m-%d %H:%M:%S.%f")
+    today = datetime.datetime.now()
+    print(today, lastUsed)
+    day = today - lastUsed
+    minutes = day
     print(minutes)
-    if minutes > 30:
+    if minutes > datetime.timedelta(minutes=30):
         getNewToken()
         print("get new token")
+    else:
+        print("valid")
 
 
 def makeGetRequest(url, body):
@@ -90,7 +93,8 @@ def getNewToken():
 
 def allMedicalShop():
     resp = makeGetRequest(API + "/", {})
-    if resp.status_code == 401:
-        print("something went wrong")
-    else:
+    print(resp)
+    if resp.status_code == 200:
         return resp
+    else:
+        print("Error")

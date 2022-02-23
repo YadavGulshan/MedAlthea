@@ -45,8 +45,11 @@ font-weight: 600;</string>
       <height>521</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>welcome</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

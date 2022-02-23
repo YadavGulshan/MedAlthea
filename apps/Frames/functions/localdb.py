@@ -1,5 +1,5 @@
 import sqlite3
-from DateTime import DateTime
+from datetime import datetime
 
 
 class LocalDB:
@@ -17,7 +17,7 @@ class LocalDB:
         self.cur.execute("""DELETE FROM tokens""")
         self.cur.execute(
             "INSERT INTO tokens VALUES (?,?, ?, ?)",
-            (refresh, DateTime(), access, DateTime()),
+            (refresh, datetime.now(), access, datetime.now()),
         )
         self.con.commit()
         print("Token Added! ✅")

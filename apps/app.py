@@ -4,7 +4,7 @@ from atexit import register
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
-import re
+import DateTime
 
 # importing LocalDb
 from Frames.functions.localdb import LocalDB
@@ -15,123 +15,143 @@ from Frames.functions.getRegister import userLogin
 from Frames.login import LoginFrame
 from Frames.searchFrame import Ui_Form
 from Frames.signUp import signUpFrame
-from Frames.messeage import UI_Message
-
-# initializing GUI application
-app = QApplication(sys.argv)
-widget = QtWidgets.QStackedWidget()
-
-# ---------- Creating .sqlit3 file in apps folder and making connection to local db --------#
-
-# Crating object of local DB
-
-DB = LocalDB()
-"""
-    Here in Local we Have our tokens
-    At first index we have refresh token
-    At second index we have date and time of refresh token Last used
-    At Third index we have Access token
-    At Fourth index we have date and time of access token Last used
-"""
-TOKENS = DB.getTokens()
+from Frames.message import UI_Message
 
 
-# checking weather the user already login or not
-messageScreen = QtWidgets.QWidget()
-message = UI_Message()
-def showMessage(text):
-
-    message.setupUi(messageScreen, text)
-    print("display")
-    widget.addWidget(messageScreen)
-    print("remove")
 
 
-def openSearchScreen():
-    searchScreen = QtWidgets.QDialog()
-    search = Ui_Form()
-    search.setupUi(searchScreen)
-    if search.day < 90:
-        showMessage("Welcome Back!!")
-        widget.addWidget(searchScreen)
-        widget.removeWidget(loginScreen)
-    else:
-        widget.removeWidget(searchScreen)
-        showMessage("Session time Out!!")
+
+class app:
+    """
+        Here in Local we Have our tokens
+        At first index we have refresh token
+        At second index we have date and time of refresh token Last used
+        At Third index we have Access token
+        At Fourth index we have date and time of access token Last used
+    """
+
+    def __init__(self, widget):
+        # ---------- Creating .sqlit3 file in apps folder and making connection to local db --------#
+        # Crating object of local DB
+        self.signUpScreen = QtWidgets.QDialog()
+        self.loginScreen = QtWidgets.QDialog()
+        self.messageScreen = QtWidgets.QWidget()
+        self.searchScreen = QtWidgets.QDialog()
+        DB = LocalDB()
+        self.TOKENS = DB.getTokens()
+        self.widget = widget
+
+    # checking weather the user already login or not
+    def showMessage(self, text):
+        self.message = UI_Message()
+        self.message.setupUi(self.messageScreen, text)
+        print("display")
+        self.widget.addWidget(self.messageScreen)
         time.sleep(2)
-        widget.removeWidget(messageScreen)
-        widget.addWidget(loginScreen)
+        self.widget.removeWidget(self.messageScreen)
+        print("remove")
 
+    def openSearchScreen(self):
+        self.search = Ui_Form()
+        self.search.setupUi(self.searchScreen)
+        self.widget.addWidget(self.searchScreen)
+        self.widget.removeWidget(self.loginScreen)
+        print("search page")
 
-# initializing login screen
-loginScreen = QtWidgets.QDialog()
-login = LoginFrame()
-login.setupUi(loginScreen)
+    def gotoLogin(self):
+        self.widget.removeWidget(self.signUpScreen)
+        self.widget.addWidget(self.loginScreen)
+        print("login page")
 
-# initializing signup screen
-signUpScreen = QtWidgets.QDialog()
-signUp = signUpFrame()
-signUp.setupUi(signUpScreen)
+    def openLogin(self):
+        # initializing login screen
+        self.login = LoginFrame()
+        self.login.setupUi(self.loginScreen)
+        self.widget.addWidget(self.loginScreen)
+        self.widget.removeWidget(self.searchScreen)
+        self.login.SignIn_button.clicked.connect(self.getLogin)
+        self.login.signup.clicked.connect(self.openSignUp)
+        print("login page")
 
+    def openSignUp(self):
+        # initializing signup screen
+        self.signUp = signUpFrame()
+        self.signUp.setupUi(self.signUpScreen)
+        self.widget.removeWidget(self.loginScreen)
+        self.widget.addWidget(self.signUpScreen)
+        self.signUp.LoginIn_button.clicked.connect(self.checkValidation)
+        self.signUp.login.clicked.connect(self.gotoLogin)
+        print("signup page")
 
-def gotoLogin():
-    widget.removeWidget(signUpScreen)
-    widget.addWidget(loginScreen)
+    def checkValidation(self):
+        if self.signUp.getSignUp():
+            userDetails = {
+                "username": self.signUp.username_text,
+                "password": self.signUp.password_text,
+                "password2": self.signUp.password_text,
+                "email": self.signUp.email_text,
+                "first_name": self.signUp.firstname_text,
+                "last_name": self.signUp.lastname_text
+            }
+            status = userLogin(userDetails)
+            if status.status_code == 201:
+                self.gotoLogin()
+                print("login page")
 
-
-def openLogin():
-    widget.addWidget(loginScreen)
-
-
-def openSignUp():
-    widget.removeWidget(loginScreen)
-    widget.addWidget(signUpScreen)
-
-
-def checkValidation():
-    if signUp.getSignUp():
-        userDetails = {
-            "username": signUp.username_text,
-            "password": signUp.password_text,
-            "password2": signUp.password_text,
-            "email": signUp.email_text,
-            "first_name": signUp.firstname_text,
-            "last_name": signUp.lastname_text
-        }
-        status = userLogin(userDetails)
-        if status.status_code == 201:
-            openLogin()
-
-
-def getLogin():
-    username_text = login.UserName.text()
-    password_text = login.Password.text()
-    if len(username_text) == 0 or len(password_text) == 0:
-        login.message.setText("All Field are required!")
-    else:
-        login.message.setText("")
-        token = getTokens(username_text, password_text)
-        if token == 200:
-            print("success!")
-            openSearchScreen()
+    def getLogin(self):
+        username_text = self.login.UserName.text()
+        password_text = self.login.Password.text()
+        if len(username_text) == 0 or len(password_text) == 0:
+            self.login.message.setText("All Field are required!")
         else:
-            print(token)
-            login.message.setText("UserName Or Password is incorrect ")
+            self.login.message.setText("")
+            token = getTokens(username_text, password_text)
+            if token == 200:
+                print("success!")
+                self.openSearchScreen()
+            else:
+                print(token)
+                self.login.message.setText("UserName Or Password is incorrect ")
+
+    def setDimension(self):
+        self.widget.setFixedWidth(900)
+        self.widget.setFixedHeight(850)
+        self.widget.show()
+
+    def isRefreshValid(self):
+        self.db = LocalDB()
+        tokens = self.db.getTokens()
+        refreshLastUsed = DateTime.DateTime(tokens[0][1])
+        today = DateTime.DateTime()
+        self.month = refreshLastUsed - today
+        if self.month > 90:
+            return False
+        else:
+            return True
+
+    def welcome(self):
+        self.showMessage("Welcome Back!!")
+
+    def sessionsExpired(self):
+        self.showMessage("Session time Out!!")
 
 
-# adding click events to buttons
-login.SignIn_button.clicked.connect(getLogin)
-login.signup.clicked.connect(openSignUp)
-signUp.LoginIn_button.clicked.connect(checkValidation)
-signUp.login.clicked.connect(gotoLogin)
+if __name__ == '__main__':
+    # initializing GUI application
+    App = QApplication(sys.argv)
+    widget = QtWidgets.QStackedWidget()
 
-if len(TOKENS) == 0:
-    openLogin()
-else:
-    openSearchScreen()
+    app = app(widget)
 
-# set height and width
-widget.setFixedWidth(900)
-widget.setFixedHeight(850)
-widget.show()
-sys.exit(app.exec_())
+    if len(app.TOKENS) == 0:
+        app.openLogin()
+    else:
+        if app.isRefreshValid():
+            app.welcome()
+            app.openSearchScreen()
+        else:
+            app.sessionsExpired()
+            app.openLogin()
+    app.setDimension()
+
+    sys.exit(App.exec_())
