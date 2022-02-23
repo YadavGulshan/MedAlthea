@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import re
+from .functions.getData import checkAvailableUser
 
 
 class signUpFrame(object):
@@ -10,17 +12,16 @@ class signUpFrame(object):
         self.widget.setStyleSheet("background-color :rgb(255, 255, 255)")
         self.widget.setObjectName("widget")
         self.Title = QtWidgets.QLabel(self.widget)
-        self.Title.setGeometry(QtCore.QRect(400, 180, 151, 61))
+        self.Title.setGeometry(QtCore.QRect(390, 180, 151, 61))
         font = QtGui.QFont()
         font.setPointSize(28)
-        font.setBold(True)
         self.Title.setFont(font)
-        self.Title.setStyleSheet("color: rgb(0, 0, 0);")
+        self.Title.setStyleSheet("color: rgb(0, 0, 0);font-weight:bold;")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
         self.Password = QtWidgets.QLineEdit(self.widget)
-        self.Password.setGeometry(QtCore.QRect(500, 400, 331, 50))
-        font = QtGui.QFont()
+        self.Password.setGeometry(QtCore.QRect(490, 400, 331, 50))
+
         font.setPointSize(18)
         self.Password.setFont(font)
         self.Password.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
@@ -35,15 +36,14 @@ class signUpFrame(object):
         self.Password.setObjectName("Password")
         self.LoginIn_button = QtWidgets.QPushButton(self.widget)
         self.LoginIn_button.setGeometry(QtCore.QRect(310, 620, 321, 41))
-        font = QtGui.QFont()
         font.setPointSize(12)
         self.LoginIn_button.setFont(font)
         self.LoginIn_button.setStyleSheet("*{border-radius:20px;\n"
-                                         "color: rgb(255, 255, 255);\n"
-                                         "background-color: rgb(85, 0, 255);}\n"
-                                         "*:hover{\n"
-                                         "    background-color: rgb(85, 85, 255);\n"
-                                         "}")
+                                          "color: rgb(255, 255, 255);\n"
+                                          "background-color: rgb(85, 0, 255);}\n"
+                                          "*:hover{\n"
+                                          "    background-color: rgb(85, 85, 255);\n"
+                                          "}")
         self.LoginIn_button.setObjectName("SignIn_button")
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setEnabled(True)
@@ -56,17 +56,17 @@ class signUpFrame(object):
         self.label_4.setObjectName("label_4")
         self.login = QtWidgets.QPushButton(self.widget)
         self.login.setGeometry(QtCore.QRect(500, 680, 121, 41))
-        font = QtGui.QFont()
+
         font.setPointSize(9)
         font.setBold(False)
         self.login.setFont(font)
         self.login.setStyleSheet("*{border-radius:20px;\n"
-                                  "border:none;\n"
-                                  "color: rgb(255, 255, 255);\n"
-                                  "background-color: rgb(85, 0, 255);}\n"
-                                  "*:hover{\n"
-                                  "    background-color: rgb(85, 85, 255);\n"
-                                  "}")
+                                 "border:none;\n"
+                                 "color: rgb(255, 255, 255);\n"
+                                 "background-color: rgb(85, 0, 255);}\n"
+                                 "*:hover{\n"
+                                 "    background-color: rgb(85, 85, 255);\n"
+                                 "}")
         self.login.setObjectName("signup")
         self.message = QtWidgets.QLabel(self.widget)
         self.message.setGeometry(QtCore.QRect(340, 600, 271, 16))
@@ -77,7 +77,7 @@ class signUpFrame(object):
         self.message.setAlignment(QtCore.Qt.AlignCenter)
         self.message.setObjectName("message")
         self.F_Name = QtWidgets.QLineEdit(self.widget)
-        self.F_Name.setGeometry(QtCore.QRect(120, 400, 330, 50))
+        self.F_Name.setGeometry(QtCore.QRect(110, 400, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.F_Name.setFont(font)
@@ -91,35 +91,42 @@ class signUpFrame(object):
         self.F_Name.setText("")
         self.F_Name.setObjectName("l_name")
         self.UserName = QtWidgets.QLineEdit(self.widget)
-        self.UserName.setGeometry(QtCore.QRect(120, 310, 330, 50))
+        self.UserName.setGeometry(QtCore.QRect(110, 310, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.UserName.setFont(font)
         self.UserName.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+                                    "border-radius:20px;\n"
+                                    "border:2px solid black;\n"
+                                    "padding:10px;\n"
+                                    "color: rgb(52, 52, 52);\n"
+                                    "\n"
+                                    "")
+        self.UserName.setText("")
+        self.UserName.setObjectName("F_name")
+        self.message_username = QtWidgets.QLabel(self.widget)
+        self.message_username.setGeometry(QtCore.QRect(110, 370, 271, 16))
+        self.message_username.setStyleSheet("color: rgb(194, 0, 0);")
+        self.message_username.setText("")
+        self.message_username.setAlignment(QtCore.Qt.AlignCenter)
+        self.message_username.setObjectName("message_username")
+
+        self.l_Name = QtWidgets.QLineEdit(self.widget)
+        self.l_Name.setGeometry(QtCore.QRect(110, 490, 330, 50))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.l_Name.setFont(font)
+        self.l_Name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                   "border-radius:20px;\n"
                                   "border:2px solid black;\n"
                                   "padding:10px;\n"
                                   "color: rgb(52, 52, 52);\n"
                                   "\n"
                                   "")
-        self.UserName.setText("")
-        self.UserName.setObjectName("F_name")
-        self.l_Name = QtWidgets.QLineEdit(self.widget)
-        self.l_Name.setGeometry(QtCore.QRect(120, 490, 330, 50))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.l_Name.setFont(font)
-        self.l_Name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
-                                "border-radius:20px;\n"
-                                "border:2px solid black;\n"
-                                "padding:10px;\n"
-                                "color: rgb(52, 52, 52);\n"
-                                "\n"
-                                "")
         self.l_Name.setText("")
         self.l_Name.setObjectName("city")
         self.C_Password = QtWidgets.QLineEdit(self.widget)
-        self.C_Password.setGeometry(QtCore.QRect(500, 490, 331, 50))
+        self.C_Password.setGeometry(QtCore.QRect(490, 490, 331, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.C_Password.setFont(font)
@@ -134,7 +141,7 @@ class signUpFrame(object):
         self.C_Password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.C_Password.setObjectName("C_Password")
         self.checkBox = QtWidgets.QCheckBox(self.widget)
-        self.checkBox.setGeometry(QtCore.QRect(420, 560, 151, 41))
+        self.checkBox.setGeometry(QtCore.QRect(410, 560, 151, 41))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.checkBox.setFont(font)
@@ -193,3 +200,54 @@ class signUpFrame(object):
         self.C_Password.setPlaceholderText(_translate("signUp", "Confirm Password"))
         self.checkBox.setText(_translate("signUp", "Have A Shop ?"))
         self.email.setPlaceholderText(_translate("signUp", "Email"))
+
+    def getSignUp(self):
+        self.username_text = self.UserName.text()
+        self.firstname_text = self.F_Name.text()
+        self.lastname_text = self.l_Name.text()
+        self.email_text = self.email.text()
+        self.password_text = self.Password.text()
+        self.c_password_text = self.C_Password.text()
+        self.checkbox = self.checkBox.isChecked()
+
+        valid = False
+
+        if len(self.firstname_text) == 0 or len(self.lastname_text) == 0 or len(self.username_text) == 0 or len(
+                self.email_text) == 0 or len(self.password_text) == 0 or len(self.c_password_text) == 0:
+            self.message.setText("All fields are required")
+        else:
+            if not (len(self.password_text) >= 8):
+                self.message_pass.setText("Password must have 8 characters")
+                valid = False
+
+            else:
+                self.message_pass.setText("")
+                valid = True
+            if not (self.password_text == self.c_password_text):
+                self.message_pass.setText("Password not match")
+                valid = False
+
+            else:
+                self.message_pass.setText("")
+                valid = True
+            if not (self.check()):
+                self.message_email.setText("Enter a valid email")
+                valid = False
+            else:
+                self.message_email.setText("")
+                valid = True
+            reply = checkAvailableUser(self.username_text)
+            if reply.status_code == 200:
+                self.message_username.setText("")
+                valid = True
+            else:
+                self.message_username.setText("username already exist")
+                valid = False
+        return valid
+
+    def check(self):
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        if re.fullmatch(regex, self.email_text):
+            return True
+        else:
+            return False

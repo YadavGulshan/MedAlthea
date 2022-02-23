@@ -8,7 +8,7 @@ import re
 # importing LocalDb
 from Frames.functions.localdb import LocalDB
 from Frames.functions.getLogin import getTokens
-from Frames.functions.getRegister import getRegister
+from Frames.functions.getRegister import userLogin
 
 # importing Frames
 from Frames.login import LoginFrame
@@ -24,136 +24,96 @@ widget = QtWidgets.QStackedWidget()
 # Crating object of local DB
 
 DB = LocalDB()
-
-# Here in Local we Have our tokens
-# At first index we have refresh token
-# At second index we have date and time of refresh token Last used
-# At Third index we have Access token
-# At Fourth index we have date and time of access token Last used
-
+'''
+    Here in Local we Have our tokens
+    At first index we have refresh token
+    At second index we have date and time of refresh token Last used
+    At Third index we have Access token
+    At Fourth index we have date and time of access token Last used
+'''
 TOKENS = DB.getTokens()
+
+
 # checking weather the user already login or not
 
-if len(TOKENS) == 0:
 
-    # initializing login screen
-    loginScreen = QtWidgets.QDialog()
-    login = LoginFrame()
-    login.setupUi(loginScreen)
-    widget.addWidget(loginScreen)
-
-    # initializing signup screen
-    signUpScreen = QtWidgets.QDialog()
-    signUp = signUpFrame()
-    signUp.setupUi(signUpScreen)
-
-
-    def openLogin():
-        widget.removeWidget(signUpScreen)
-        widget.addWidget(loginScreen)
-
-
-    def getSignUp():
-        username_text = signUp.UserName.text()
-        firstname_text = signUp.F_Name.text()
-        lastname_text = signUp.l_Name.text()
-        email_text = signUp.email.text()
-        password_text = signUp.Password.text()
-        c_password_text = signUp.C_Password.text()
-        checkbox=signUp.checkBox.isChecked()
-        register=getRegister()
-        valid = False  
-
-        if len(firstname_text) == 0 or len(lastname_text) == 0 or len(username_text) == 0 or len(email_text) == 0 or len(
-                password_text) == 0 or len(c_password_text) == 0:
-            signUp.message.setText("All fields are required")
-        else:
-            if not(len(password_text)>=8):
-                signUp.message_pass.setText("Password must have 8 characters")
-                valid=False
-
-            else:
-                signUp.message_pass.setText("")
-                valid=True
-            if not(password_text == c_password_text):
-                signUp.message_pass.setText("Password not match")
-                valid=False
-
-            else:
-                signUp.message_pass.setText("") 
-                valid=True      
-            if not(check(email_text)):
-                signUp.message_email.setText("Enter a valid email")
-                valid=False
-            else:
-                signUp.message_email.setText("") 
-                valid=True  
-        if valid:
-            userdetails={
-                
-    "username": username_text,
-    "password":password_text,
-    "password2": password_text,
-    "email": email_text,
-    "first_name": firstname_text,
-    "last_name": lastname_text
-
-            }
-            getRegister.userLogin(userdetails)
-            openLogin()
-
-            
-
-                    
-                       
-                
-                        
-            
-                    
-            
-                
-
-
-
-    def check(email):
-        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
-
-        if re.fullmatch(regex, email):
-            return True
-        else:
-            return False
-
-
-    def openSignUp():
-        widget.removeWidget(loginScreen)
-        widget.addWidget(signUpScreen)
-
-
-    def getLogin():
-        username_text = login.UserName.text()
-        password_text = login.Password.text()
-        if len(username_text) == 0 or len(password_text) == 0:
-            login.message.setText("All Field are required!")
-        else:
-            login.message.setText("")
-            token = getTokens(username_text, password_text)
-            if token.status_code == 200:
-                print("success!")
-            else:
-                login.message.setText("UserName Or Password is incorrect ")
-
-
-    # adding click events to buttons
-    login.SignIn_button.clicked.connect(getLogin)
-    login.signup.clicked.connect(openSignUp)
-    signUp.LoginIn_button.clicked.connect(getSignUp)
-    signUp.login.clicked.connect(openLogin)
-
-else:
+def openSearchScreen():
     searchScreen = QtWidgets.QDialog()
     search = Ui_Form()
     search.setupUi(searchScreen)
-    widget.addWidget(searchScreen)
+    print(search.day)
+    if search.day < 90:
+        widget.addWidget(searchScreen)
+        widget.removeWidget(loginScreen)
+    else:
+        widget.addWidget(loginScreen)
+
+
+# initializing login screen
+loginScreen = QtWidgets.QDialog()
+login = LoginFrame()
+login.setupUi(loginScreen)
+
+# initializing signup screen
+signUpScreen = QtWidgets.QDialog()
+signUp = signUpFrame()
+signUp.setupUi(signUpScreen)
+
+
+def gotoLogin():
+    widget.removeWidget(signUpScreen)
+    widget.addWidget(loginScreen)
+
+
+def openLogin():
+    widget.addWidget(loginScreen)
+
+
+def openSignUp():
+    widget.removeWidget(loginScreen)
+    widget.addWidget(signUpScreen)
+
+
+def checkValidation():
+    if signUp.getSignUp():
+        userDetails = {
+            "username": signUp.username_text,
+            "password": signUp.password_text,
+            "password2": signUp.password_text,
+            "email": signUp.email_text,
+            "first_name": signUp.firstname_text,
+            "last_name": signUp.lastname_text
+        }
+        status = userLogin(userDetails)
+        if status.status_code == 201:
+            openLogin()
+
+
+def getLogin():
+    username_text = login.UserName.text()
+    password_text = login.Password.text()
+    if len(username_text) == 0 or len(password_text) == 0:
+        login.message.setText("All Field are required!")
+    else:
+        login.message.setText("")
+        token = getTokens(username_text, password_text)
+        if token.status_code == 200:
+            print("success!")
+            openSearchScreen()
+        else:
+            login.message.setText("UserName Or Password is incorrect ")
+
+
+# adding click events to buttons
+login.SignIn_button.clicked.connect(getLogin)
+login.signup.clicked.connect(openSignUp)
+signUp.LoginIn_button.clicked.connect(checkValidation)
+signUp.login.clicked.connect(gotoLogin)
+
+if len(TOKENS) == 0:
+    openLogin()
+else:
+    openSearchScreen()
 
 # set height and width
 widget.setFixedWidth(900)

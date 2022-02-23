@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 
 class LocalDB:
@@ -15,8 +16,8 @@ class LocalDB:
     def addNewToken(self, access, refresh):
         self.cur.execute("""DELETE FROM tokens""")
         self.cur.execute(
-            "INSERT INTO tokens VALUES (?,datetime('now'), ?, datetime('now'))",
-            (refresh, access),
+            "INSERT INTO tokens VALUES (?,?, ?, ?)",
+            (refresh, datetime.now(), access, datetime.now()),
         )
         self.con.commit()
         print("Token Added! ✅")
@@ -25,22 +26,14 @@ class LocalDB:
     def getAccessToken(self):
         response = self.cur.execute("""SELECT accesstoken, Alastused FROM tokens""")
         self.con.commit()
-        return response.fetchall()[0]
-
-    def updateAccessToken(self, access):
-        self.cur.execute(
-            """UPDATE tokens SET accesstoken = ?, Alastused=datetime('now')""", access
-        )
-        self.con.commit()
+        return response.fetchall()
 
     def getRefreshToken(self):
         response = self.cur.execute("""SELECT refresh, Rlastused FROM tokens""")
         self.con.commit()
-        return response.fetchall()[0]
+        return response.fetchall()
 
     def getTokens(self):
         response = self.cur.execute('''SELECT * FROM tokens''')
         self.con.commit()
         return response.fetchall()
-
-

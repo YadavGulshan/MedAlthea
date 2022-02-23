@@ -14,14 +14,11 @@ def getTokens(username, password):
         DB = LocalDB()
         access = tokens.json().get("access")
         refresh = tokens.json().get("refresh")
-        DB.addNewToken(access, refresh)
+        if tokens.status_code == 200:
+            DB.addNewToken(access, refresh)
 
         return tokens
 
     except Exception as e:
         print(e)
         return {}
-
-
-# token = getTokens("rahulyadav", "1234")
-# print(token.status_code)
