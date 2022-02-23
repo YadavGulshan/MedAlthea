@@ -6,11 +6,6 @@ import DateTime
 
 class Ui_Form(object):
     def __init__(self):
-        self.db = LocalDB()
-        tokens = self.db.getTokens()
-        refreshLastUsed = DateTime.DateTime(tokens[0][1])
-        today = DateTime.DateTime()
-        self.day = today - refreshLastUsed
         self.medialShops = allMedicalShop()
 
     def setupUi(self, Form):

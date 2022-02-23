@@ -9,16 +9,15 @@ def getTokens(username, password):
         "username": username,
         "password": password
     }
-    try:
-        tokens = requests.post(getTokenUrl, json=user_credential)
-        DB = LocalDB()
-        access = tokens.json().get("access")
-        refresh = tokens.json().get("refresh")
-        if tokens.status_code == 200:
-            DB.addNewToken(access, refresh)
+    # try:
+    tokens = requests.post(getTokenUrl, json=user_credential)
+    DB = LocalDB()
+    access = tokens.json().get("access")
+    refresh = tokens.json().get("refresh")
+    if tokens.status_code == 200:
+        DB.addNewToken(access, refresh)
+    print(tokens)
+    return tokens.status_code
 
-        return tokens
-
-    except Exception as e:
-        print(e)
-        return {}
+    # except Exception as e:
+    #     print(e)
