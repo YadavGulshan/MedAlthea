@@ -1,4 +1,5 @@
 # importing depended modules
+import time
 from atexit import register
 import sys
 from PyQt5 import QtWidgets
@@ -14,6 +15,7 @@ from Frames.functions.getRegister import userLogin
 from Frames.login import LoginFrame
 from Frames.searchFrame import Ui_Form
 from Frames.signUp import signUpFrame
+from Frames.messeage import UI_Message
 
 # initializing GUI application
 app = QApplication(sys.argv)
@@ -24,28 +26,40 @@ widget = QtWidgets.QStackedWidget()
 # Crating object of local DB
 
 DB = LocalDB()
-'''
+"""
     Here in Local we Have our tokens
     At first index we have refresh token
     At second index we have date and time of refresh token Last used
     At Third index we have Access token
     At Fourth index we have date and time of access token Last used
-'''
+"""
 TOKENS = DB.getTokens()
 
 
 # checking weather the user already login or not
+messageScreen = QtWidgets.QWidget()
+message = UI_Message()
+def showMessage(text):
+
+    message.setupUi(messageScreen, text)
+    print("display")
+    widget.addWidget(messageScreen)
+    print("remove")
 
 
 def openSearchScreen():
     searchScreen = QtWidgets.QDialog()
     search = Ui_Form()
     search.setupUi(searchScreen)
-    print(search.day)
     if search.day < 90:
+        showMessage("Welcome Back!!")
         widget.addWidget(searchScreen)
         widget.removeWidget(loginScreen)
     else:
+        widget.removeWidget(searchScreen)
+        showMessage("Session time Out!!")
+        time.sleep(2)
+        widget.removeWidget(messageScreen)
         widget.addWidget(loginScreen)
 
 
@@ -97,10 +111,11 @@ def getLogin():
     else:
         login.message.setText("")
         token = getTokens(username_text, password_text)
-        if token.status_code == 200:
+        if token == 200:
             print("success!")
             openSearchScreen()
         else:
+            print(token)
             login.message.setText("UserName Or Password is incorrect ")
 
 

@@ -16,8 +16,8 @@ def getTokens(username, password):
         refresh = tokens.json().get("refresh")
         if tokens.status_code == 200:
             DB.addNewToken(access, refresh)
-
-        return tokens
+        print(tokens)
+        return tokens.status_code
 
     except Exception as e:
         print(e)

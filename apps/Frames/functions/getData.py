@@ -13,10 +13,12 @@ headers["Accept"] = "application/json"
 def is_valid(time):
     lastUsed = DateTime.DateTime(time)
     today = DateTime.DateTime()
-    day = today - lastUsed
-    minutes = day * 24 * 60
+    day = lastUsed-today
+    minutes = day * 60
+    print(minutes)
     if minutes > 30:
         getNewToken()
+        print("get new token")
 
 
 def makeGetRequest(url, body):

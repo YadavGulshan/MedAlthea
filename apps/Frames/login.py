@@ -1,6 +1,4 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions import getLogin
-from .signUp import signUpFrame
 
 
 class LoginFrame(object):
