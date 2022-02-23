@@ -18,9 +18,6 @@ from Frames.signUp import signUpFrame
 from Frames.message import UI_Message
 
 
-
-
-
 class app:
     """
         Here in Local we Have our tokens
