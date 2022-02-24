@@ -1,7 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.localdb import LocalDB
 from .functions.getData import allMedicalShop
-import DateTime
 
 
 class Ui_Form(object):
