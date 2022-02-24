@@ -12,6 +12,6 @@ def userLogin(userDetails):
         return response
     elif response.status_code == 400:
         print("sorry something went wrong!!")
-        print(response.json())
+        print(response)
     else:
-        print(res)
+        print(response)
