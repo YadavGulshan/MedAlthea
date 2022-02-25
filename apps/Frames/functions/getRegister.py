@@ -1,12 +1,11 @@
-import requests as rs
+from .makerequest import makeRequest
 
-registerUrl = "http://127.0.0.1:8000/api/register/"
+mr = makeRequest()
 
 
 def userLogin(userDetails):
+    response = mr.makePostRequest(mr.API + "/register/", userDetails)
 
-    response = rs.post(registerUrl, json=userDetails)
-    res = response.json()
     if response.status_code == 201:
         print("register success")
         return response

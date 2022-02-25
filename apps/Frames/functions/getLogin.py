@@ -1,7 +1,8 @@
 import requests
 from .localdb import LocalDB
+from .makerequest import makeRequest
 
-getTokenUrl = "http://127.0.0.1:8000/api/token/"
+mr = makeRequest()
 
 
 def getTokens(username, password):
@@ -9,8 +10,8 @@ def getTokens(username, password):
         "username": username,
         "password": password
     }
-    # try:
-    tokens = requests.post(getTokenUrl, json=user_credential)
+
+    tokens = mr.makePostRequest(mr.API + "/api/token/", user_credential)
     DB = LocalDB()
     access = tokens.json().get("access")
     refresh = tokens.json().get("refresh")
@@ -19,5 +20,3 @@ def getTokens(username, password):
     print(tokens)
     return tokens.status_code
 
-    # except Exception as e:
-    #     print(e)
