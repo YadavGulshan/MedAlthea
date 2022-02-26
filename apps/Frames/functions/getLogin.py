@@ -1,4 +1,3 @@
-import requests
 from .localdb import LocalDB
 from .makerequest import makeRequest
 
@@ -11,12 +10,10 @@ def getTokens(username, password):
         "password": password
     }
 
-    tokens = mr.makePostRequest(mr.API + "/api/token/", user_credential)
+    tokens = mr.makePostRequest(mr.API + "/token/", user_credential)
     DB = LocalDB()
-    access = tokens.json().get("access")
-    refresh = tokens.json().get("refresh")
     if tokens.status_code == 200:
+        access = tokens.json().get("access")
+        refresh = tokens.json().get("refresh")
         DB.addNewToken(access, refresh)
-    print(tokens)
     return tokens.status_code
-
