@@ -37,3 +37,8 @@ class LocalDB:
         response = self.cur.execute('''SELECT * FROM tokens''')
         self.con.commit()
         return response.fetchall()
+
+    def getLogout(self):
+        self.cur.execute('''DROP tabel token''')
+        self.con.commit()
+        print("LOG OUT!!")

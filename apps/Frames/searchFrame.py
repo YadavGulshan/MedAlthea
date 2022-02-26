@@ -3,8 +3,13 @@ from .functions.getData import allMedicalShop
 
 
 class Ui_Form(object):
-    def __init__(self):
-        self.medialShops = allMedicalShop()
+    def __init__(self, From):
+        try:
+            self.medialShops = allMedicalShop()
+            self.setupUi(From)
+        except Exception as e:
+            print("server not running")
+            print(e)
 
     def setupUi(self, Form):
         Form.setObjectName("Form")

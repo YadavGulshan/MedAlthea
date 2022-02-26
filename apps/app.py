@@ -1,21 +1,20 @@
 # importing depended modules
-import time
-from atexit import register
+import datetime
 import sys
+import DateTime
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
-import DateTime
 
-# importing LocalDb
+# importing LocalDb and Functions
 from Frames.functions.localdb import LocalDB
 from Frames.functions.getLogin import getTokens
 from Frames.functions.getRegister import userLogin
 
 # importing Frames
 from Frames.login import LoginFrame
-from Frames.searchFrame import Ui_Form
 from Frames.signUp import signUpFrame
 from Frames.message import UI_Message
+from Frames.searchFrame import Ui_Form
 
 
 class app:
@@ -30,6 +29,7 @@ class app:
     def __init__(self, widget):
         # ---------- Creating .sqlit3 file in apps folder and making connection to local db --------#
         # Crating object of local DB
+        self.month = None
         self.signUpScreen = QtWidgets.QDialog()
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
@@ -45,12 +45,9 @@ class app:
         # print("display")
         self.widget.addWidget(self.messageScreen)
 
-        # print("remove")
-
     def openSearchScreen(self):
-        self.search = Ui_Form()
+        self.search = Ui_Form(self.searchScreen)
         self.widget.removeWidget(self.messageScreen)
-        self.search.setupUi(self.searchScreen)
         self.widget.addWidget(self.searchScreen)
         self.widget.removeWidget(self.loginScreen)
         # print("search page")
@@ -89,6 +86,7 @@ class app:
                 "email": self.signUp.email_text,
                 "first_name": self.signUp.firstname_text,
                 "last_name": self.signUp.lastname_text,
+                "isStaff": self.signUp.checkBox
             }
             status = userLogin(userDetails)
             if status.status_code == 201:
@@ -118,10 +116,10 @@ class app:
     def isRefreshValid(self):
         self.db = LocalDB()
         tokens = self.db.getTokens()
-        refreshLastUsed = DateTime.DateTime(tokens[0][1])
-        today = DateTime.DateTime()
+        refreshLastUsed = datetime.datetime.strptime(tokens[0][1], "%Y-%m-%d %H:%M:%S.%f")
+        today = datetime.datetime.now()
         self.month = refreshLastUsed - today
-        if self.month > 90:
+        if self.month > datetime.timedelta(days=90):
             return False
         else:
             return True

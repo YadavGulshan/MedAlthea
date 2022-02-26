@@ -52,6 +52,8 @@ class makeRequest:
             resp = rs.post(url, headers=self.headers, json=body)
             if resp.status_code == 201:
                 return resp
+            else:
+                return resp
         except Exception as e:
             print(e)
 
