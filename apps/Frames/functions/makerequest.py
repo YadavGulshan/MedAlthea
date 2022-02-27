@@ -57,6 +57,27 @@ class makeRequest:
         except Exception as e:
             print(e)
 
+    def makePutRequest(self, url, body):
+        self.__checkAccessToken()
+        try:
+            self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
+            resp = rs.put(url=url, headers=self.headers, json=body)
+            if resp.status_code == 200:
+                return resp
+            else:
+                raise Exception("Something went wrong")
+        except Exception as e:
+            print(e)
+
+    def makeDeleteRequest(self, url, body):
+        self.__checkAccessToken()
+        try:
+            self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
+            resp = rs.delete(url=url, headers=self.headers, json=body)
+            return resp
+        except Exception as e:
+            print(e)
+
     def getNewToken(self):
         token = self.db.getRefreshToken()
         resp = rs.post(self.API + "/token/refresh/", json={

@@ -12,3 +12,4 @@ userName.json
 test.html
 .nvimlog
 *.ui
+.vscode
