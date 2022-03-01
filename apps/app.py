@@ -1,7 +1,7 @@
 # importing depended modules
 import datetime
 import sys
-import DateTime
+
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
 
@@ -15,7 +15,7 @@ from Frames.login import LoginFrame
 from Frames.signUp import signUpFrame
 from Frames.message import UI_Message
 from Frames.searchFrame import Ui_Form
-
+from Frames.homePage import Ui_HomePage
 
 class app:
     """
@@ -34,6 +34,7 @@ class app:
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
         self.searchScreen = QtWidgets.QDialog()
+        self.homeScreen=QtWidgets.QDialog()
         DB = LocalDB()
         self.TOKENS = DB.getTokens()
         self.widget = widget
@@ -45,12 +46,19 @@ class app:
         # print("display")
         self.widget.addWidget(self.messageScreen)
 
-    def openSearchScreen(self):
-        self.search = Ui_Form(self.searchScreen)
+    # def openSearchScreen(self):
+    #     self.search = Ui_Form(self.searchScreen)
+    #     self.widget.removeWidget(self.messageScreen)
+    #     self.widget.addWidget(self.searchScreen)
+    #     self.widget.removeWidget(self.loginScreen)
+    #     # print("search page")
+
+    def openHomeScreen(self):
+        self.search=Ui_HomePage()
+        self.search.setupUi(self.homeScreen)
         self.widget.removeWidget(self.messageScreen)
-        self.widget.addWidget(self.searchScreen)
-        self.widget.removeWidget(self.loginScreen)
-        # print("search page")
+        self.widget.addWidget(self.homeScreen)
+        self.widget.removeWidget(self.loginScreen)   
 
     def gotoLogin(self):
         self.widget.removeWidget(self.signUpScreen)
@@ -62,7 +70,8 @@ class app:
         self.login = LoginFrame()
         self.login.setupUi(self.loginScreen)
         self.widget.addWidget(self.loginScreen)
-        self.widget.removeWidget(self.searchScreen)
+        # self.widget.removeWidget(self.searchScreen)
+        self.widget.removeWidget(self.homeScreen)
         self.login.SignIn_button.clicked.connect(self.getLogin)
         self.login.signup.clicked.connect(self.openSignUp)
         # print("login page")
@@ -103,7 +112,8 @@ class app:
             token = getTokens(username_text, password_text)
             if token == 200:
                 print("success!")
-                self.openSearchScreen()
+                # self.openSearchScreen()
+                self.openHomeScreen()
             else:
                 print(token)
                 self.login.message.setText("UserName Or Password is incorrect ")
@@ -143,7 +153,8 @@ if __name__ == '__main__':
     else:
         if app.isRefreshValid():
             # app.welcome()
-            app.openSearchScreen()
+            # app.openSearchScreen()
+            app.openHomeScreen()
         else:
             # app.sessionsExpired()
             app.openLogin()
