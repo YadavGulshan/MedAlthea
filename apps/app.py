@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QApplication
 # importing LocalDb and Functions
 from Frames.functions.localdb import LocalDB
 from Frames.functions.getLogin import getTokens
-from Frames.functions.getRegister import userLogin
+from Frames.functions.getRegister import userRegister
 
 # importing Frames
 from Frames.login import LoginFrame
@@ -88,16 +88,11 @@ class app:
 
     def checkValidation(self):
         if self.signUp.getSignUp():
-            userDetails = {
-                "username": self.signUp.username_text,
-                "password": self.signUp.password_text,
-                "password2": self.signUp.password_text,
-                "email": self.signUp.email_text,
-                "first_name": self.signUp.firstname_text,
-                "last_name": self.signUp.lastname_text,
-                "isStaff": self.signUp.checkBox
-            }
-            status = userLogin(userDetails)
+            userDetails = dict(username=self.signUp.username_text, password=self.signUp.password_text,
+                               password2=self.signUp.password_text, email=self.signUp.email_text,
+                               first_name=self.signUp.firstname_text, last_name=self.signUp.lastname_text,
+                               isStaff=self.signUp.checkbox)
+            status = userRegister(userDetails)
             if status.status_code == 201:
                 self.gotoLogin()
                 # print("login page")
