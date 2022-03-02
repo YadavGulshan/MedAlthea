@@ -159,7 +159,6 @@ class Ui_HomePage(object):
         self.medicine_name = QtWidgets.QLabel(self.medicine_widget)
         self.medicine_name.setGeometry(QtCore.QRect(30, 10, 211, 41))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(True)
         self.medicine_name.setFont(font)
         self.medicine_name.setStyleSheet("color: rgb(255, 255, 255);\n"

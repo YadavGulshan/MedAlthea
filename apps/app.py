@@ -91,7 +91,8 @@ class app:
             userDetails = dict(username=self.signUp.username_text, password=self.signUp.password_text,
                                password2=self.signUp.password_text, email=self.signUp.email_text,
                                first_name=self.signUp.firstname_text, last_name=self.signUp.lastname_text,
-                               isStaff=self.signUp.checkbox)
+                               isStaff=str(self.signUp.checkbox))
+            print(userDetails)
             status = userRegister(userDetails)
             if status.status_code == 201:
                 self.gotoLogin()
