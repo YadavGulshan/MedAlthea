@@ -47,8 +47,10 @@ class MedicineViewByID(generics.CreateAPIView):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
         try:
-            medicine = Medicine.objects.get(pk=pk)
+            # Get the medicine list of that medical shop
+            medicine = Medicine.objects.filter(medicalId=pk)
+            # medicine = Medicine.objects.get(pk=pk)
         except Medicine.DoesNotExist:
             raise Http404
-        serializer = MedicineSerializer(medicine)
+        serializer = MedicineSerializer(medicine, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
