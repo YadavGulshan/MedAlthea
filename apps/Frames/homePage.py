@@ -2,9 +2,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_HomePage(object):
+    def __init__(self):
+        self.view = None
+
     def setupUi(self, HomePage):
         HomePage.setObjectName("HomePage")
-        HomePage.resize(898, 850)
+        HomePage.resize(900, 850)
         self.widget = QtWidgets.QWidget(HomePage)
         self.widget.setGeometry(QtCore.QRect(0, 0, 900, 850))
         font = QtGui.QFont()
@@ -26,48 +29,48 @@ class Ui_HomePage(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.pushButton_2 = QtWidgets.QPushButton(self.frame)
-        self.pushButton_2.setGeometry(QtCore.QRect(20, 20, 81, 41))
+        self.pushButton_home = QtWidgets.QPushButton(self.frame)
+        self.pushButton_home.setGeometry(QtCore.QRect(20, 20, 81, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pushButton_home.setFont(font)
+        self.pushButton_home.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_home.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                         "border-radius:4px;")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.frame)
-        self.pushButton_3.setGeometry(QtCore.QRect(470, 20, 91, 41))
+        self.pushButton_home.setObjectName("pushButton_2")
+        self.pushButton_profile = QtWidgets.QPushButton(self.frame)
+        self.pushButton_profile.setGeometry(QtCore.QRect(470, 20, 91, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_3.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pushButton_profile.setFont(font)
+        self.pushButton_profile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_profile.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                         "border-radius:4px;")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.frame)
-        self.pushButton_4.setGeometry(QtCore.QRect(600, 20, 131, 41))
+        self.pushButton_profile.setObjectName("pushButton_3")
+        self.pushButton_myMedicine = QtWidgets.QPushButton(self.frame)
+        self.pushButton_myMedicine.setGeometry(QtCore.QRect(600, 20, 131, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.pushButton_4.setFont(font)
-        self.pushButton_4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_4.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pushButton_myMedicine.setFont(font)
+        self.pushButton_myMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_myMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                         "border-radius:4px;\n"
                                         "")
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_5 = QtWidgets.QPushButton(self.frame)
-        self.pushButton_5.setGeometry(QtCore.QRect(760, 20, 121, 41))
+        self.pushButton_myMedicine.setObjectName("pushButton_4")
+        self.pushButton_addMedicine = QtWidgets.QPushButton(self.frame)
+        self.pushButton_addMedicine.setGeometry(QtCore.QRect(760, 20, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
-        self.pushButton_5.setFont(font)
-        self.pushButton_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_5.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pushButton_addMedicine.setFont(font)
+        self.pushButton_addMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_addMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                         "border-radius:4px;\n"
                                         "")
-        self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_addMedicine.setObjectName("pushButton_5")
         self.scrollArea = QtWidgets.QScrollArea(self.widget)
         self.scrollArea.setGeometry(QtCore.QRect(9, 90, 881, 751))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
@@ -201,11 +204,11 @@ class Ui_HomePage(object):
 
     def retranslateUi(self, HomePage):
         _translate = QtCore.QCoreApplication.translate
-        HomePage.setWindowTitle(_translate("HomePage", "Dialog"))
-        self.pushButton_2.setText(_translate("HomePage", "Home"))
-        self.pushButton_3.setText(_translate("HomePage", "Profile"))
-        self.pushButton_4.setText(_translate("HomePage", "My Medicines"))
-        self.pushButton_5.setText(_translate("HomePage", "Add Medicines"))
+        HomePage.setWindowTitle(_translate("HomePage", "Home Page"))
+        self.pushButton_home.setText(_translate("HomePage", "Home"))
+        self.pushButton_profile.setText(_translate("HomePage", "Profile"))
+        self.pushButton_myMedicine.setText(_translate("HomePage", "My Medicines"))
+        self.pushButton_addMedicine.setText(_translate("HomePage", "Add Medicines"))
         self.search_button.setPlaceholderText(_translate("HomePage", "Search..."))
         self.shop_name.setText(_translate("HomePage", "MedAlthea"))
         self.medicine_name.setText(_translate("HomePage", "Medicine Name"))
