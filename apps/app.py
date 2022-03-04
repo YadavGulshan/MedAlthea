@@ -13,9 +13,9 @@ from Frames.functions.getRegister import userRegister
 # importing Frames
 from Frames.login import LoginFrame
 from Frames.signUp import signUpFrame
-from Frames.message import UI_Message
 from Frames.searchFrame import Ui_Form
 from Frames.homePage import Ui_HomePage
+
 
 class app:
     """
@@ -34,31 +34,17 @@ class app:
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
         self.searchScreen = QtWidgets.QDialog()
-        self.homeScreen=QtWidgets.QDialog()
+        self.homeScreen = QtWidgets.QDialog()
         DB = LocalDB()
         self.TOKENS = DB.getTokens()
         self.widget = widget
 
-    # checking weather the user already login or not
-    def showMessage(self, text):
-        self.message = UI_Message()
-        self.message.setupUi(self.messageScreen, text)
-        # print("display")
-        self.widget.addWidget(self.messageScreen)
-
-    # def openSearchScreen(self):
-    #     self.search = Ui_Form(self.searchScreen)
-    #     self.widget.removeWidget(self.messageScreen)
-    #     self.widget.addWidget(self.searchScreen)
-    #     self.widget.removeWidget(self.loginScreen)
-    #     # print("search page")
-
     def openHomeScreen(self):
-        self.search=Ui_HomePage()
+        self.search = Ui_HomePage()
         self.search.setupUi(self.homeScreen)
         self.widget.removeWidget(self.messageScreen)
         self.widget.addWidget(self.homeScreen)
-        self.widget.removeWidget(self.loginScreen)   
+        self.widget.removeWidget(self.loginScreen)
 
     def gotoLogin(self):
         self.widget.removeWidget(self.signUpScreen)
@@ -92,11 +78,9 @@ class app:
                                password2=self.signUp.password_text, email=self.signUp.email_text,
                                first_name=self.signUp.firstname_text, last_name=self.signUp.lastname_text,
                                isStaff=str(self.signUp.checkbox))
-            print(userDetails)
             status = userRegister(userDetails)
             if status.status_code == 201:
                 self.gotoLogin()
-                # print("login page")
 
     def getLogin(self):
         username_text = self.login.UserName.text()
