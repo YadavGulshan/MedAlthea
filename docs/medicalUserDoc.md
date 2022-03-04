@@ -479,3 +479,48 @@ response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
 >   }
 > ]
 > ```
+
+
+### Getting all the medicines listed by a medical shop
+> **Note:** You have to perform a `GET` request on `/mymedical/<medicalId>/` endpoint with the access token of the owner of medical shop.
+> **Code Example:**
+> ```python
+> import requests
+> 
+> reqUrl = "http://127.0.0.1:8000/api/mymedical/5/"
+> 
+> headersList = {
+>  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2MzIxNDQ0LCJpYXQiOjE2NDYzMTk2NDQsImp0aSI6IjU2Yzg1YzU2MTE3MjRmMDQ5ZWQ1NjUzN2FmZGYwY2I1IiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJndWxzaGFuIiwiZW1haWwiOiIifQ.Zwc633Sj6-uxgCrHD1dHiECzJ4-MxrlzprKXNIgD0zI" 
+> }
+> 
+> response = requests.request("GET", reqUrl, headers=headersList)
+> 
+> ```
+
+> **Response:**
+> ```json
+> [
+>   {
+>     "medicineId": 6,
+>     "createdAt": "2022-03-03T15:00:20.759218Z",
+>     "name": "Dolo",
+>     "description": "Fever",
+>     "price": 100,
+>     "quantity": 100,
+>     "medicalId": 5,
+>     "user": 1
+>   },
+>   {
+>     "medicineId": 8,
+>     "createdAt": "2022-03-03T15:05:11.665198Z",
+>     "name": "Gulshan",
+>     "description": "Flutter Mastering blog",
+>     "price": 1,
+>     "quantity": 15,
+>     "medicalId": 5,
+>     "user": 1
+>   }
+> ]
+> ```
+
+>> 200 OK stands for successfull request.
