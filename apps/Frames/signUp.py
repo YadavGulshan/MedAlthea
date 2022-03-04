@@ -141,6 +141,7 @@ class signUpFrame(object):
         self.C_Password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.C_Password.setObjectName("C_Password")
         self.checkBox = QtWidgets.QCheckBox(self.widget)
+        self.checkBox.setChecked(True)
         self.checkBox.setGeometry(QtCore.QRect(410, 560, 151, 41))
         font = QtGui.QFont()
         font.setPointSize(18)
