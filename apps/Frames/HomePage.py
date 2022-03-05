@@ -1,9 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .functions.getData import getMyMedical
 
+# importing medical Info frame
+from .MyMedical import Ui_MyMedical
 
-class Ui_Medical(object):
-    def __init__(self):
+
+class Ui_HomePage(object):
+    def __init__(self, widget):
+        self.Dialog = None
+        self.mainWidget = widget
         try:
             self.medicals = getMyMedical()
         except Exception as e:
@@ -11,9 +16,11 @@ class Ui_Medical(object):
             print(e)
 
     def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(900, 850)
-        self.widget = QtWidgets.QWidget(Dialog)
+        print("homepage")
+        self.Dialog = Dialog
+        self.Dialog.setObjectName("Dialog")
+        self.Dialog.resize(900, 850)
+        self.widget = QtWidgets.QWidget(self.Dialog)
         self.widget.setGeometry(QtCore.QRect(0, 0, 901, 900))
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.widget.setObjectName("widget")
@@ -27,8 +34,8 @@ class Ui_Medical(object):
         font.setPointSize(16)
         self.profile_pushButton.setFont(font)
         self.profile_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                           "color: rgb(10, 89, 83);\n"
-                                           "border-radius:10px;")
+                                              "color: rgb(10, 89, 83);\n"
+                                              "border-radius:10px;")
         self.profile_pushButton.setObjectName("back_pushButton")
         self.profile_pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.scrollArea = QtWidgets.QScrollArea(self.widget)
@@ -173,7 +180,7 @@ class Ui_Medical(object):
                                                "font-size: 18px;")
             self.view_pushButton.setObjectName(str(medical.get("medicalId")))
             self.view_pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-            self.view_pushButton.clicked.connect(self.getShopInfo)
+            self.view_pushButton.clicked.connect(self.getShopId)
 
             self.verticalLayout.addWidget(self.medical_widget)
             self.label_2.setText("Name:")
@@ -186,8 +193,8 @@ class Ui_Medical(object):
             self.scrollArea.raise_()
             self.widget_2.raise_()
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(self.Dialog)
+        QtCore.QMetaObject.connectSlotsByName(self.Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -196,6 +203,13 @@ class Ui_Medical(object):
         self.label.setText(_translate("Dialog", "Add New Medical Shop!"))
         self.add_pushButton.setText(_translate("Dialog", "Add"))
 
-    def getShopInfo(self):
+    def getShopId(self):
+        MyMedicalScreen = QtWidgets.QDialog()
         sender = self.widget.sender()
-        print(sender.objectName())
+        _id = sender.objectName()
+        MyMedical = Ui_MyMedical()
+        print(_id)
+        MyMedical.setupUi(MyMedicalScreen)
+        self.mainWidget.removeWidget(self.Dialog)
+        self.mainWidget.addWidget(MyMedicalScreen)
+

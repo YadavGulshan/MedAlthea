@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from .functions.getData import getMyMedical
 
 
-class Ui_HomePage(object):
+class Ui_MyMedical(object):
     def __init__(self):
         self.view = None
         self.shops = getMyMedical()
