@@ -13,8 +13,9 @@ from Frames.functions.getRegister import userRegister
 # importing Frames
 from Frames.login import LoginFrame
 from Frames.signUp import signUpFrame
-from Frames.searchFrame import Ui_Form
-from Frames.homePage import Ui_HomePage
+# from Frames.searchFrame import Ui_Form
+# from Frames.homePage import Ui_HomePage
+from Frames.Medical import Ui_Medical
 
 
 class app:
@@ -40,7 +41,7 @@ class app:
         self.widget = widget
 
     def openHomeScreen(self):
-        self.search = Ui_HomePage()
+        self.search = Ui_Medical()
         self.search.setupUi(self.homeScreen)
         self.widget.removeWidget(self.messageScreen)
         self.widget.addWidget(self.homeScreen)

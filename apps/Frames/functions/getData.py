@@ -5,10 +5,10 @@ from .makerequest import makeRequest
 mr = makeRequest()
 
 
-def searchMedicine(medicineName):
+def searchMedicine(medicine_name):
     """ Data required are Medicine Name """
 
-    resp = mr.makeGetRequest(mr.API + "/medicine/search/?search={}".format(medicineName), {})
+    resp = mr.makeGetRequest(mr.API + "/medicine/search/?search={}".format(medicine_name), {})
     return resp
 
 
@@ -43,20 +43,12 @@ def allMedicalShop():
     else:
         print("Error")
 
-def getMedicine(medicalId):
-    resp=mr.makeGetRequest(mr.API+ "/mymedical/{}/".format(medicalId),{}) 
+
+def getMedicine(medical_id):
+    resp = mr.makeGetRequest(mr.API + "/mymedical/{}/".format(medical_id), {})
     return resp
 
+
 def getMyMedical():
-    resp=mr.makeGetRequest(mr.API+"/mymedical/",{})
+    resp = mr.makeGetRequest(mr.API + "/mymedical/", {})
     return resp
-# print(createMedical(
-#     {
-#         "name": "A very good medical",
-#         "address": "A real address",
-#         "pincode": "129340",
-#         "latitude": 1.53,
-#         "longitude": 1.62662,
-#         "phone": "+916665565656",
-#         "email": "somemail@fh.com"
-#     }))
