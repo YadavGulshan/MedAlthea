@@ -31,7 +31,7 @@ def addMedicine(medicine: object):
 
 
 def createMedical(medical: object):
-    """Data required are Medical "name", "address", "pincode", "latitude", "longitude", "phone" Number, "email" """
+    """Data required are Medical "name", "address", "pincode", "latitude", "longitude", "phone", "email" """
     return mr.makePostRequest(mr.API + "/", medical)
 
 
@@ -52,3 +52,8 @@ def getMedicine(medical_id):
 def getMyMedical():
     resp = mr.makeGetRequest(mr.API + "/mymedical/", {})
     return resp
+
+
+def getMedicalDetails(medical_id):
+    resp = mr.makeGetRequest(mr.API + "/{}/".format(medical_id), {})
+    return resp.json()[0]

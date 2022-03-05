@@ -1,14 +1,27 @@
 import email
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.getData import getMyMedical
+from .functions.getData import getMedicine, getMedicalDetails
+from PyQt5.QtCore import pyqtSlot
+
 
 
 class Ui_MyMedical(object):
     def __init__(self):
-        self.view = None
-        self.shops = getMyMedical()
 
-    def setupUi(self, HomePage):
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        # self.shops = getMyMedical()
+
+    def setupUi(self, HomePage, widget, _id):
+        self.mainWidget = widget
+        self._id = _id
+        try:
+            self.medicines = getMedicine(_id)
+            self.medical = getMedicalDetails(_id)
+        except Exception as e:
+            print("server Not Running")
+            print(e)
+        self.medicalPage = HomePage
         HomePage.setObjectName("HomePage")
         HomePage.resize(900, 850)
         self.widget = QtWidgets.QWidget(HomePage)
@@ -21,48 +34,37 @@ class Ui_MyMedical(object):
                                   "background-color: rgb(255, 255, 255);\n"
                                   "")
         self.widget.setObjectName("widget")
-        self.frame = QtWidgets.QFrame(self.widget)
+        self.frame = QtWidgets.QWidget(self.widget)
         self.frame.setGeometry(QtCore.QRect(0, 0, 900, 81))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(False)
         self.frame.setFont(font)
         self.frame.setStyleSheet("color: rgb(30, 30, 30);\n"
-                                 "background-color: rgb(0, 170, 127);")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+                                 "background-color: rgb(0, 156, 109);")
         self.frame.setObjectName("frame")
         self.pushButton_home = QtWidgets.QPushButton(self.frame)
-        self.pushButton_home.setGeometry(QtCore.QRect(20, 20, 81, 41))
+        self.pushButton_home.setGeometry(QtCore.QRect(470, 20, 91, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
         self.pushButton_home.setFont(font)
         self.pushButton_home.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_home.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pushButton_home.setStyleSheet("color: rgb(0, 156, 109);background-color: rgb(255, 255, 255);\n"
                                            "border-radius:4px;")
         self.pushButton_home.setObjectName("pushButton_2")
+
+        # self.pushButton_home.clicked.connect(self.gotoHome)
         self.pushButton_profile = QtWidgets.QPushButton(self.frame)
-        self.pushButton_profile.setGeometry(QtCore.QRect(470, 20, 91, 41))
+        self.pushButton_profile.setGeometry(QtCore.QRect(600, 20, 131, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
         self.pushButton_profile.setFont(font)
         self.pushButton_profile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_profile.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pushButton_profile.setStyleSheet("color: rgb(0, 156, 109); background-color: rgb(255, 255, 255);\n"
                                               "border-radius:4px;")
         self.pushButton_profile.setObjectName("pushButton_3")
-        self.pushButton_myMedicine = QtWidgets.QPushButton(self.frame)
-        self.pushButton_myMedicine.setGeometry(QtCore.QRect(600, 20, 131, 41))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        self.pushButton_myMedicine.setFont(font)
-        self.pushButton_myMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_myMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                                 "border-radius:4px;\n"
-                                                 "")
-        self.pushButton_myMedicine.setObjectName("pushButton_4")
         self.pushButton_addMedicine = QtWidgets.QPushButton(self.frame)
         self.pushButton_addMedicine.setGeometry(QtCore.QRect(760, 20, 121, 41))
         font = QtGui.QFont()
@@ -70,7 +72,7 @@ class Ui_MyMedical(object):
         font.setBold(True)
         self.pushButton_addMedicine.setFont(font)
         self.pushButton_addMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_addMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.pushButton_addMedicine.setStyleSheet("color: rgb(0, 156, 109); background-color: rgb(255, 255, 255);\n"
                                                   "border-radius:4px;\n"
                                                   "")
         self.pushButton_addMedicine.setObjectName("pushButton_5")
@@ -87,16 +89,13 @@ class Ui_MyMedical(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setAlignment(QtCore.Qt.AlignCenter)
         self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 881, 751))
         self.scrollAreaWidgetContents.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.scrollAreaWidgetContents.setStyleSheet("")
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout.setContentsMargins(70, -1, 70, 9)
-        self.verticalLayout.setSpacing(35)
+        self.verticalLayout.setContentsMargins(100, 9, 100, 9)
         self.verticalLayout.setObjectName("verticalLayout")
-        # shop container
+        self.verticalLayout.setSpacing(35)
 
         self.search_widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -143,18 +142,13 @@ class Ui_MyMedical(object):
         font.setBold(True)
         font.setItalic(True)
         self.shop_name.setFont(font)
-        self.shop_name.setStyleSheet("color: rgb(0, 121, 89);")
+        self.shop_name.setStyleSheet("color: rgb(0, 156, 109);")
         self.shop_name.setAlignment(QtCore.Qt.AlignCenter)
         self.shop_name.setObjectName("shop_name")
-
+        self.shop_name.setText(str(self.medical.get("name")))
         self.verticalLayout.addWidget(self.search_widget)
 
-        for i in self.shops.json():
-            medicine_name = "medicinename_"
-            decription = "description_"
-            status = "availability_"
-
-
+        for medicine in self.medicines.json():
             self.medicine_widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
             sizePolicy.setHorizontalStretch(0)
@@ -168,7 +162,7 @@ class Ui_MyMedical(object):
             self.medicine_widget.setFont(font)
             self.medicine_widget.setLayoutDirection(QtCore.Qt.LeftToRight)
             self.medicine_widget.setStyleSheet("\n"
-                                               "background-color: rgb(0, 94, 69);\n"
+                                               "background-color: rgb(0, 156, 109); border-radius: 10px"
                                                "")
             self.medicine_widget.setObjectName("medicine_widget")
             self.medicine_name = QtWidgets.QLabel(self.medicine_widget)
@@ -180,16 +174,17 @@ class Ui_MyMedical(object):
                                              "font-weight: 700;\n"
                                              "font-size: 20px;")
             self.medicine_name.setObjectName("medicine_name")
-            self.medicine_name.setText(i.get("name"))
+            self.medicine_name.setText(str(medicine.get("name")))
             self.description = QtWidgets.QLabel(self.medicine_widget)
             self.description.setGeometry(QtCore.QRect(30, 70, 481, 61))
             font = QtGui.QFont()
             font.setPointSize(16)
             self.description.setFont(font)
             self.description.setStyleSheet("color: rgb(255, 255, 255);")
+            self.description.setText(str(medicine.get("description")))
             self.description.setObjectName("description")
             self.view = QtWidgets.QPushButton(self.medicine_widget)
-            self.view.setGeometry(QtCore.QRect(570, 50, 101, 41))
+            self.view.setGeometry(QtCore.QRect(550, 50, 101, 41))
             font = QtGui.QFont()
             font.setPointSize(14)
             font.setBold(True)
@@ -198,7 +193,8 @@ class Ui_MyMedical(object):
             self.view.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                     "border-radius:11px;\n"
                                     "color: rgb(0, 94, 69);")
-            self.view.setObjectName("view")
+            self.view.setText("View")
+            self.view.setObjectName("")
             self.status = QtWidgets.QLabel(self.medicine_widget)
             self.status.setGeometry(QtCore.QRect(520, 100, 201, 21))
             font = QtGui.QFont()
@@ -211,25 +207,24 @@ class Ui_MyMedical(object):
             # add the medical widget to the layout
             self.verticalLayout.addWidget(self.medicine_widget)
 
+        self.retranslateUi(HomePage)
         self.scrollArea.raise_()
         self.frame.raise_()
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.retranslateUi(HomePage)
         QtCore.QMetaObject.connectSlotsByName(HomePage)
+        self.pushButton_profile.clicked.connect(self.openProfile)
 
     def retranslateUi(self, HomePage):
         _translate = QtCore.QCoreApplication.translate
         HomePage.setWindowTitle(_translate("HomePage", "Home Page"))
         self.pushButton_home.setText(_translate("HomePage", "Home"))
         self.pushButton_profile.setText(_translate("HomePage", "Profile"))
-        self.pushButton_myMedicine.setText(_translate("HomePage", "My Medicines"))
         self.pushButton_addMedicine.setText(_translate("HomePage", "Add Medicines"))
         self.search_button.setPlaceholderText(_translate("HomePage", "Search..."))
-        self.shop_name.setText(_translate("HomePage", "MedAlthea"))
-        self.medicine_name.setText(_translate("HomePage", "Medicine Name"))
-        self.description.setText(_translate("HomePage", "Description"))
-        self.view.setText(_translate("HomePage", "View"))
-        self.status.setText(_translate("HomePage", "Available"))
 
     def getMedicineInfo(self):
         sender = self.widget.sender()
+
+    # @pyqtSlot()
+    def openProfile(self):
+        print("clicked")
