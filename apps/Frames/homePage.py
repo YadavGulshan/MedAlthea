@@ -38,7 +38,7 @@ class Ui_HomePage(object):
         self.pushButton_home.setFont(font)
         self.pushButton_home.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_home.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;")
+                                           "border-radius:4px;")
         self.pushButton_home.setObjectName("pushButton_2")
         self.pushButton_profile = QtWidgets.QPushButton(self.frame)
         self.pushButton_profile.setGeometry(QtCore.QRect(470, 20, 91, 41))
@@ -48,7 +48,7 @@ class Ui_HomePage(object):
         self.pushButton_profile.setFont(font)
         self.pushButton_profile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_profile.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;")
+                                              "border-radius:4px;")
         self.pushButton_profile.setObjectName("pushButton_3")
         self.pushButton_myMedicine = QtWidgets.QPushButton(self.frame)
         self.pushButton_myMedicine.setGeometry(QtCore.QRect(600, 20, 131, 41))
@@ -58,8 +58,8 @@ class Ui_HomePage(object):
         self.pushButton_myMedicine.setFont(font)
         self.pushButton_myMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_myMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;\n"
-                                        "")
+                                                 "border-radius:4px;\n"
+                                                 "")
         self.pushButton_myMedicine.setObjectName("pushButton_4")
         self.pushButton_addMedicine = QtWidgets.QPushButton(self.frame)
         self.pushButton_addMedicine.setGeometry(QtCore.QRect(760, 20, 121, 41))
@@ -69,8 +69,8 @@ class Ui_HomePage(object):
         self.pushButton_addMedicine.setFont(font)
         self.pushButton_addMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_addMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;\n"
-                                        "")
+                                                  "border-radius:4px;\n"
+                                                  "")
         self.pushButton_addMedicine.setObjectName("pushButton_5")
         self.scrollArea = QtWidgets.QScrollArea(self.widget)
         self.scrollArea.setGeometry(QtCore.QRect(9, 90, 881, 751))

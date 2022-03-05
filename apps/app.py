@@ -114,12 +114,6 @@ class app:
         else:
             return True
 
-    def welcome(self):
-        self.showMessage("Welcome Back!!")
-
-    def sessionsExpired(self):
-        self.showMessage("Session time Out!!")
-
 
 if __name__ == '__main__':
     # initializing GUI application
@@ -132,11 +126,9 @@ if __name__ == '__main__':
         app.openLogin()
     else:
         if app.isRefreshValid():
-            # app.welcome()
-            # app.openSearchScreen()
             app.openHomeScreen()
+
         else:
-            # app.sessionsExpired()
             app.openLogin()
 
     sys.exit(App.exec_())
