@@ -43,6 +43,13 @@ def allMedicalShop():
     else:
         print("Error")
 
+def getMedicine(medicalId):
+    resp=mr.makeGetRequest(mr.API+ "/mymedical/{}/".format(medicalId),{}) 
+    return resp
+
+def getMyMedical():
+    resp=mr.makeGetRequest(mr.API+"/mymedical/",{})
+    return resp
 # print(createMedical(
 #     {
 #         "name": "A very good medical",
