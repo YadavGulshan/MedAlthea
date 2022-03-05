@@ -3,7 +3,7 @@ from .functions.getData import getMyMedical
 
 # importing medical Info frame
 from .MyMedical import Ui_MyMedical
-
+from .addMedical import Ui_Dialog
 
 class Ui_HomePage(object):
     def __init__(self, widget):
@@ -81,6 +81,7 @@ class Ui_HomePage(object):
                                           "color: rgb(255, 255, 255);\n"
                                           "border-radius:10px;")
         self.add_pushButton.setObjectName("add_pushButton")
+        self.add_pushButton.clicked.connect(self.OpenAddFrame)
         self.verticalLayout.addWidget(self.Add_medical)
 
         for medical in self.medicals.json():
@@ -189,9 +190,9 @@ class Ui_HomePage(object):
             self.label_14.setText("Email:")
             self.label_16.setText("Pincode:")
             self.view_pushButton.setText("View")
-            self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-            self.scrollArea.raise_()
-            self.widget_2.raise_()
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.scrollArea.raise_()
+        self.widget_2.raise_()
 
         self.retranslateUi(self.Dialog)
         QtCore.QMetaObject.connectSlotsByName(self.Dialog)
@@ -212,4 +213,11 @@ class Ui_HomePage(object):
         MyMedical.setupUi(MyMedicalScreen)
         self.mainWidget.removeWidget(self.Dialog)
         self.mainWidget.addWidget(MyMedicalScreen)
+
+    def OpenAddFrame(self):
+        AddMedicalScreen= QtWidgets.QDialog()
+        AddMedical = Ui_Dialog()   
+        AddMedical.setupUi(AddMedicalScreen)
+        self.mainWidget.removeWidget(self.Dialog)
+        self.mainWidget.addWidget(AddMedicalScreen)
 
