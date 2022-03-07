@@ -13,8 +13,10 @@ from Frames.functions.getRegister import userRegister
 # importing Frames
 from Frames.login import LoginFrame
 from Frames.signUp import signUpFrame
-from Frames.searchFrame import Ui_Form
-from Frames.homePage import Ui_HomePage
+from Frames.HomePage import Ui_HomePage
+
+# importing main Class
+from main import main
 
 
 class app:
@@ -39,8 +41,8 @@ class app:
         self.TOKENS = DB.getTokens()
         self.widget = widget
 
-    def openHomeScreen(self):
-        self.search = Ui_HomePage()
+    def openHomeScreen(self,widget):
+        self.search = Ui_HomePage(widget)
         self.search.setupUi(self.homeScreen)
         self.widget.removeWidget(self.messageScreen)
         self.widget.addWidget(self.homeScreen)
@@ -114,12 +116,6 @@ class app:
         else:
             return True
 
-    def welcome(self):
-        self.showMessage("Welcome Back!!")
-
-    def sessionsExpired(self):
-        self.showMessage("Session time Out!!")
-
 
 if __name__ == '__main__':
     # initializing GUI application
@@ -132,11 +128,10 @@ if __name__ == '__main__':
         app.openLogin()
     else:
         if app.isRefreshValid():
-            # app.welcome()
-            # app.openSearchScreen()
-            app.openHomeScreen()
+            app.openHomeScreen(widget)
+            main = main(widget, app.homeScreen, app.search)
+
         else:
-            # app.sessionsExpired()
             app.openLogin()
 
     sys.exit(App.exec_())

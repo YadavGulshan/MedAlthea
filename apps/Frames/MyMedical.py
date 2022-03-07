@@ -1,9 +1,12 @@
+import email
 from PyQt5 import QtCore, QtGui, QtWidgets
+from .functions.getData import getMyMedical
 
 
-class Ui_HomePage(object):
+class Ui_MyMedical(object):
     def __init__(self):
         self.view = None
+        self.shops = getMyMedical()
 
     def setupUi(self, HomePage):
         HomePage.setObjectName("HomePage")
@@ -37,7 +40,7 @@ class Ui_HomePage(object):
         self.pushButton_home.setFont(font)
         self.pushButton_home.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_home.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;")
+                                           "border-radius:4px;")
         self.pushButton_home.setObjectName("pushButton_2")
         self.pushButton_profile = QtWidgets.QPushButton(self.frame)
         self.pushButton_profile.setGeometry(QtCore.QRect(470, 20, 91, 41))
@@ -47,7 +50,7 @@ class Ui_HomePage(object):
         self.pushButton_profile.setFont(font)
         self.pushButton_profile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_profile.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;")
+                                              "border-radius:4px;")
         self.pushButton_profile.setObjectName("pushButton_3")
         self.pushButton_myMedicine = QtWidgets.QPushButton(self.frame)
         self.pushButton_myMedicine.setGeometry(QtCore.QRect(600, 20, 131, 41))
@@ -57,8 +60,8 @@ class Ui_HomePage(object):
         self.pushButton_myMedicine.setFont(font)
         self.pushButton_myMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_myMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;\n"
-                                        "")
+                                                 "border-radius:4px;\n"
+                                                 "")
         self.pushButton_myMedicine.setObjectName("pushButton_4")
         self.pushButton_addMedicine = QtWidgets.QPushButton(self.frame)
         self.pushButton_addMedicine.setGeometry(QtCore.QRect(760, 20, 121, 41))
@@ -68,8 +71,8 @@ class Ui_HomePage(object):
         self.pushButton_addMedicine.setFont(font)
         self.pushButton_addMedicine.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_addMedicine.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "border-radius:4px;\n"
-                                        "")
+                                                  "border-radius:4px;\n"
+                                                  "")
         self.pushButton_addMedicine.setObjectName("pushButton_5")
         self.scrollArea = QtWidgets.QScrollArea(self.widget)
         self.scrollArea.setGeometry(QtCore.QRect(9, 90, 881, 751))
@@ -93,6 +96,8 @@ class Ui_HomePage(object):
         self.verticalLayout.setContentsMargins(70, -1, 70, 9)
         self.verticalLayout.setSpacing(35)
         self.verticalLayout.setObjectName("verticalLayout")
+        # shop container
+
         self.search_widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -100,7 +105,7 @@ class Ui_HomePage(object):
         sizePolicy.setHeightForWidth(self.search_widget.sizePolicy().hasHeightForWidth())
         self.search_widget.setSizePolicy(sizePolicy)
         self.search_widget.setMinimumSize(QtCore.QSize(0, 300))
-        self.search_widget.setObjectName("search_widget")
+        self.search_widget.setObjectName("widget")
         self.search_button = QtWidgets.QLineEdit(self.search_widget)
         self.search_button.setGeometry(QtCore.QRect(150, 110, 351, 51))
         self.search_button.setMaximumSize(QtCore.QSize(16777215, 300))
@@ -125,7 +130,6 @@ class Ui_HomePage(object):
                                   "border-top-right-radius: 10px;\n"
                                   "border-bottom-right-radius: 10px;\n"
                                   "border:none;")
-        self.findIt.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Frames/../images/search.png"), QtGui.QIcon.Normal,
                        QtGui.QIcon.Off)
@@ -142,63 +146,74 @@ class Ui_HomePage(object):
         self.shop_name.setStyleSheet("color: rgb(0, 121, 89);")
         self.shop_name.setAlignment(QtCore.Qt.AlignCenter)
         self.shop_name.setObjectName("shop_name")
+
         self.verticalLayout.addWidget(self.search_widget)
-        self.medicine_widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.medicine_widget.sizePolicy().hasHeightForWidth())
-        self.medicine_widget.setSizePolicy(sizePolicy)
-        self.medicine_widget.setMinimumSize(QtCore.QSize(630, 150))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        font.setBold(True)
-        self.medicine_widget.setFont(font)
-        self.medicine_widget.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.medicine_widget.setStyleSheet("\n"
-                                           "background-color: rgb(0, 94, 69);\n"
-                                           "")
-        self.medicine_widget.setObjectName("medicine_widget")
-        self.medicine_name = QtWidgets.QLabel(self.medicine_widget)
-        self.medicine_name.setGeometry(QtCore.QRect(30, 10, 211, 41))
-        font = QtGui.QFont()
-        font.setBold(True)
-        self.medicine_name.setFont(font)
-        self.medicine_name.setStyleSheet("color: rgb(255, 255, 255);\n"
-                                         "font-weight: 700;\n"
-                                         "font-size: 20px;")
-        self.medicine_name.setObjectName("medicine_name")
-        self.description = QtWidgets.QLabel(self.medicine_widget)
-        self.description.setGeometry(QtCore.QRect(30, 70, 481, 61))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        self.description.setFont(font)
-        self.description.setStyleSheet("color: rgb(255, 255, 255);")
-        self.description.setObjectName("description")
-        self.view = QtWidgets.QPushButton(self.medicine_widget)
-        self.view.setGeometry(QtCore.QRect(570, 50, 101, 41))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setBold(True)
-        self.view.setFont(font)
-        self.view.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.view.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                "border-radius:11px;\n"
-                                "color: rgb(0, 94, 69);")
-        self.view.setObjectName("view")
-        self.status = QtWidgets.QLabel(self.medicine_widget)
-        self.status.setGeometry(QtCore.QRect(520, 100, 201, 21))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        self.status.setFont(font)
-        self.status.setStyleSheet("color: rgb(255, 255, 255);")
-        self.status.setAlignment(QtCore.Qt.AlignCenter)
-        self.status.setObjectName("status")
-        self.verticalLayout.addWidget(self.medicine_widget)
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        for i in self.shops.json():
+            medicine_name = "medicinename_"
+            decription = "description_"
+            status = "availability_"
+
+
+            self.medicine_widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(self.medicine_widget.sizePolicy().hasHeightForWidth())
+            self.medicine_widget.setSizePolicy(sizePolicy)
+            self.medicine_widget.setMinimumSize(QtCore.QSize(630, 150))
+            font = QtGui.QFont()
+            font.setPointSize(16)
+            font.setBold(True)
+            self.medicine_widget.setFont(font)
+            self.medicine_widget.setLayoutDirection(QtCore.Qt.LeftToRight)
+            self.medicine_widget.setStyleSheet("\n"
+                                               "background-color: rgb(0, 94, 69);\n"
+                                               "")
+            self.medicine_widget.setObjectName("medicine_widget")
+            self.medicine_name = QtWidgets.QLabel(self.medicine_widget)
+            self.medicine_name.setGeometry(QtCore.QRect(30, 10, 211, 41))
+            font = QtGui.QFont()
+            font.setBold(True)
+            self.medicine_name.setFont(font)
+            self.medicine_name.setStyleSheet("color: rgb(255, 255, 255);\n"
+                                             "font-weight: 700;\n"
+                                             "font-size: 20px;")
+            self.medicine_name.setObjectName("medicine_name")
+            self.medicine_name.setText(i.get("name"))
+            self.description = QtWidgets.QLabel(self.medicine_widget)
+            self.description.setGeometry(QtCore.QRect(30, 70, 481, 61))
+            font = QtGui.QFont()
+            font.setPointSize(16)
+            self.description.setFont(font)
+            self.description.setStyleSheet("color: rgb(255, 255, 255);")
+            self.description.setObjectName("description")
+            self.view = QtWidgets.QPushButton(self.medicine_widget)
+            self.view.setGeometry(QtCore.QRect(570, 50, 101, 41))
+            font = QtGui.QFont()
+            font.setPointSize(14)
+            font.setBold(True)
+            self.view.setFont(font)
+            self.view.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+            self.view.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+                                    "border-radius:11px;\n"
+                                    "color: rgb(0, 94, 69);")
+            self.view.setObjectName("view")
+            self.status = QtWidgets.QLabel(self.medicine_widget)
+            self.status.setGeometry(QtCore.QRect(520, 100, 201, 21))
+            font = QtGui.QFont()
+            font.setPointSize(16)
+            self.status.setFont(font)
+            self.status.setStyleSheet("color: rgb(255, 255, 255);")
+            self.status.setAlignment(QtCore.Qt.AlignCenter)
+            self.status.setObjectName("status")
+
+            # add the medical widget to the layout
+            self.verticalLayout.addWidget(self.medicine_widget)
+
         self.scrollArea.raise_()
         self.frame.raise_()
-
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.retranslateUi(HomePage)
         QtCore.QMetaObject.connectSlotsByName(HomePage)
 
@@ -215,3 +230,6 @@ class Ui_HomePage(object):
         self.description.setText(_translate("HomePage", "Description"))
         self.view.setText(_translate("HomePage", "View"))
         self.status.setText(_translate("HomePage", "Available"))
+
+    def getMedicineInfo(self):
+        sender = self.widget.sender()
