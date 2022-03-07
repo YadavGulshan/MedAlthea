@@ -24,9 +24,7 @@ class makeRequest:
     def is_valid(self, time):
         lastUsed = datetime.datetime.strptime(time, "%Y-%m-%d %H:%M:%S.%f")
         today = datetime.datetime.now()
-        # print(today, lastUsed)
         day = today - lastUsed
-        print(day)
         if day > datetime.timedelta(minutes=30):
             self.getNewToken()
             print("get new token")

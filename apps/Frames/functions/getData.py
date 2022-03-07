@@ -8,7 +8,8 @@ mr = makeRequest()
 def searchMedicine(medicine_name):
     """ Data required are Medicine Name """
 
-    resp = mr.makeGetRequest(mr.API + "/medicine/search/?search={}".format(medicine_name), {})
+    resp = mr.makeGetRequest(
+        mr.API + "/medicine/search/?search={}".format(medicine_name), {})
     return resp
 
 
@@ -31,7 +32,7 @@ def addMedicine(medicine: object):
 
 
 def createMedical(medical: object):
-    """Data required are Medical "name", "address", "pincode", "latitude", "longitude", "phone" Number, "email" """
+    """Data required are Medical "name", "address", "pincode", "latitude", "longitude", "phone", "email" """
     return mr.makePostRequest(mr.API + "/", medical)
 
 
@@ -53,8 +54,7 @@ def getMyMedical():
     resp = mr.makeGetRequest(mr.API + "/mymedical/", {})
     return resp
 
-details=["first name","last name","pincode","Address","Phone number","email"] 
-def getProfileDetails(details):
-    resp = mr.makeGetRequest(mr.API + "/medicalProfile/{}/".format(details),{})
-    return resp
 
+def getMedicalDetails(medical_id):
+    resp = mr.makeGetRequest(mr.API + "/{}/".format(medical_id), {})
+    return resp.json()[0]

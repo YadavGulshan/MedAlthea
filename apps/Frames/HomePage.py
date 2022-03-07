@@ -1,14 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .functions.getData import getMyMedical
 
-# importing medical Info frame
+# importing frame
 from .MyMedical import Ui_MyMedical
-from .addMedical import Ui_Dialog
-from .medicalprofile import Ui_MedicalProfile
+from .medicalProfile import Ui_MedicalProfile
+
 
 class Ui_HomePage(object):
     def __init__(self, widget):
-        self.Dialog = None
+        self.MedicalProfileScreen = QtWidgets.QDialog()
+        self.MyMedicalScreen = QtWidgets.QDialog()
+        self.homePage = None
         self.mainWidget = widget
         try:
             self.medicals = getMyMedical()
@@ -18,10 +20,10 @@ class Ui_HomePage(object):
 
     def setupUi(self, Dialog):
         print("homepage")
-        self.Dialog = Dialog
-        self.Dialog.setObjectName("Dialog")
-        self.Dialog.resize(900, 850)
-        self.widget = QtWidgets.QWidget(self.Dialog)
+        self.homePage = Dialog
+        self.homePage.setObjectName("Dialog")
+        self.homePage.resize(900, 850)
+        self.widget = QtWidgets.QWidget(self.homePage)
         self.widget.setGeometry(QtCore.QRect(0, 0, 901, 900))
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.widget.setObjectName("widget")
@@ -83,7 +85,6 @@ class Ui_HomePage(object):
                                           "color: rgb(255, 255, 255);\n"
                                           "border-radius:10px;")
         self.add_pushButton.setObjectName("add_pushButton")
-        self.add_pushButton.clicked.connect(self.OpenAddFrame)
         self.verticalLayout.addWidget(self.Add_medical)
 
         for medical in self.medicals.json():
@@ -196,8 +197,8 @@ class Ui_HomePage(object):
         self.scrollArea.raise_()
         self.widget_2.raise_()
 
-        self.retranslateUi(self.Dialog)
-        QtCore.QMetaObject.connectSlotsByName(self.Dialog)
+        self.retranslateUi(self.homePage)
+        QtCore.QMetaObject.connectSlotsByName(self.homePage)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -207,21 +208,26 @@ class Ui_HomePage(object):
         self.add_pushButton.setText(_translate("Dialog", "Add"))
 
     def getShopId(self):
-        MyMedicalScreen = QtWidgets.QDialog()
         sender = self.widget.sender()
         _id = sender.objectName()
         MyMedical = Ui_MyMedical()
-        print(_id)
-        MyMedical.setupUi(MyMedicalScreen)
-        self.mainWidget.removeWidget(self.Dialog)
-        self.mainWidget.addWidget(MyMedicalScreen)
+        MyMedical.setupUi(self.MyMedicalScreen, self.mainWidget, _id)
+        self.mainWidget.addWidget(self.MyMedicalScreen)
+        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)
+        MyMedical.pushButton_home.clicked.connect(self.MedicalToHome)
+        MyMedical.pushButton_profile.clicked.connect(self.openProfile)
 
-    def OpenAddFrame(self):
-        AddMedicalScreen= QtWidgets.QDialog()
-        AddMedical = Ui_Dialog()   
-        AddMedical.setupUi(AddMedicalScreen)
-        self.mainWidget.removeWidget(self.Dialog)
-        self.mainWidget.addWidget(AddMedicalScreen)
+    def MedicalToHome(self):
+        print(self.mainWidget.currentIndex())
+        self.mainWidget.removeWidget(self.MyMedicalScreen)
+        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)
+
+    def openProfile(self):
+        medicalProfile = Ui_MedicalProfile()
+        medicalProfile.setupUi(self.MedicalProfileScreen)
+        self.mainWidget.addWidget(self.MedicalProfileScreen)
+        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)
+        medicalProfile.back_button.clicked.connect(self.profileToMedical)
 
     def OpenProfileFrame(self):
         AddProfileFrame=QtWidgets.QDialog()
@@ -229,3 +235,6 @@ class Ui_HomePage(object):
         AddProfile.setupUi(AddProfileFrame)
         self.mainWidget.removeWidget(self.Dialog)
         self.mainWidget.addWidget(AddProfileFrame)
+    def profileToMedical(self):
+        self.mainWidget.removeWidget(self.MedicalProfileScreen)
+        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)

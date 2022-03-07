@@ -36,17 +36,11 @@ class app:
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
         self.searchScreen = QtWidgets.QDialog()
-        self.homeScreen = QtWidgets.QDialog()
         DB = LocalDB()
         self.TOKENS = DB.getTokens()
         self.widget = widget
 
-    def openHomeScreen(self,widget):
-        self.search = Ui_HomePage(widget)
-        self.search.setupUi(self.homeScreen)
-        self.widget.removeWidget(self.messageScreen)
-        self.widget.addWidget(self.homeScreen)
-        self.widget.removeWidget(self.loginScreen)
+
 
     def gotoLogin(self):
         self.widget.removeWidget(self.signUpScreen)
@@ -95,7 +89,8 @@ class app:
             if token == 200:
                 print("success!")
                 # self.openSearchScreen()
-                self.openHomeScreen()
+                self.widget.removeWidget(self.loginScreen)
+                main(widget)
             else:
                 print(token)
                 self.login.message.setText("UserName Or Password is incorrect ")
@@ -128,8 +123,7 @@ if __name__ == '__main__':
         app.openLogin()
     else:
         if app.isRefreshValid():
-            app.openHomeScreen(widget)
-            main = main(widget, app.homeScreen, app.search)
+            main = main(widget)
 
         else:
             app.openLogin()
