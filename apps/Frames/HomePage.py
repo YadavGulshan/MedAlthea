@@ -4,6 +4,7 @@ from .functions.getData import getMyMedical
 # importing medical Info frame
 from .MyMedical import Ui_MyMedical
 from .addMedical import Ui_Dialog
+from .medicalprofile import Ui_MedicalProfile
 
 class Ui_HomePage(object):
     def __init__(self, widget):
@@ -33,6 +34,7 @@ class Ui_HomePage(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.profile_pushButton.setFont(font)
+        self.profile_pushButton.clicked.connect(self.OpenProfileFrame)
         self.profile_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                               "color: rgb(10, 89, 83);\n"
                                               "border-radius:10px;")
@@ -221,3 +223,9 @@ class Ui_HomePage(object):
         self.mainWidget.removeWidget(self.Dialog)
         self.mainWidget.addWidget(AddMedicalScreen)
 
+    def OpenProfileFrame(self):
+        AddProfileFrame=QtWidgets.QDialog()
+        AddProfile=Ui_MedicalProfile()
+        AddProfile.setupUi(AddProfileFrame)
+        self.mainWidget.removeWidget(self.Dialog)
+        self.mainWidget.addWidget(AddProfileFrame)

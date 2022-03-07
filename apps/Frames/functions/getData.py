@@ -52,3 +52,9 @@ def getMedicine(medical_id):
 def getMyMedical():
     resp = mr.makeGetRequest(mr.API + "/mymedical/", {})
     return resp
+
+details=["first name","last name","pincode","Address","Phone number","email"] 
+def getProfileDetails(details):
+    resp = mr.makeGetRequest(mr.API + "/medicalProfile/{}/".format(details),{})
+    return resp
+
