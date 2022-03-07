@@ -4,7 +4,6 @@ from .functions.getData import getMedicine, getMedicalDetails
 from PyQt5.QtCore import pyqtSlot
 
 
-
 class Ui_MyMedical(object):
     def __init__(self):
 
@@ -212,7 +211,6 @@ class Ui_MyMedical(object):
         self.frame.raise_()
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         QtCore.QMetaObject.connectSlotsByName(HomePage)
-        self.pushButton_profile.clicked.connect(self.openProfile)
 
     def retranslateUi(self, HomePage):
         _translate = QtCore.QCoreApplication.translate
@@ -225,6 +223,3 @@ class Ui_MyMedical(object):
     def getMedicineInfo(self):
         sender = self.widget.sender()
 
-    # @pyqtSlot()
-    def openProfile(self):
-        print("clicked")

@@ -3,11 +3,13 @@ from .functions.getData import getMyMedical
 
 # importing frame
 from .MyMedical import Ui_MyMedical
-from .addMedical import Ui_addMedical
+from .medicalProfile import Ui_MedicalProfile
 
 
 class Ui_HomePage(object):
     def __init__(self, widget):
+        self.MedicalProfileScreen = QtWidgets.QDialog()
+        self.MyMedicalScreen = QtWidgets.QDialog()
         self.homePage = None
         self.mainWidget = widget
         try:
@@ -205,19 +207,27 @@ class Ui_HomePage(object):
         self.add_pushButton.setText(_translate("Dialog", "Add"))
 
     def getShopId(self):
-        self.MyMedicalScreen = QtWidgets.QDialog()
         sender = self.widget.sender()
         _id = sender.objectName()
         MyMedical = Ui_MyMedical()
         MyMedical.setupUi(self.MyMedicalScreen, self.mainWidget, _id)
         self.mainWidget.addWidget(self.MyMedicalScreen)
         self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)
-        MyMedical.pushButton_home.clicked.connect(self.backToHome)
+        MyMedical.pushButton_home.clicked.connect(self.MedicalToHome)
+        MyMedical.pushButton_profile.clicked.connect(self.openProfile)
 
-    # def openMedicalFrame(self):
-
-    def backToHome(self):
-        print("home")
+    def MedicalToHome(self):
         print(self.mainWidget.currentIndex())
         self.mainWidget.removeWidget(self.MyMedicalScreen)
+        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)
+
+    def openProfile(self):
+        medicalProfile = Ui_MedicalProfile()
+        medicalProfile.setupUi(self.MedicalProfileScreen)
+        self.mainWidget.addWidget(self.MedicalProfileScreen)
+        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)
+        medicalProfile.back_button.clicked.connect(self.profileToMedical)
+
+    def profileToMedical(self):
+        self.mainWidget.removeWidget(self.MedicalProfileScreen)
         self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)
