@@ -209,12 +209,12 @@ class Ui_HomePage(object):
     def getShopId(self):
         sender = self.widget.sender()
         _id = sender.objectName()
-        MyMedical = Ui_MyMedical()
-        MyMedical.setupUi(self.MyMedicalScreen, self.mainWidget, _id)
+        self.MyMedical = Ui_MyMedical()
+        self.MyMedical.setupUi(self.MyMedicalScreen, self.mainWidget, _id)
         self.mainWidget.addWidget(self.MyMedicalScreen)
         self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)
-        MyMedical.pushButton_home.clicked.connect(self.MedicalToHome)
-        MyMedical.pushButton_profile.clicked.connect(self.openProfile)
+        self.MyMedical.pushButton_home.clicked.connect(self.MedicalToHome)
+        self.MyMedical.pushButton_profile.clicked.connect(self.openProfile)
 
     def MedicalToHome(self):
         print(self.mainWidget.currentIndex())
@@ -222,7 +222,7 @@ class Ui_HomePage(object):
         self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)
 
     def openProfile(self):
-        medicalProfile = Ui_MedicalProfile()
+        medicalProfile = Ui_MedicalProfile(self.MyMedical._id)
         medicalProfile.setupUi(self.MedicalProfileScreen)
         self.mainWidget.addWidget(self.MedicalProfileScreen)
         self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)

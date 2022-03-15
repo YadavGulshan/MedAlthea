@@ -178,11 +178,3 @@ class Ui_addMedical(object):
         self.label.setWhatsThis(_translate("Dialog", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
         self.label.setText(_translate("Dialog", "Create Medical Account"))
 
-    def checkValues(self):
-        self.medicalName_text = self.medicalName.text()
-        self.email_text = self.email.text()
-        self.pincode_text = self.pincode.text()
-        self.phoneNumber_text = self.phoneNumber.text()
-        self.address_text = self.address.text()
-        self.website_text = self.website.text()
-        # self.addPhoto_text = self.addPhoto.text()

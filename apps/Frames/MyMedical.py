@@ -7,6 +7,7 @@ from PyQt5.QtCore import pyqtSlot
 class Ui_MyMedical(object):
     def __init__(self):
 
+        self._id = None
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         # self.shops = getMyMedical()

@@ -1,9 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from .functions.getData import getMedicalDetails
 
 
 class Ui_MedicalProfile(object):
-    def __init__(self):
-        self.is_editable = False
+    def __init__(self, _id):
+        self.is_editable = True
+        try:
+            self.response = getMedicalDetails(_id)
+        except Exception as e:
+            print(e)
+            print("server not  running")
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -44,8 +50,10 @@ class Ui_MedicalProfile(object):
                                  "border-radius:20px;\n"
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);")
-        self.fname.setReadOnly(True)
+
+        self.fname.setReadOnly(self.is_editable)
         self.fname.setObjectName("fname")
+        self.fname.setText(self.response.get("name"))
         self.profile_picture = QtWidgets.QLabel(self.mainFrame)
         self.profile_picture.setGeometry(QtCore.QRect(360, 80, 180, 180))
         font = QtGui.QFont()
@@ -60,7 +68,7 @@ class Ui_MedicalProfile(object):
         self.profile_picture.setAlignment(QtCore.Qt.AlignCenter)
         self.profile_picture.setObjectName("profile_picture")
         self.edit_button = QtWidgets.QPushButton(self.mainFrame)
-        self.edit_button.setEnabled(True)
+        self.edit_button.setEnabled(self.is_editable)
         self.edit_button.setGeometry(QtCore.QRect(610, 710, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -95,7 +103,8 @@ class Ui_MedicalProfile(object):
                                  "border-radius:20px;\n"
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);")
-        self.lname.setReadOnly(False)
+        self.lname.setReadOnly(self.is_editable)
+        self.lname.setText(self.response.get("last_name"))
         self.lname.setObjectName("lname")
         self.zipcode = QtWidgets.QLineEdit(self.mainFrame)
         self.zipcode.setGeometry(QtCore.QRect(470, 440, 411, 51))
@@ -106,8 +115,9 @@ class Ui_MedicalProfile(object):
                                    "border-radius:20px;\n"
                                    "padding:10px;\n"
                                    "color: rgb(52, 52, 52);")
-        self.zipcode.setReadOnly(False)
+        self.zipcode.setReadOnly(self.is_editable)
         self.zipcode.setObjectName("zipcode")
+        self.zipcode.setText(str(self.response.get("pincode")))
         self.address = QtWidgets.QLineEdit(self.mainFrame)
         self.address.setGeometry(QtCore.QRect(470, 360, 411, 51))
         font = QtGui.QFont()
@@ -117,8 +127,9 @@ class Ui_MedicalProfile(object):
                                    "border-radius:20px;\n"
                                    "padding:10px;\n"
                                    "color: rgb(52, 52, 52);")
-        self.address.setReadOnly(False)
+        self.address.setReadOnly(self.is_editable)
         self.address.setObjectName("address")
+        self.address.setText(self.response.get("address"))
         self.phonenumber = QtWidgets.QLineEdit(self.mainFrame)
         self.phonenumber.setGeometry(QtCore.QRect(20, 520, 411, 51))
         font = QtGui.QFont()
@@ -128,7 +139,10 @@ class Ui_MedicalProfile(object):
                                        "border-radius:20px;\n"
                                        "padding:10px;\n"
                                        "color: rgb(52, 52, 52);")
-        self.phonenumber.setReadOnly(False)
+        self.phonenumber.setReadOnly(self.is_editable)
+
+        self.phonenumber.setText(self.response.get("phone"))
+
         self.phonenumber.setObjectName("phonenumber")
         self.email = QtWidgets.QLineEdit(self.mainFrame)
         self.email.setGeometry(QtCore.QRect(470, 520, 411, 51))
@@ -139,8 +153,8 @@ class Ui_MedicalProfile(object):
                                  "border-radius:20px;\n"
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);")
-        self.email.setText("")
-        self.email.setReadOnly(False)
+        self.email.setText(self.response.get("email"))
+        self.email.setReadOnly(self.is_editable)
         self.email.setObjectName("email")
         self.back_button = QtWidgets.QPushButton(self.mainFrame)
         self.back_button.setGeometry(QtCore.QRect(480, 710, 121, 41))
@@ -162,11 +176,9 @@ class Ui_MedicalProfile(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.title.setText(_translate("Dialog", "Medical details"))
-        self.fname.setText(_translate("Dialog", "Shop Name"))
         self.fname.setPlaceholderText(_translate("Dialog", "first Name"))
         self.edit_button.setText(_translate("Dialog", "Edit Profile"))
         self.delete_button.setText(_translate("Dialog", "delete Medical"))
-        self.lname.setText(_translate("Dialog", "Email"))
         self.lname.setPlaceholderText(_translate("Dialog", "last Name"))
         self.zipcode.setPlaceholderText(_translate("Dialog", "pincode / zip code"))
         self.address.setPlaceholderText(_translate("Dialog", "Address"))
