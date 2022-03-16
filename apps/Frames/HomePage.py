@@ -238,7 +238,7 @@ class Ui_HomePage(object):
 
     def MedicalToHome(self):
         self.mainWidget.removeWidget(self.MyMedicalScreen)
-        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)
+        self.mainWidget.addWidget(self.homePage)
 
     def addMedicines(self):
         self.addMedicineScreen = QtWidgets.QDialog()

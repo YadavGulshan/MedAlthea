@@ -1,15 +1,20 @@
 from PyQt5 import QtWidgets
+import re
 
 from Frames.addMedical import Ui_addMedical
 from Frames.HomePage import Ui_HomePage
 from Frames.ownerProfile import Ui_ownerProfile
+from Frames.functions.getData import createMedical
+
 
 class main:
 
     def __init__(self, widget):
+        self.email_text = None
         self.widget = widget
         self.homeScreen = QtWidgets.QDialog()
         self.openHomeScreen()
+        self.valid = False
 
     def openOwnerProfile(self):
         self.AddProfileFrame = QtWidgets.QDialog()
@@ -50,6 +55,62 @@ class main:
         phoneNumber_text = self.AddMedical.phoneNumber.text()
         address_text = self.AddMedical.address.text()
         website_text = self.AddMedical.website.text()
-        print(medicalName_text, email_text, pincode_text, phoneNumber_text, address_text,
-              website_text)
+        phoneNumber = "+91"
+
+        if len(medicalName_text) == 0 or len(email_text) == 0 or len(phoneNumber_text) == 0 or len(
+                pincode_text) == 0 or len(address_text) == 0:
+            self.AddMedical.message.setText("all filed are required!")
+        else:
+            self.AddMedical.message.setText("")
+            if len(phoneNumber_text.replace(" ", "")) == 10:
+                if phoneNumber_text.isnumeric():
+                    phoneNumber += str(phoneNumber_text)
+                    self.AddMedical.phoneMessage.setText("")
+                    self.valid = True
+                else:
+                    self.AddMedical.phoneMessage.setText("phone number should not contain characters")
+                    self.valid = False
+
+                if self.check(email_text):
+                    self.AddMedical.emailMessage.setText("")
+                    self.valid = True
+                else:
+                    self.AddMedical.emailMessage.setText("Enter a valid email")
+                    self.valid = False
+                if len(pincode_text) == 6:
+                    if not pincode_text.isnumeric():
+                        print(pincode_text.isnumeric())
+                        self.valid = False
+                        self.AddMedical.message.setText("Pincode must be numerical")
+                    else:
+                        print(pincode_text.isnumeric())
+                        self.valid = True
+                else:
+                    self.valid = False
+                    self.AddMedical.message.setText("Pincode must be 6 digit long")
+            else:
+                self.AddMedical.phoneMessage.setText("phone number should be 10 digit long")
+                self.valid = False
+        if self.valid:
+            response = createMedical(
+                {"name": medicalName_text, "pincode": pincode_text, "address": address_text, "phone": phoneNumber,
+                 "email": email_text,
+                 "latitude": 0.0, "longitude": 0.0})
+            if response.status_code == 201:
+                message = QtWidgets.QMessageBox()
+                message.setWindowTitle("Medical registered")
+                message.setText("Registration done")
+                message.setIcon(QtWidgets.QMessageBox.Information)
+                message.exec_()
+                self.widget.removeWidget(self.AddMedicalScreen)
+                self.openHomeScreen()
+
         # self.addPhoto_text = self.addPhoto.text()
+
+    @staticmethod
+    def check(email):
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        if re.fullmatch(regex, email):
+            return True
+        else:
+            return False
