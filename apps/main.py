@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 
 from Frames.addMedical import Ui_addMedical
-from apps.Frames.HomePage import Ui_HomePage
+from Frames.HomePage import Ui_HomePage
 
 
 class main:
