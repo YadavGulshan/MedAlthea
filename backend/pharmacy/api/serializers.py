@@ -9,6 +9,7 @@
 # All rights reserved.
 
 from rest_framework import serializers
+from pharmacy.api.tools import tools
 from pharmacy.models import Medical, Medicine
 
 # For auth
@@ -112,7 +113,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         # user.set_active = True
         user.set_password(validated_data["password"])
         user.save()
-
         return user
 
 

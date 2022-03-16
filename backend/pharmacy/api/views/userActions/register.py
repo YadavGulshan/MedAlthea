@@ -11,6 +11,8 @@
 
 from django.http import JsonResponse
 
+from pharmacy.api.tools import tools
+
 from ...serializers import RegisterSerializer, UserNameSerializer
 
 # Imports for registering a new user
@@ -41,7 +43,7 @@ class Register(generics.CreateAPIView):
                     account.is_staff = True
 
             account.save()
-           
+            tools.send_email(send_to=request.data["email"], url="hey.com")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
