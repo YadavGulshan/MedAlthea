@@ -1,14 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
+class Ui_AddMedicine(object):
+    def __init__(self, _id):
+        self.id = _id
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(900, 850)
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setGeometry(QtCore.QRect(0, 0, 900, 850))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.widget.setFont(font)
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -19,7 +21,6 @@ class Ui_Dialog(object):
         self.widget_2 = QtWidgets.QWidget(self.widget)
         self.widget_2.setGeometry(QtCore.QRect(0, 0, 900, 81))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.widget_2.setFont(font)
         self.widget_2.setStyleSheet("background-color: rgb(0, 161, 118);")
@@ -27,7 +28,6 @@ class Ui_Dialog(object):
         self.label = QtWidgets.QLabel(self.widget_2)
         self.label.setGeometry(QtCore.QRect(350, 30, 221, 31))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.label.setFont(font)
         self.label.setStyleSheet("color: rgb(255, 255, 255);")
@@ -36,7 +36,6 @@ class Ui_Dialog(object):
         self.back = QtWidgets.QPushButton(self.widget_2)
         self.back.setGeometry(QtCore.QRect(770, 20, 91, 41))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.back.setFont(font)
         self.back.setStyleSheet("color: rgb(0, 170, 127);\n"
@@ -53,7 +52,6 @@ class Ui_Dialog(object):
         self.label_2 = QtWidgets.QLabel(self.widget)
         self.label_2.setGeometry(QtCore.QRect(90, 190, 131, 41))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.label_2.setFont(font)
         self.label_2.setStyleSheet("background-color: rgb(0, 170, 127);\n"
@@ -64,7 +62,6 @@ class Ui_Dialog(object):
         self.label_3 = QtWidgets.QLabel(self.widget)
         self.label_3.setGeometry(QtCore.QRect(90, 400, 131, 51))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.label_3.setFont(font)
         self.label_3.setStyleSheet("background-color: rgb(0, 170, 127);\n"
@@ -75,7 +72,6 @@ class Ui_Dialog(object):
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setGeometry(QtCore.QRect(90, 290, 131, 51))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("background-color: rgb(0, 170, 127);\n"
@@ -86,7 +82,6 @@ class Ui_Dialog(object):
         self.save = QtWidgets.QPushButton(self.widget)
         self.save.setGeometry(QtCore.QRect(520, 630, 131, 51))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.save.setFont(font)
         self.save.setStyleSheet("background-color: rgb(0, 170, 127);\n"
@@ -96,7 +91,6 @@ class Ui_Dialog(object):
         self.delete_2 = QtWidgets.QPushButton(self.widget)
         self.delete_2.setGeometry(QtCore.QRect(670, 630, 131, 51))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.delete_2.setFont(font)
         self.delete_2.setStyleSheet("background-color: rgb(0, 170, 127);\n"
@@ -107,7 +101,6 @@ class Ui_Dialog(object):
         self.label_5 = QtWidgets.QLabel(self.widget)
         self.label_5.setGeometry(QtCore.QRect(390, 290, 131, 51))
         font = QtGui.QFont()
-        font.setPointSize(-1)
         font.setBold(False)
         self.label_5.setFont(font)
         self.label_5.setStyleSheet("background-color: rgb(0, 170, 127);\n"
@@ -144,7 +137,7 @@ class Ui_Dialog(object):
         self.back.setText(_translate("Dialog", "Back"))
         self.label_2.setText(_translate("Dialog", "Name:"))
         self.label_3.setText(_translate("Dialog", "Description:"))
-        self.label_4.setText(_translate("Dialog", "Quatity"))
+        self.label_4.setText(_translate("Dialog", "Quantity"))
         self.save.setText(_translate("Dialog", "Save"))
         self.delete_2.setText(_translate("Dialog", "Delete"))
         self.label_5.setText(_translate("Dialog", "Price"))

@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets
 
 from Frames.addMedical import Ui_addMedical
 from Frames.HomePage import Ui_HomePage
-
+from Frames.ownerProfile import Ui_ownerProfile
 
 class main:
 
@@ -11,8 +11,17 @@ class main:
         self.homeScreen = QtWidgets.QDialog()
         self.openHomeScreen()
 
-    def openProfile(self):
-        print("profile")
+    def openOwnerProfile(self):
+        self.AddProfileFrame = QtWidgets.QDialog()
+        AddProfile = Ui_ownerProfile()
+        AddProfile.setupUi(self.AddProfileFrame)
+        self.widget.removeWidget(self.homeScreen)
+        self.widget.addWidget(self.AddProfileFrame)
+        AddProfile.back.clicked.connect(self.profileToHome)
+
+    def profileToHome(self):
+        self.widget.removeWidget(self.AddProfileFrame)
+        self.widget.addWidget(self.homeScreen)
 
     def addMedical(self):
         self.AddMedicalScreen = QtWidgets.QDialog()
@@ -31,7 +40,7 @@ class main:
         self.search = Ui_HomePage(self.widget)
         self.search.setupUi(self.homeScreen)
         self.widget.addWidget(self.homeScreen)
-        self.search.profile_pushButton.clicked.connect(self.openProfile)
+        self.search.profile_pushButton.clicked.connect(self.openOwnerProfile)
         self.search.add_pushButton.clicked.connect(self.addMedical)
 
     def checkValues(self):

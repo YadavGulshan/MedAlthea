@@ -10,7 +10,6 @@ class Ui_MyMedical(object):
         self._id = None
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
-        # self.shops = getMyMedical()
 
     def setupUi(self, HomePage, widget, _id):
         self.mainWidget = widget
@@ -223,4 +222,8 @@ class Ui_MyMedical(object):
 
     def getMedicineInfo(self):
         sender = self.widget.sender()
+
+    @property
+    def id(self):
+        return self._id
 

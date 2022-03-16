@@ -4,6 +4,7 @@ from .functions.getData import getMyMedical
 # importing frame
 from .MyMedical import Ui_MyMedical
 from .medicalProfile import Ui_MedicalProfile
+from .addMedicine import Ui_AddMedicine
 
 
 class Ui_HomePage(object):
@@ -36,7 +37,6 @@ class Ui_HomePage(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.profile_pushButton.setFont(font)
-        self.profile_pushButton.clicked.connect(self.OpenProfileFrame)
         self.profile_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                               "color: rgb(10, 89, 83);\n"
                                               "border-radius:10px;")
@@ -225,32 +225,35 @@ class Ui_HomePage(object):
     def getShopId(self):
         sender = self.widget.sender()
         _id = sender.objectName()
+        self.openMyMedical(_id)
+
+    def openMyMedical(self, _id):
         self.MyMedical = Ui_MyMedical()
         self.MyMedical.setupUi(self.MyMedicalScreen, self.mainWidget, _id)
         self.mainWidget.addWidget(self.MyMedicalScreen)
-        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)
+        self.mainWidget.removeWidget(self.homePage)
         self.MyMedical.pushButton_home.clicked.connect(self.MedicalToHome)
         self.MyMedical.pushButton_profile.clicked.connect(self.openProfile)
+        self.MyMedical.pushButton_addMedicine.clicked.connect(self.addMedicines)
 
     def MedicalToHome(self):
-        print(self.mainWidget.currentIndex())
         self.mainWidget.removeWidget(self.MyMedicalScreen)
         self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)
 
-    def openProfile(self):
-        medicalProfile = Ui_MedicalProfile(self.MyMedical._id)
-        medicalProfile.setupUi(self.MedicalProfileScreen)
-        self.mainWidget.addWidget(self.MedicalProfileScreen)
-        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() + 1)
-        medicalProfile.back_button.clicked.connect(self.profileToMedical)
+    def addMedicines(self):
+        self.addMedicineScreen = QtWidgets.QDialog()
+        self.addMedicine = Ui_AddMedicine(self.MyMedical.id)
+        self.addMedicine.setupUi(self.addMedicineScreen)
+        self.mainWidget.addWidget(self.addMedicineScreen)
+        self.mainWidget.removeWidget(self.MyMedicalScreen)
 
-    def OpenProfileFrame(self):
-        AddProfileFrame = QtWidgets.QDialog()
-        AddProfile = Ui_MedicalProfile()
-        AddProfile.setupUi(AddProfileFrame)
-        self.mainWidget.removeWidget(self.homePage)
-        self.mainWidget.addWidget(AddProfileFrame)
+    def openProfile(self):
+        self.medicalProfile = Ui_MedicalProfile(self.MyMedical.id)
+        self.medicalProfile.setupUi(self.MedicalProfileScreen)
+        self.mainWidget.addWidget(self.MedicalProfileScreen)
+        self.mainWidget.removeWidget(self.MyMedicalScreen)
+        self.medicalProfile.back_button.clicked.connect(self.profileToMedical)
 
     def profileToMedical(self):
         self.mainWidget.removeWidget(self.MedicalProfileScreen)
-        self.mainWidget.setCurrentIndex(self.mainWidget.currentIndex() - 1)
+        self.openMyMedical(self.medicalProfile.id)

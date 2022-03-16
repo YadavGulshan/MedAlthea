@@ -5,8 +5,9 @@ from .functions.getData import getMedicalDetails
 class Ui_MedicalProfile(object):
     def __init__(self, _id):
         self.is_editable = True
+        self.id = _id
         try:
-            self.response = getMedicalDetails(_id)
+            self.response = getMedicalDetails(self.id)
         except Exception as e:
             print(e)
             print("server not  running")
