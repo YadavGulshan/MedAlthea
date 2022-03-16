@@ -8,7 +8,8 @@ mr = makeRequest()
 def searchMedicine(medicine_name):
     """ Data required are Medicine Name """
 
-    resp = mr.makeGetRequest(mr.API + "/medicine/search/?search={}".format(medicine_name), {})
+    resp = mr.makeGetRequest(
+        mr.API + "/medicine/search/?search={}".format(medicine_name), {})
     return resp
 
 

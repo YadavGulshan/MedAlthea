@@ -1,9 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from .functions.getData import getMedicalDetails
 
 
-class Ui_Dialog(object):
-    def __init__(self):
-        self.is_editable = False
+class Ui_MedicalProfile(object):
+    def __init__(self, _id):
+        self.is_editable = True
+        self.id = _id
+        try:
+            self.response = getMedicalDetails(self.id)
+        except Exception as e:
+            print(e)
+            print("server not  running")
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -24,13 +31,14 @@ class Ui_Dialog(object):
         self.title.setGeometry(QtCore.QRect(20, 10, 221, 51))
         font = QtGui.QFont()
         font.setPointSize(18)
-        font.setBold(self.is_editable)
+        font.setBold(True)
         self.title.setFont(font)
         self.title.setStyleSheet("color:white;")
         self.title.setObjectName("title")
         self.mainFrame = QtWidgets.QFrame(self.widget)
         self.mainFrame.setGeometry(QtCore.QRect(0, 70, 900, 850))
-        self.mainFrame.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.mainFrame.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+                                     "")
         self.mainFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.mainFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.mainFrame.setObjectName("mainFrame")
@@ -43,14 +51,15 @@ class Ui_Dialog(object):
                                  "border-radius:20px;\n"
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);")
-        self.fname.setText("")
-        self.fname.setReadOnly(self.is_editable)
-        self.fname.setObjectName("f_name")
 
+        self.fname.setReadOnly(self.is_editable)
+        self.fname.setObjectName("fname")
+        self.fname.setText(self.response.get("name"))
         self.profile_picture = QtWidgets.QLabel(self.mainFrame)
         self.profile_picture.setGeometry(QtCore.QRect(360, 80, 180, 180))
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(48)
+        font.setBold(True)
         self.profile_picture.setFont(font)
         self.profile_picture.setStyleSheet("border:2px solid rgb(0,0,0);\n"
                                            "color: rgb(52, 52, 52);\n"
@@ -60,11 +69,11 @@ class Ui_Dialog(object):
         self.profile_picture.setAlignment(QtCore.Qt.AlignCenter)
         self.profile_picture.setObjectName("profile_picture")
         self.edit_button = QtWidgets.QPushButton(self.mainFrame)
-        self.edit_button.clicked.connect(self.enableEdit)
+        self.edit_button.setEnabled(self.is_editable)
         self.edit_button.setGeometry(QtCore.QRect(610, 710, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
-        font.setBold(self.is_editable)
+        font.setBold(True)
         self.edit_button.setFont(font)
         self.edit_button.setStyleSheet("border-radius:10px;\n"
                                        "color: white;\n"
@@ -73,10 +82,11 @@ class Ui_Dialog(object):
                                        "")
         self.edit_button.setObjectName("edit_button")
         self.delete_button = QtWidgets.QPushButton(self.mainFrame)
-        self.delete_button.setEnabled(self.is_editable)
+        self.delete_button.setEnabled(True)
         self.delete_button.setGeometry(QtCore.QRect(740, 710, 131, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
+        font.setBold(False)
         self.delete_button.setFont(font)
         self.delete_button.setStyleSheet("border-radius:10px;\n"
                                          "color: white;\n"
@@ -94,8 +104,8 @@ class Ui_Dialog(object):
                                  "border-radius:20px;\n"
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);")
-        self.lname.setText("")
         self.lname.setReadOnly(self.is_editable)
+        self.lname.setText(self.response.get("last_name"))
         self.lname.setObjectName("lname")
         self.zipcode = QtWidgets.QLineEdit(self.mainFrame)
         self.zipcode.setGeometry(QtCore.QRect(470, 440, 411, 51))
@@ -108,6 +118,7 @@ class Ui_Dialog(object):
                                    "color: rgb(52, 52, 52);")
         self.zipcode.setReadOnly(self.is_editable)
         self.zipcode.setObjectName("zipcode")
+        self.zipcode.setText(str(self.response.get("pincode")))
         self.address = QtWidgets.QLineEdit(self.mainFrame)
         self.address.setGeometry(QtCore.QRect(470, 360, 411, 51))
         font = QtGui.QFont()
@@ -119,6 +130,7 @@ class Ui_Dialog(object):
                                    "color: rgb(52, 52, 52);")
         self.address.setReadOnly(self.is_editable)
         self.address.setObjectName("address")
+        self.address.setText(self.response.get("address"))
         self.phonenumber = QtWidgets.QLineEdit(self.mainFrame)
         self.phonenumber.setGeometry(QtCore.QRect(20, 520, 411, 51))
         font = QtGui.QFont()
@@ -129,6 +141,9 @@ class Ui_Dialog(object):
                                        "padding:10px;\n"
                                        "color: rgb(52, 52, 52);")
         self.phonenumber.setReadOnly(self.is_editable)
+
+        self.phonenumber.setText(self.response.get("phone"))
+
         self.phonenumber.setObjectName("phonenumber")
         self.email = QtWidgets.QLineEdit(self.mainFrame)
         self.email.setGeometry(QtCore.QRect(470, 520, 411, 51))
@@ -139,22 +154,21 @@ class Ui_Dialog(object):
                                  "border-radius:20px;\n"
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);")
+        self.email.setText(self.response.get("email"))
         self.email.setReadOnly(self.is_editable)
         self.email.setObjectName("email")
-        self.save_button = QtWidgets.QPushButton(self.mainFrame)
-        self.save_button.setGeometry(QtCore.QRect(610, 710, 121, 41))
+        self.back_button = QtWidgets.QPushButton(self.mainFrame)
+        self.back_button.setGeometry(QtCore.QRect(480, 710, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
-        font.setBold(self.is_editable)
-        self.save_button.setFont(font)
-        self.save_button.setStyleSheet("border-radius:10px;\n"
+        font.setBold(True)
+        self.back_button.setFont(font)
+        self.back_button.setStyleSheet("border-radius:10px;\n"
                                        "color: white;\n"
                                        "background-color: rgb(0, 153, 112);\n"
                                        "\n"
                                        "")
-        self.save_button.setObjectName("save_button")
-        self.save_button.hide()
-        self.save_button.clicked.connect(self.saveEdit())
+        self.back_button.setObjectName("save_button")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -165,26 +179,10 @@ class Ui_Dialog(object):
         self.title.setText(_translate("Dialog", "Medical details"))
         self.fname.setPlaceholderText(_translate("Dialog", "first Name"))
         self.edit_button.setText(_translate("Dialog", "Edit Profile"))
-        self.delete_button.setWhatsThis(_translate("Dialog",
-                                                   "<html><head/><body><p align=\"center\">This will Your Medical and "
-                                                   "the data</p>/body></html>"))
         self.delete_button.setText(_translate("Dialog", "delete Medical"))
         self.lname.setPlaceholderText(_translate("Dialog", "last Name"))
         self.zipcode.setPlaceholderText(_translate("Dialog", "pincode / zip code"))
         self.address.setPlaceholderText(_translate("Dialog", "Address"))
         self.phonenumber.setPlaceholderText(_translate("Dialog", "Phone Number"))
-        self.email.setText(_translate("Dialog", "Website"))
         self.email.setPlaceholderText(_translate("Dialog", "email"))
-        self.save_button.setText(_translate("Dialog", "save"))
-
-    def enableEdit(self):
-        print("got click")
-        self.edit_button.hide()
-        self.save_button.show()
-        self.is_editable = True
-
-    def saveEdit(self):
-        print("got click")
-        self.save_button.hide()
-        self.edit_button.show()
-        self.is_editable = False
+        self.back_button.setText(_translate("Dialog", "Back"))

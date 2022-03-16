@@ -53,7 +53,7 @@ class app:
         self.login.setupUi(self.loginScreen)
         self.widget.addWidget(self.loginScreen)
         # self.widget.removeWidget(self.searchScreen)
-        self.widget.removeWidget(self.homeScreen)
+        # self.widget.removeWidget(self.homeScreen)
         self.login.SignIn_button.clicked.connect(self.getLogin)
         self.login.signup.clicked.connect(self.openSignUp)
         # print("login page")
