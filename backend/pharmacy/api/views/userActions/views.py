@@ -15,15 +15,21 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.views import APIView
 from rest_framework import status
+from django.contrib.auth.models import User
+
+from pharmacy.api.serializers import UserSerializer
 
 
 @permission_classes([IsAuthenticated])
 class UserView(APIView):
     def get(self, request, format=None):
         current_user = request.user
-        user = {
-            "id": current_user.id,
-            "username": current_user.username,
-            "email": current_user.email,
-        }
-        return Response(user, status=status.HTTP_200_OK)
+        user = User.objects.filter(pk=current_user.id)
+        # user = {
+        #     "id": current_user.id,
+        #     "username": current_user.username,
+        #     "email": current_user.email,
+        # }
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        # return Response(user, status=status.HTTP_200_OK)

@@ -11,4 +11,5 @@ apps/examples-_
 userName.json
 test.html
 .nvimlog
-.ui
+*.ui
+.vscode

@@ -1,17 +1,20 @@
-import requests as rs
+import requests
 
-registerUrl = "http://127.0.0.1:8000/api/register/"
+from .makerequest import makeRequest
+
+mr = makeRequest()
 
 
-def userLogin(userDetails):
-
-    response = rs.post(registerUrl, json=userDetails)
-    res = response.json()
+def userRegister(userDetails):
+    # response = mr.makePostRequest(mr.API + "/register/", userDetails)
+    response = requests.post(mr.API + "/register/", json=userDetails)
     if response.status_code == 201:
         print("register success")
         return response
     elif response.status_code == 400:
         print("sorry something went wrong!!")
-        print(response.json())
+        print(response)
+        return response
     else:
-        print(res)
+        print(response)
+        return response

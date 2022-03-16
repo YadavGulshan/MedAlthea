@@ -1,21 +1,22 @@
 # importing depended modules
-import time
-from atexit import register
+import datetime
 import sys
+
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
-import DateTime
 
-# importing LocalDb
+# importing LocalDb and Functions
 from Frames.functions.localdb import LocalDB
 from Frames.functions.getLogin import getTokens
-from Frames.functions.getRegister import userLogin
+from Frames.functions.getRegister import userRegister
 
 # importing Frames
 from Frames.login import LoginFrame
-from Frames.searchFrame import Ui_Form
 from Frames.signUp import signUpFrame
-from Frames.message import UI_Message
+from Frames.HomePage import Ui_HomePage
+
+# importing main Class
+from main import main
 
 
 class app:
@@ -30,6 +31,7 @@ class app:
     def __init__(self, widget):
         # ---------- Creating .sqlit3 file in apps folder and making connection to local db --------#
         # Crating object of local DB
+        self.month = None
         self.signUpScreen = QtWidgets.QDialog()
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
@@ -38,37 +40,23 @@ class app:
         self.TOKENS = DB.getTokens()
         self.widget = widget
 
-    # checking weather the user already login or not
-    def showMessage(self, text):
-        self.message = UI_Message()
-        self.message.setupUi(self.messageScreen, text)
-        print("display")
-        self.widget.addWidget(self.messageScreen)
-        time.sleep(2)
-        self.widget.removeWidget(self.messageScreen)
-        print("remove")
 
-    def openSearchScreen(self):
-        self.search = Ui_Form()
-        self.search.setupUi(self.searchScreen)
-        self.widget.addWidget(self.searchScreen)
-        self.widget.removeWidget(self.loginScreen)
-        print("search page")
 
     def gotoLogin(self):
         self.widget.removeWidget(self.signUpScreen)
         self.widget.addWidget(self.loginScreen)
-        print("login page")
+        # print("login page")
 
     def openLogin(self):
         # initializing login screen
         self.login = LoginFrame()
         self.login.setupUi(self.loginScreen)
         self.widget.addWidget(self.loginScreen)
-        self.widget.removeWidget(self.searchScreen)
+        # self.widget.removeWidget(self.searchScreen)
+        # self.widget.removeWidget(self.homeScreen)
         self.login.SignIn_button.clicked.connect(self.getLogin)
         self.login.signup.clicked.connect(self.openSignUp)
-        print("login page")
+        # print("login page")
 
     def openSignUp(self):
         # initializing signup screen
@@ -78,22 +66,17 @@ class app:
         self.widget.addWidget(self.signUpScreen)
         self.signUp.LoginIn_button.clicked.connect(self.checkValidation)
         self.signUp.login.clicked.connect(self.gotoLogin)
-        print("signup page")
+        # print("signup page")
 
     def checkValidation(self):
         if self.signUp.getSignUp():
-            userDetails = {
-                "username": self.signUp.username_text,
-                "password": self.signUp.password_text,
-                "password2": self.signUp.password_text,
-                "email": self.signUp.email_text,
-                "first_name": self.signUp.firstname_text,
-                "last_name": self.signUp.lastname_text
-            }
-            status = userLogin(userDetails)
+            userDetails = dict(username=self.signUp.username_text, password=self.signUp.password_text,
+                               password2=self.signUp.password_text, email=self.signUp.email_text,
+                               first_name=self.signUp.firstname_text, last_name=self.signUp.lastname_text,
+                               isStaff=str(self.signUp.checkbox))
+            status = userRegister(userDetails)
             if status.status_code == 201:
                 self.gotoLogin()
-                print("login page")
 
     def getLogin(self):
         username_text = self.login.UserName.text()
@@ -105,7 +88,9 @@ class app:
             token = getTokens(username_text, password_text)
             if token == 200:
                 print("success!")
-                self.openSearchScreen()
+                # self.openSearchScreen()
+                self.widget.removeWidget(self.loginScreen)
+                main(widget)
             else:
                 print(token)
                 self.login.message.setText("UserName Or Password is incorrect ")
@@ -118,19 +103,13 @@ class app:
     def isRefreshValid(self):
         self.db = LocalDB()
         tokens = self.db.getTokens()
-        refreshLastUsed = DateTime.DateTime(tokens[0][1])
-        today = DateTime.DateTime()
+        refreshLastUsed = datetime.datetime.strptime(tokens[0][1], "%Y-%m-%d %H:%M:%S.%f")
+        today = datetime.datetime.now()
         self.month = refreshLastUsed - today
-        if self.month > 90:
+        if self.month > datetime.timedelta(days=90):
             return False
         else:
             return True
-
-    def welcome(self):
-        self.showMessage("Welcome Back!!")
-
-    def sessionsExpired(self):
-        self.showMessage("Session time Out!!")
 
 
 if __name__ == '__main__':
@@ -139,16 +118,14 @@ if __name__ == '__main__':
     widget = QtWidgets.QStackedWidget()
 
     app = app(widget)
-
+    app.setDimension()
     if len(app.TOKENS) == 0:
         app.openLogin()
     else:
         if app.isRefreshValid():
-            app.welcome()
-            app.openSearchScreen()
+            main = main(widget)
+
         else:
-            app.sessionsExpired()
             app.openLogin()
-    app.setDimension()
 
     sys.exit(App.exec_())
