@@ -52,6 +52,7 @@ urlpatterns = [
         userActions.register.UserNameAvailable.as_view(),
         name="serch",
     ),
+    path("emailverification/<uidb64>/<token>/", userActions.Activate.as_view(), name="emailverification"),
     # Utilities goes here.
     path("distance/", mapper.CalculateDistance.as_view(), name="calculate_distance"),
     path(

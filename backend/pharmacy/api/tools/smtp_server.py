@@ -7,6 +7,7 @@ from email.mime.multipart import MIMEMultipart
 
 class smtp_server:
     def send_email(send_to:str, url:str):
+        print("Sending email to: " + send_to)
         smtp_server = "smtp.gmail.com"
         port = 587  # For starttls
         send_from = environ.get("EMAIL")

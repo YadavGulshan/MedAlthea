@@ -14,9 +14,10 @@ __all__ = ["UserActions"]
 from .token import MyToken
 from .register import Register
 from .views import UserView
+from .activate import Activate
 
 
-class UserAction(MyToken, Register, UserView):
+class UserAction(MyToken, Register, UserView, Activate):
     """
     User Actions for registering,
     getting the user info using access token
