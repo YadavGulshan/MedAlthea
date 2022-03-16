@@ -180,3 +180,26 @@ In this case frontend application have to perform a refresh request at the backe
 > > > **So don't forget to update the stored refresh token and access token.**
 
 **Step 4:** If refresh token is expired, then that means user haven't logged In into your application for 90 days. Show him the login page for new tokens.
+
+___
+### Get Current User details
+
+Access token is required to get the details.
+> Hit the `user/` endpoint and expect for **200 OK** response.
+> Example res:
+> ```json
+> [
+>  {
+>    "id": 6,
+>    "username": "rahul9",
+>    "email": "rahu6l@email.com",
+>    "first_name": "Gulshan",
+>    "last_name": "Yadav",
+>    "is_staff": true,
+>    "is_active": true,
+>    "is_superuser": false,
+>    "last_login": "2022-03-16T11:05:29.636332Z",
+>    "date_joined": "2022-03-16T10:58:41.627685Z"
+>  }
+>]
+>```
