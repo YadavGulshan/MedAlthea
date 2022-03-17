@@ -9,7 +9,6 @@
 # All rights reserved.
 
 from rest_framework import serializers
-from pharmacy.api.tools import tools
 from pharmacy.models import Medical, Medicine
 
 # For auth
