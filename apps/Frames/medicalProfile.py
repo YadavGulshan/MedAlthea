@@ -1,4 +1,6 @@
+import requests
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QImage, QPixmap
 from .functions.getData import getMedicalDetails
 
 
@@ -68,6 +70,10 @@ class Ui_MedicalProfile(object):
         self.profile_picture.setText("")
         self.profile_picture.setAlignment(QtCore.Qt.AlignCenter)
         self.profile_picture.setObjectName("profile_picture")
+        url_image = 'https://live.staticflickr.com/65535/49251422908_591245c64a_c_d.jpg'
+        image = QImage()
+        image.loadFromData(requests.get(url_image).content)
+        self.profile_picture.setPixmap(QPixmap(image))
         self.edit_button = QtWidgets.QPushButton(self.mainFrame)
         self.edit_button.setEnabled(self.is_editable)
         self.edit_button.setGeometry(QtCore.QRect(610, 710, 121, 41))

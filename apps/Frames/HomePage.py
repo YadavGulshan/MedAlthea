@@ -16,7 +16,6 @@ class Ui_HomePage(object):
         try:
             self.medicals = getMyMedical()
         except Exception as e:
-            print("server not running")
             print(e)
 
     def setupUi(self, Dialog):

@@ -1,5 +1,6 @@
-from PyQt5 import QtWidgets
 import re
+import os
+from PyQt5 import QtWidgets
 
 from Frames.addMedical import Ui_addMedical
 from Frames.HomePage import Ui_HomePage
@@ -36,6 +37,7 @@ class main:
         self.widget.removeWidget(self.homeScreen)
         self.AddMedical.back.clicked.connect(self.goBack)
         self.AddMedical.submit.clicked.connect(self.checkValues)
+        self.AddMedical.addPhoto.clicked.connect(self.selectPhoto)
 
     def goBack(self):
         self.widget.removeWidget(self.AddMedicalScreen)
@@ -48,6 +50,15 @@ class main:
         self.search.profile_pushButton.clicked.connect(self.openOwnerProfile)
         self.search.add_pushButton.clicked.connect(self.addMedical)
 
+    def selectPhoto(self):
+        pathToHome = os.path.expanduser('~')
+        selectedPhoto = QtWidgets.QFileDialog.getOpenFileName(self.AddMedicalScreen, "select Photo", pathToHome,
+                                                              "Image Files (*.png *.jpg *.jpeg)")
+        if not selectedPhoto[0] == "":
+            with open(selectedPhoto[0], "r+") as photo:
+                print(photo)
+                self.photo = photo
+
     def checkValues(self):
         medicalName_text = self.AddMedical.medicalName.text()
         email_text = self.AddMedical.email.text()
@@ -57,8 +68,9 @@ class main:
         website_text = self.AddMedical.website.text()
         phoneNumber = "+91"
 
-        if len(medicalName_text) == 0 or len(email_text) == 0 or len(phoneNumber_text) == 0 or len(
-                pincode_text) == 0 or len(address_text) == 0:
+        if len(medicalName_text.replace(" ", "")) == 0 or len(email_text.replace(" ", "")) == 0 or len(
+                phoneNumber_text.replace(" ", "")) == 0 or len(
+                pincode_text.replace(" ", "")) == 0 or len(address_text.replace(" ", "")) == 0:
             self.AddMedical.message.setText("all filed are required!")
         else:
             self.AddMedical.message.setText("")
@@ -95,7 +107,7 @@ class main:
             response = createMedical(
                 {"name": medicalName_text, "pincode": pincode_text, "address": address_text, "phone": phoneNumber,
                  "email": email_text,
-                 "latitude": 0.0, "longitude": 0.0})
+                 "latitude": 0.0, "longitude": 0.0, "website": website_text, "image": self.photo})
             if response.status_code == 201:
                 message = QtWidgets.QMessageBox()
                 message.setWindowTitle("Medical registered")
@@ -104,8 +116,6 @@ class main:
                 message.exec_()
                 self.widget.removeWidget(self.AddMedicalScreen)
                 self.openHomeScreen()
-
-        # self.addPhoto_text = self.addPhoto.text()
 
     @staticmethod
     def check(email):
