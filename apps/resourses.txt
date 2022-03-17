@@ -14,3 +14,8 @@ format = '%Y-%m-%d %H:%M:%S'
 # https://ide.geeksforgeeks.org/kveOpwDqbT
 
 https://reqbin.com/req/python/5k564bhv/get-request-bearer-token-authorization-header-example
+
+how to add map in pyqt5?
+https://learndataanalysis.org/display-folium-maps-in-pyqt5/
+how to create maker on map ?
+https://python-graph-gallery.com/312-add-markers-on-folium-map
