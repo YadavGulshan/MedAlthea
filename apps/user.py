@@ -1,17 +1,31 @@
+import json
+import os
 import sys
+import asyncio
 
-from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtWidgets
-from app import app
-from Frames.functions.localdb import LocalDB
-from main import main
+from PyQt5.QtWidgets import QApplication
+from ipregistry import IpregistryClient
+
 from Frames.functions.getLogin import getTokens
+from app import app
+from main import main
+
+
+async def getIpInfo():
+    print('running function')
+    pathToHome = os.path.expanduser('~')
+    client = IpregistryClient("tryout")
+    ipInfo = client.lookup()._json
+    with open(pathToHome + '/ipinfo.json', "w+") as f:
+        json.dump(ipInfo, f)
+        f.close()
+        print('function end')
 
 
 class Root(main, app):
     def __init__(self, widget):
         super().__init__(widget)
-        self.authApp = app(widget)
 
     def StartShopApp(self):
         self.openHomeScreen()
@@ -21,10 +35,11 @@ class Root(main, app):
         self.DB.getLogout()
         self.widget.removeWidget(self.homeScreen)
         self.widget.removeWidget(self.AddProfileFrame)
-        self.DB = LocalDB()
+        # self.DB = LocalDB()
         self.startAuthApp()
 
     def startAuthApp(self):
+        self.authApp = app(self.widget)
         self.authApp.openLogin()
         self.authApp.login.SignIn_button.clicked.connect(self.getLogin)
 
@@ -37,16 +52,15 @@ class Root(main, app):
             self.authApp.login.message.setText("")
             token = getTokens(username_text, password_text)
             if token == 200:
-                print("success!")
                 self.widget.removeWidget(self.authApp.loginScreen)
                 self.StartShopApp()
             else:
-                print(token)
                 self.authApp.login.message.setText("UserName Or Password is incorrect ")
 
 
 if __name__ == '__main__':
     App = QApplication(sys.argv)
+    # asyncio.run(getIpInfo()
     widgetMain = QtWidgets.QStackedWidget()
     RootObject = Root(widgetMain)
     RootObject.setDimension()
@@ -54,7 +68,6 @@ if __name__ == '__main__':
         RootObject.startAuthApp()
     else:
         if RootObject.isRefreshValid():
-            print("checking refresh")
             RootObject.StartShopApp()
         else:
             RootObject.startAuthApp()

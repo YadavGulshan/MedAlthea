@@ -19,7 +19,6 @@ class Ui_HomePage(object):
             print(e)
 
     def setupUi(self, Dialog):
-        print("homepage")
         self.homePage = Dialog
         self.homePage.setObjectName("Dialog")
         self.homePage.resize(900, 850)

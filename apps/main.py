@@ -1,15 +1,15 @@
-import re
+import json
 import os
-import sys
+import re
+import asyncio
 
 from PyQt5 import QtWidgets
-from PyQt5 import QtCore
 
-from Frames.functions.localdb import LocalDB
-from Frames.addMedical import Ui_addMedical
 from Frames.HomePage import Ui_HomePage
-from Frames.ownerProfile import Ui_ownerProfile
+from Frames.addMedical import Ui_addMedical
 from Frames.functions.getData import createMedical
+from Frames.functions.localdb import LocalDB
+from Frames.ownerProfile import Ui_ownerProfile
 
 
 class main:
@@ -20,32 +20,24 @@ class main:
         self.DB = LocalDB()
         self.valid = False
         self.email_text = None
-        self.mainPageWidget = []
         self.homeScreen = QtWidgets.QDialog()
         self.AddProfileFrame = QtWidgets.QDialog()
         self.AddMedicalScreen = QtWidgets.QDialog()
         self.AddProfile = Ui_ownerProfile(self.AddProfileFrame)
 
     def openOwnerProfile(self):
-
         self.AddProfile.setupUi()
-        self.mainPageWidget.pop()
         self.widget.removeWidget(self.homeScreen)
-        self.mainPageWidget.append(self.AddProfileFrame)
         self.widget.addWidget(self.AddProfileFrame)
         self.AddProfile.back.clicked.connect(self.profileToHome)
 
     def profileToHome(self):
-        self.mainPageWidget.pop()
-        self.mainPageWidget.append(self.homeScreen)
         self.widget.removeWidget(self.AddProfileFrame)
         self.widget.addWidget(self.homeScreen)
 
     def addMedical(self):
         self.AddMedical = Ui_addMedical()
         self.AddMedical.setupUi(self.AddMedicalScreen)
-        self.mainPageWidget.pop()
-        self.mainPageWidget.append(self.AddMedicalScreen)
         self.widget.addWidget(self.AddMedicalScreen)
         self.widget.removeWidget(self.homeScreen)
         self.AddMedical.back.clicked.connect(self.goBack)
@@ -57,11 +49,9 @@ class main:
         self.openHomeScreen()
 
     def openHomeScreen(self):
-        print("in home")
         self.widget.setWindowTitle("Home page")
         self.homePage = Ui_HomePage(self.widget)
         self.homePage.setupUi(self.homeScreen)
-        self.mainPageWidget.append(self.homeScreen)
         self.widget.addWidget(self.homeScreen)
         self.homePage.profile_pushButton.clicked.connect(self.openOwnerProfile)
         self.homePage.add_pushButton.clicked.connect(self.addMedical)
@@ -74,9 +64,9 @@ class main:
             extension = selectedPhoto.split(".")
             fileName = selectedPhoto.split("/")
             self.photo = [
-                ('image', (fileName[-1], open(selectedPhoto, 'rb'), 'image/'+extension[-1]))
+                ('image', (fileName[-1], open(selectedPhoto, 'rb'), 'image/' + extension[-1]))
             ]
-            print(self.photo)
+            self.AddMedical.addPhoto.setText(fileName[-1])
 
     def checkValues(self):
         medicalName_text = self.AddMedical.medicalName.text()
@@ -85,7 +75,6 @@ class main:
         phoneNumber_text = self.AddMedical.phoneNumber.text()
         address_text = self.AddMedical.address.text()
         website_text = self.AddMedical.website.text()
-        phoneNumber = "+91"
 
         if len(medicalName_text.replace(" ", "")) == 0 or len(email_text.replace(" ", "")) == 0 or len(
                 phoneNumber_text.replace(" ", "")) == 0 or len(
@@ -95,7 +84,7 @@ class main:
             self.AddMedical.message.setText("")
             if len(phoneNumber_text.replace(" ", "")) == 10:
                 if phoneNumber_text.isnumeric():
-                    phoneNumber += str(phoneNumber_text)
+
                     self.AddMedical.phoneMessage.setText("")
                     self.valid = True
                 else:
@@ -110,11 +99,9 @@ class main:
                     self.valid = False
                 if len(pincode_text) == 6:
                     if not pincode_text.isnumeric():
-                        print(pincode_text.isnumeric())
                         self.valid = False
                         self.AddMedical.message.setText("Pincode must be numerical")
                     else:
-                        print(pincode_text.isnumeric())
                         self.valid = True
                 else:
                     self.valid = False
@@ -123,17 +110,27 @@ class main:
                 self.AddMedical.phoneMessage.setText("phone number should be 10 digit long")
                 self.valid = False
         if self.valid:
+            pathToHome = os.path.expanduser('~')
+            # loading the file which contain ipinfo such calling id lan and lon of the user
+            with open(pathToHome + '/ipinfo.json', 'r') as f:
+                ipinfo = json.load(f)
+                f.close()
+
+            calling_code = ipinfo.get('location')['country']['calling_code']
+            lon = ipinfo.get('location')['region']['longitude']
+            lat = ipinfo.get('location')['region']['latitude']
+
+            # sending request to backend for creating the medical
             response = createMedical(
-                {"name": medicalName_text, "pincode": pincode_text, "address": address_text, "phone": phoneNumber,
+                {"name": medicalName_text, "pincode": pincode_text, "address": address_text,
+                 "phone": calling_code + phoneNumber_text,
                  "email": email_text,
-                 "latitude": 0.0, "longitude": 0.0, "website": website_text}, file=self.photo)
-            print(response.json())
+                 "latitude": lat, "longitude": lon, "website": website_text}, file=self.photo)
+
             if response.status_code == 201:
-                message = QtWidgets.QMessageBox()
-                message.setWindowTitle("Medical registered")
-                message.setText("Registration done")
-                message.setIcon(QtWidgets.QMessageBox.Information)
-                message.exec_()
+                # loop = asyncio.new_event_loop()
+                # coroutine = showMessage()
+                asyncio.run(showMessage())
                 self.widget.removeWidget(self.AddMedicalScreen)
                 self.openHomeScreen()
 
@@ -144,3 +141,11 @@ class main:
             return True
         else:
             return False
+
+
+async def showMessage():
+    message = QtWidgets.QMessageBox()
+    message.setWindowTitle("Medical registered")
+    message.setText("Registration done")
+    message.setIcon(QtWidgets.QMessageBox.Information)
+    message.exec_()

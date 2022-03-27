@@ -22,7 +22,6 @@ class LocalDB:
             (refresh, datetime.now(), access, datetime.now()),
         )
         self.con.commit()
-        print("Token Added! ✅")
         return 200
 
     def getAccessToken(self):

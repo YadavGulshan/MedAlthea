@@ -1,22 +1,12 @@
-# importing depended modules
 import datetime
-import sys
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication
 
-# importing LocalDb and Functions
 from Frames.functions.localdb import LocalDB
-
 from Frames.functions.getRegister import userRegister
 
-# importing Frames
 from Frames.login import LoginFrame
 from Frames.signUp import signUpFrame
-from Frames.HomePage import Ui_HomePage
-
-# importing main Class
-from main import main
 
 
 class app:
@@ -29,11 +19,7 @@ class app:
     """
 
     def __init__(self, widget):
-        # ---------- Creating .sqlit3 file in apps folder and making connection to local db --------#
-        # Crating object of local DB
-
         self.month = None
-        print("init at app")
         self.signUpScreen = QtWidgets.QDialog()
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
@@ -82,7 +68,6 @@ class app:
         self.widget.show()
 
     def isRefreshValid(self):
-        self.DB = LocalDB()
         tokens = self.DB.getTokens()
         refreshLastUsed = datetime.datetime.strptime(tokens[0][1], "%Y-%m-%d %H:%M:%S.%f")
         today = datetime.datetime.now()
@@ -91,9 +76,3 @@ class app:
             return False
         else:
             return True
-
-
-if __name__ == '__main__':
-
-    # initializing GUI application
-    pass

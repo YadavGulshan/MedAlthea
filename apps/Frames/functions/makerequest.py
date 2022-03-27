@@ -1,6 +1,6 @@
 import datetime
-from requests.structures import CaseInsensitiveDict
 import requests as rs
+from requests.structures import CaseInsensitiveDict
 
 from .localdb import LocalDB
 
@@ -27,9 +27,6 @@ class makeRequest:
         day = today - lastUsed
         if day > datetime.timedelta(minutes=30):
             self.getNewToken()
-            print("get new token")
-        else:
-            print("valid")
 
     def makeGetRequest(self, url, body):
         self.__checkAccessToken()
