@@ -3,7 +3,7 @@ import os
 import sys
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication
+from PyQt5 import QtCore
 
 from Frames.functions.localdb import LocalDB
 from Frames.addMedical import Ui_addMedical
@@ -14,46 +14,38 @@ from Frames.functions.getData import createMedical
 
 class main:
 
-    def __init__(self):
-        App = QApplication(sys.argv)
-        self.widget = QtWidgets.QStackedWidget()
-        self.AddProfileFrame = QtWidgets.QDialog()
+    def __init__(self, widget):
+        self.photo = None
+        self.widget = widget
         self.DB = LocalDB()
-        self.homeScreen = QtWidgets.QDialog()
-        self.setDimension()
-        self.openHomeScreen()
         self.valid = False
         self.email_text = None
-        sys.exit(App.exec_())
-
-    def setDimension(self):
-        self.widget.setFixedWidth(900)
-        self.widget.setFixedHeight(850)
-        self.widget.show()
+        self.mainPageWidget = []
+        self.homeScreen = QtWidgets.QDialog()
+        self.AddProfileFrame = QtWidgets.QDialog()
+        self.AddMedicalScreen = QtWidgets.QDialog()
+        self.AddProfile = Ui_ownerProfile(self.AddProfileFrame)
 
     def openOwnerProfile(self):
-        AddProfile = Ui_ownerProfile()
-        AddProfile.setupUi(self.AddProfileFrame)
+
+        self.AddProfile.setupUi()
+        self.mainPageWidget.pop()
         self.widget.removeWidget(self.homeScreen)
+        self.mainPageWidget.append(self.AddProfileFrame)
         self.widget.addWidget(self.AddProfileFrame)
-        AddProfile.back.clicked.connect(self.profileToHome)
-        AddProfile.logout_button.clicked.connect(self.getLogOut)
-
-    def getLogOut(self):
-        self.DB.getLogout()
-        self.widget.removeWidget(self.homeScreen)
-        self.widget.removeWidget(self.AddProfileFrame)
-
-        print("click")
+        self.AddProfile.back.clicked.connect(self.profileToHome)
 
     def profileToHome(self):
+        self.mainPageWidget.pop()
+        self.mainPageWidget.append(self.homeScreen)
         self.widget.removeWidget(self.AddProfileFrame)
         self.widget.addWidget(self.homeScreen)
 
     def addMedical(self):
-        self.AddMedicalScreen = QtWidgets.QDialog()
         self.AddMedical = Ui_addMedical()
         self.AddMedical.setupUi(self.AddMedicalScreen)
+        self.mainPageWidget.pop()
+        self.mainPageWidget.append(self.AddMedicalScreen)
         self.widget.addWidget(self.AddMedicalScreen)
         self.widget.removeWidget(self.homeScreen)
         self.AddMedical.back.clicked.connect(self.goBack)
@@ -65,21 +57,26 @@ class main:
         self.openHomeScreen()
 
     def openHomeScreen(self):
+        print("in home")
         self.widget.setWindowTitle("Home page")
-        self.search = Ui_HomePage(self.widget)
-        self.search.setupUi(self.homeScreen)
+        self.homePage = Ui_HomePage(self.widget)
+        self.homePage.setupUi(self.homeScreen)
+        self.mainPageWidget.append(self.homeScreen)
         self.widget.addWidget(self.homeScreen)
-        self.search.profile_pushButton.clicked.connect(self.openOwnerProfile)
-        self.search.add_pushButton.clicked.connect(self.addMedical)
+        self.homePage.profile_pushButton.clicked.connect(self.openOwnerProfile)
+        self.homePage.add_pushButton.clicked.connect(self.addMedical)
 
     def selectPhoto(self):
         pathToHome = os.path.expanduser('~')
-        selectedPhoto = QtWidgets.QFileDialog.getOpenFileName(self.AddMedicalScreen, "select Photo", pathToHome,
-                                                              "Image Files (*.png *.jpg *.jpeg)")
-        if not selectedPhoto[0] == "":
-            with open(selectedPhoto[0], "r+") as photo:
-                print(photo)
-                self.photo = photo
+        selectedPhoto, _ = QtWidgets.QFileDialog.getOpenFileName(self.AddMedicalScreen, "select Photo", pathToHome,
+                                                                 "Image Files (*.png *.jpg *.jpeg)")
+        if not selectedPhoto == "":
+            extension = selectedPhoto.split(".")
+            fileName = selectedPhoto.split("/")
+            self.photo = [
+                ('image', (fileName[-1], open(selectedPhoto, 'rb'), 'image/'+extension[-1]))
+            ]
+            print(self.photo)
 
     def checkValues(self):
         medicalName_text = self.AddMedical.medicalName.text()
@@ -129,7 +126,8 @@ class main:
             response = createMedical(
                 {"name": medicalName_text, "pincode": pincode_text, "address": address_text, "phone": phoneNumber,
                  "email": email_text,
-                 "latitude": 0.0, "longitude": 0.0, "website": website_text, "image": self.photo})
+                 "latitude": 0.0, "longitude": 0.0, "website": website_text}, file=self.photo)
+            print(response.json())
             if response.status_code == 201:
                 message = QtWidgets.QMessageBox()
                 message.setWindowTitle("Medical registered")

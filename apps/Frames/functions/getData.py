@@ -31,9 +31,9 @@ def addMedicine(medicine: object):
     return mr.makePostRequest(mr.API + "/medicine/", medicine)
 
 
-def createMedical(medical: object):
+def createMedical(medical: object, file):
     """Data required are Medical "name", "address", "pincode", "latitude", "longitude", "phone", "email" """
-    return mr.makePostRequest(mr.API + "/", medical)
+    return mr.CreateMedicalPost(mr.API + "/", medical, file)
 
 
 def allMedicalShop():

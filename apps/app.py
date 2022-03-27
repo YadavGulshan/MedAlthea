@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication
 
 # importing LocalDb and Functions
 from Frames.functions.localdb import LocalDB
-from Frames.functions.getLogin import getTokens
+
 from Frames.functions.getRegister import userRegister
 
 # importing Frames
@@ -33,6 +33,7 @@ class app:
         # Crating object of local DB
 
         self.month = None
+        print("init at app")
         self.signUpScreen = QtWidgets.QDialog()
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
@@ -52,7 +53,7 @@ class app:
         self.login = LoginFrame()
         self.login.setupUi(self.loginScreen)
         self.widget.addWidget(self.loginScreen)
-        self.login.SignIn_button.clicked.connect(checkLogin)
+
         self.login.signup.clicked.connect(self.openSignUp)
 
     def openSignUp(self):
@@ -75,23 +76,6 @@ class app:
             if status.status_code == 201:
                 self.gotoLogin()
 
-    def getLogin(self):
-        username_text = self.login.UserName.text()
-        password_text = self.login.Password.text()
-        if len(username_text) == 0 or len(password_text) == 0:
-            self.login.message.setText("All Field are required!")
-        else:
-            self.login.message.setText("")
-            token = getTokens(username_text, password_text)
-            if token == 200:
-                print("success!")
-                # self.openSearchScreen()
-                self.widget.removeWidget(self.loginScreen)
-                main()
-            else:
-                print(token)
-                self.login.message.setText("UserName Or Password is incorrect ")
-
     def setDimension(self):
         self.widget.setFixedWidth(900)
         self.widget.setFixedHeight(850)
@@ -112,23 +96,4 @@ class app:
 if __name__ == '__main__':
 
     # initializing GUI application
-    App = QApplication(sys.argv)
-    widget = QtWidgets.QStackedWidget()
-    appMain = app(widget)
-    appMain.setDimension()
-    if len(appMain.TOKENS) == 0:
-        appMain.openLogin()
-
-        def checkLogin():
-            if appMain.getLogin():
-                main()
-                App.exit(0)
-
-    else:
-        if appMain.isRefreshValid():
-            main()
-            App.exit(0)
-        else:
-            appMain.openLogin()
-
-    sys.exit(App.exec_())
+    pass

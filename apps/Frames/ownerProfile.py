@@ -3,22 +3,21 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_ownerProfile(object):
 
-    def __init__(self):
-        self.firstname = None
-        self.widget = None
-
-    def setupUi(self, owner_profile):
-        font = QtGui.QFont()
-        font.setPointSize(28)
-        font.setBold(True)
+    def __init__(self, owner_profile):
         owner_profile.setObjectName("owner_profile")
         owner_profile.resize(900, 850)
         self.widget = QtWidgets.QWidget(owner_profile)
+        self.firstname = None
+        self.logout_button = QtWidgets.QPushButton(self.widget)
+
+    def setupUi(self):
+        font = QtGui.QFont()
+        font.setPointSize(28)
+        font.setBold(True)
         self.firstname = QtWidgets.QLineEdit(self.widget)
         self.lastname = QtWidgets.QLineEdit(self.widget)
         self.Title = QtWidgets.QLabel(self.widget)
         self.email = QtWidgets.QLineEdit(self.widget)
-        self.logout_button = QtWidgets.QPushButton(self.widget)
         self.widget.setGeometry(QtCore.QRect(0, 0, 900, 850))
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.widget.setObjectName("widget")
@@ -100,8 +99,8 @@ class Ui_ownerProfile(object):
                                 "color: rgb(255, 255, 255);")
         self.back.setObjectName("back")
         self.back.setText("Back")
-        self.retranslateUi(owner_profile)
-        QtCore.QMetaObject.connectSlotsByName(owner_profile)
+        self.retranslateUi(self.widget)
+        QtCore.QMetaObject.connectSlotsByName(self.widget)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate

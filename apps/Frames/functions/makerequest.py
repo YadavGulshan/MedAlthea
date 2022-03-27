@@ -47,7 +47,7 @@ class makeRequest:
         self.__checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
-            resp = rs.post(url, headers=self.headers, json=body)
+            resp = rs.post(url, headers=self.headers, json=body, )
             if resp.status_code == 201:
                 return resp
             else:
@@ -84,3 +84,15 @@ class makeRequest:
         if resp.status_code == 200:
             self.db.addNewToken(resp.json().get("access"), resp.json().get("refresh"))
         return resp
+
+    def CreateMedicalPost(self, url, body, file):
+        try:
+            self.__checkAccessToken()
+            self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
+            resp = rs.post(url, headers=self.headers, data=body, files=file)
+            if resp.status_code == 201:
+                return resp
+            else:
+                return resp
+        except Exception as e:
+            print(e)
