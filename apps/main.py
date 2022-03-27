@@ -1,7 +1,11 @@
 import re
 import os
-from PyQt5 import QtWidgets
+import sys
 
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication
+
+from Frames.functions.localdb import LocalDB
 from Frames.addMedical import Ui_addMedical
 from Frames.HomePage import Ui_HomePage
 from Frames.ownerProfile import Ui_ownerProfile
@@ -10,20 +14,37 @@ from Frames.functions.getData import createMedical
 
 class main:
 
-    def __init__(self, widget):
-        self.email_text = None
-        self.widget = widget
+    def __init__(self):
+        App = QApplication(sys.argv)
+        self.widget = QtWidgets.QStackedWidget()
+        self.AddProfileFrame = QtWidgets.QDialog()
+        self.DB = LocalDB()
         self.homeScreen = QtWidgets.QDialog()
+        self.setDimension()
         self.openHomeScreen()
         self.valid = False
+        self.email_text = None
+        sys.exit(App.exec_())
+
+    def setDimension(self):
+        self.widget.setFixedWidth(900)
+        self.widget.setFixedHeight(850)
+        self.widget.show()
 
     def openOwnerProfile(self):
-        self.AddProfileFrame = QtWidgets.QDialog()
         AddProfile = Ui_ownerProfile()
         AddProfile.setupUi(self.AddProfileFrame)
         self.widget.removeWidget(self.homeScreen)
         self.widget.addWidget(self.AddProfileFrame)
         AddProfile.back.clicked.connect(self.profileToHome)
+        AddProfile.logout_button.clicked.connect(self.getLogOut)
+
+    def getLogOut(self):
+        self.DB.getLogout()
+        self.widget.removeWidget(self.homeScreen)
+        self.widget.removeWidget(self.AddProfileFrame)
+
+        print("click")
 
     def profileToHome(self):
         self.widget.removeWidget(self.AddProfileFrame)
@@ -44,6 +65,7 @@ class main:
         self.openHomeScreen()
 
     def openHomeScreen(self):
+        self.widget.setWindowTitle("Home page")
         self.search = Ui_HomePage(self.widget)
         self.search.setupUi(self.homeScreen)
         self.widget.addWidget(self.homeScreen)
@@ -70,7 +92,7 @@ class main:
 
         if len(medicalName_text.replace(" ", "")) == 0 or len(email_text.replace(" ", "")) == 0 or len(
                 phoneNumber_text.replace(" ", "")) == 0 or len(
-                pincode_text.replace(" ", "")) == 0 or len(address_text.replace(" ", "")) == 0:
+            pincode_text.replace(" ", "")) == 0 or len(address_text.replace(" ", "")) == 0:
             self.AddMedical.message.setText("all filed are required!")
         else:
             self.AddMedical.message.setText("")

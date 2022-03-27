@@ -31,42 +31,39 @@ class app:
     def __init__(self, widget):
         # ---------- Creating .sqlit3 file in apps folder and making connection to local db --------#
         # Crating object of local DB
+
         self.month = None
         self.signUpScreen = QtWidgets.QDialog()
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
         self.searchScreen = QtWidgets.QDialog()
-        DB = LocalDB()
-        self.TOKENS = DB.getTokens()
+        self.DB = LocalDB()
+        self.TOKENS = self.DB.getTokens()
         self.widget = widget
-
-
 
     def gotoLogin(self):
         self.widget.removeWidget(self.signUpScreen)
         self.widget.addWidget(self.loginScreen)
-        # print("login page")
+        self.widget.setWindowTitle("Login")
 
     def openLogin(self):
+        self.widget.setWindowTitle("Login")
         # initializing login screen
         self.login = LoginFrame()
         self.login.setupUi(self.loginScreen)
         self.widget.addWidget(self.loginScreen)
-        # self.widget.removeWidget(self.searchScreen)
-        # self.widget.removeWidget(self.homeScreen)
-        self.login.SignIn_button.clicked.connect(self.getLogin)
+        self.login.SignIn_button.clicked.connect(checkLogin)
         self.login.signup.clicked.connect(self.openSignUp)
-        # print("login page")
 
     def openSignUp(self):
         # initializing signup screen
+        self.widget.setWindowTitle("Sign Up")
         self.signUp = signUpFrame()
         self.signUp.setupUi(self.signUpScreen)
         self.widget.removeWidget(self.loginScreen)
         self.widget.addWidget(self.signUpScreen)
         self.signUp.LoginIn_button.clicked.connect(self.checkValidation)
         self.signUp.login.clicked.connect(self.gotoLogin)
-        # print("signup page")
 
     def checkValidation(self):
         if self.signUp.getSignUp():
@@ -90,7 +87,7 @@ class app:
                 print("success!")
                 # self.openSearchScreen()
                 self.widget.removeWidget(self.loginScreen)
-                main(widget)
+                main()
             else:
                 print(token)
                 self.login.message.setText("UserName Or Password is incorrect ")
@@ -101,8 +98,8 @@ class app:
         self.widget.show()
 
     def isRefreshValid(self):
-        self.db = LocalDB()
-        tokens = self.db.getTokens()
+        self.DB = LocalDB()
+        tokens = self.DB.getTokens()
         refreshLastUsed = datetime.datetime.strptime(tokens[0][1], "%Y-%m-%d %H:%M:%S.%f")
         today = datetime.datetime.now()
         self.month = refreshLastUsed - today
@@ -113,19 +110,25 @@ class app:
 
 
 if __name__ == '__main__':
+
     # initializing GUI application
     App = QApplication(sys.argv)
     widget = QtWidgets.QStackedWidget()
+    appMain = app(widget)
+    appMain.setDimension()
+    if len(appMain.TOKENS) == 0:
+        appMain.openLogin()
 
-    app = app(widget)
-    app.setDimension()
-    if len(app.TOKENS) == 0:
-        app.openLogin()
+        def checkLogin():
+            if appMain.getLogin():
+                main()
+                App.exit(0)
+
     else:
-        if app.isRefreshValid():
-            main = main(widget)
-
+        if appMain.isRefreshValid():
+            main()
+            App.exit(0)
         else:
-            app.openLogin()
+            appMain.openLogin()
 
     sys.exit(App.exec_())
