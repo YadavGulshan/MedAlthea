@@ -117,8 +117,8 @@ class main:
                 f.close()
 
             calling_code = ipinfo.get('location')['country']['calling_code']
-            lon = ipinfo.get('location')['region']['longitude']
-            lat = ipinfo.get('location')['region']['latitude']
+            lon = ipinfo.get('location')['longitude']
+            lat = ipinfo.get('location')['latitude']
 
             # sending request to backend for creating the medical
             response = createMedical(
