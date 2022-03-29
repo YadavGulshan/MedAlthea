@@ -60,8 +60,29 @@ Now change the directory to backend folder and build the docker image.
 cd backend
 docker buid -t medalthea .
 ```
-
+Run and Create Backend Container in background
+```
+docker run -d -p 8000:8000 --name medaltheaBE medalthea:latest
+```
+To Stop Backend in Background
+```
+docker container stop medaltheaBE
+```
+To Start Backend if already created and is stopped
+```
+docker container start medaltheaBE
+```
+To Delete Backend Container
+```
+docker container stop medaltheaBE
+docker container rm medaltheaBE
+```
+To Delete Medalthea Image
+```
+docker image rm medalthea
+```
 That's it for the backend. 
+
 
 
 ## Architecture
