@@ -3,7 +3,7 @@ name: medalthea
 on: [pull_request, push]
 
 env:
-  working_directory: "./medalthea"
+  working_directory: "medalthea"
 
 jobs:
   build:
