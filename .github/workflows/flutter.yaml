@@ -10,6 +10,7 @@ jobs:
         working-directory: ./medalthea
     steps:
       - uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+      - name: Very good flutter
       - with:
           flutter_channel: stable
           flutter_version: 2.10.0
