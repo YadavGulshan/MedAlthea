@@ -4,7 +4,14 @@ on: [pull_request, push]
 
 jobs:
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-    with:
-      flutter_channel: stable
-      flutter_version: 2.10.0
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./medalthea
+    steps:
+      - uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+      - with:
+          flutter_channel: stable
+          flutter_version: 2.10.0
+
+    
