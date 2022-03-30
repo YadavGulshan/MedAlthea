@@ -1,7 +1,4 @@
-/// {@template form_input}
-/// formz input
-/// {@endtemplate}
-class FormInput {
-  /// {@macro form_input}
-  const FormInput();
-}
+export 'confirmed_password.dart';
+export 'email.dart';
+export 'password.dart';
+export 'username.dart';
