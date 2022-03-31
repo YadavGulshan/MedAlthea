@@ -20,10 +20,20 @@ class main:
         self.DB = LocalDB()
         self.valid = False
         self.email_text = None
-        self.homeScreen = QtWidgets.QDialog()
+
         self.AddProfileFrame = QtWidgets.QDialog()
         self.AddMedicalScreen = QtWidgets.QDialog()
+        self.AddMedical = Ui_addMedical()
+        self.homePage = Ui_HomePage(self.widget)
         self.AddProfile = Ui_ownerProfile(self.AddProfileFrame)
+
+    def openHomeScreen(self):
+        self.homeScreen = QtWidgets.QDialog()
+        self.widget.setWindowTitle("Home page")
+        self.homePage.setupUi(self.homeScreen)
+        self.widget.addWidget(self.homeScreen)
+        self.homePage.profile_pushButton.clicked.connect(self.openOwnerProfile)
+        self.homePage.add_pushButton.clicked.connect(self.addMedical)
 
     def openOwnerProfile(self):
         self.AddProfile.setupUi()
@@ -36,7 +46,6 @@ class main:
         self.widget.addWidget(self.homeScreen)
 
     def addMedical(self):
-        self.AddMedical = Ui_addMedical()
         self.AddMedical.setupUi(self.AddMedicalScreen)
         self.widget.addWidget(self.AddMedicalScreen)
         self.widget.removeWidget(self.homeScreen)
@@ -47,14 +56,6 @@ class main:
     def goBack(self):
         self.widget.removeWidget(self.AddMedicalScreen)
         self.openHomeScreen()
-
-    def openHomeScreen(self):
-        self.widget.setWindowTitle("Home page")
-        self.homePage = Ui_HomePage(self.widget)
-        self.homePage.setupUi(self.homeScreen)
-        self.widget.addWidget(self.homeScreen)
-        self.homePage.profile_pushButton.clicked.connect(self.openOwnerProfile)
-        self.homePage.add_pushButton.clicked.connect(self.addMedical)
 
     def selectPhoto(self):
         pathToHome = os.path.expanduser('~')
@@ -119,19 +120,19 @@ class main:
             calling_code = ipinfo.get('location')['country']['calling_code']
             lon = ipinfo.get('location')['longitude']
             lat = ipinfo.get('location')['latitude']
-
+            phoneNumber = '+' + calling_code + phoneNumber_text
             # sending request to backend for creating the medical
             response = createMedical(
                 {"name": medicalName_text, "pincode": pincode_text, "address": address_text,
-                 "phone": calling_code + phoneNumber_text,
+                 "phone": phoneNumber,
                  "email": email_text,
                  "latitude": lat, "longitude": lon, "website": website_text}, file=self.photo)
-
             if response.status_code == 201:
                 # loop = asyncio.new_event_loop()
                 # coroutine = showMessage()
                 asyncio.run(showMessage())
                 self.widget.removeWidget(self.AddMedicalScreen)
+                self.widget.removeWidget(self.homeScreen)
                 self.openHomeScreen()
 
     @staticmethod

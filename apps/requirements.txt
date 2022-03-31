@@ -4,7 +4,6 @@ cachetools==4.2.4
 certifi==2021.10.8
 charset-normalizer==2.0.12
 click==8.0.3
-DateTime==4.4
 folium==0.12.1.post1
 geographiclib==1.52
 geopy==2.2.0

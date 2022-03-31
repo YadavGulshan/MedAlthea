@@ -60,7 +60,7 @@ class Root(main, app):
 
 if __name__ == '__main__':
     App = QApplication(sys.argv)
-    asyncio.run(getIpInfo())
+    # asyncio.run(getIpInfo())
     widgetMain = QtWidgets.QStackedWidget()
     RootObject = Root(widgetMain)
     RootObject.setDimension()

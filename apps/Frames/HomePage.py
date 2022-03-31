@@ -9,16 +9,18 @@ from .addMedicine import Ui_AddMedicine
 
 class Ui_HomePage(object):
     def __init__(self, widget):
+        self.medicals = {}
         self.MedicalProfileScreen = QtWidgets.QDialog()
         self.MyMedicalScreen = QtWidgets.QDialog()
         self.homePage = None
         self.mainWidget = widget
-        try:
-            self.medicals = getMyMedical()
-        except Exception as e:
-            print(e)
 
     def setupUi(self, Dialog):
+        try:
+            self.medicals.clear()
+            self.medicals = getMyMedical().json()
+        except Exception as e:
+            print(e)
         self.homePage = Dialog
         self.homePage.setObjectName("Dialog")
         self.homePage.resize(900, 850)
@@ -92,7 +94,7 @@ class Ui_HomePage(object):
         self.add_pushButton.setObjectName("add_pushButton")
         self.verticalLayout.addWidget(self.Add_medical)
 
-        for medical in self.medicals.json():
+        for medical in self.medicals:
             self.medical_widget = QtWidgets.QWidget(
                 self.scrollAreaWidgetContents)
             sizePolicy = QtWidgets.QSizePolicy(
