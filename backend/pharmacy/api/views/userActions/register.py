@@ -9,7 +9,10 @@
 # All rights reserved.
 
 
+from base64 import urlsafe_b64encode
 from django.http import JsonResponse
+from pharmacy.api.tools import tools
+from pharmacy.api.views.userActions.token.token_generator import TokenGenerator
 
 from ...serializers import RegisterSerializer, UserNameSerializer
 
@@ -18,6 +21,7 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import status
+from django.utils.encoding import force_bytes
 
 
 class Register(generics.CreateAPIView):
@@ -41,7 +45,13 @@ class Register(generics.CreateAPIView):
                     account.is_staff = True
 
             account.save()
-           
+            # Abstract base user
+            user = User.objects.get(username=account.username)
+            tokengen = TokenGenerator()
+            uid = urlsafe_b64encode(force_bytes(user.pk))
+            token = tokengen.make_token(user)
+            print(str(str("http://localhost:8000/api/emailverification/")+str(uid).replace('b','').replace("'","")+"/"+str(token)))
+            tools.send_email(send_to=request.data["email"], url=str(str("http://localhost:8000/api/emailverification/")+str(uid).replace('b','').replace("'","")+"/"+str(token)))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
