@@ -12,7 +12,8 @@ __all__ = ["token"]
 
 from .serializer import MyTokenObtainPairSerializer
 from .view import MyTokenObtainPairView
+from .token_generator import TokenGenerator
 
 
-class MyToken(MyTokenObtainPairSerializer, MyTokenObtainPairView):
+class MyToken(MyTokenObtainPairSerializer, MyTokenObtainPairView, TokenGenerator):
     """userActions.token"""
