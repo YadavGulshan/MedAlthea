@@ -58,3 +58,7 @@ def getMyMedical():
 def getMedicalDetails(medical_id):
     resp = mr.makeGetRequest(mr.API + "/{}/".format(medical_id), {})
     return resp.json()[0]
+
+def getUserDetails():
+    resp = mr.makeGetRequest(mr.API + "/user/", {})
+    return resp

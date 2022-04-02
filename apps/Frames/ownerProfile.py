@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from .functions.getData import getUserDetails
 
 
 class Ui_ownerProfile(object):
@@ -9,6 +10,9 @@ class Ui_ownerProfile(object):
         self.widget = QtWidgets.QWidget(owner_profile)
         self.firstname = None
         self.logout_button = QtWidgets.QPushButton(self.widget)
+        self.response=getUserDetails().json()[0]
+        print(self.response)
+
 
     def setupUi(self):
         font = QtGui.QFont()
@@ -39,6 +43,7 @@ class Ui_ownerProfile(object):
                                      "")
         self.firstname.setReadOnly(True)
         self.firstname.setObjectName("firstname")
+        self.firstname.setText(self.response.get("first_name"))
         self.lastname.setGeometry(QtCore.QRect(500, 310, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
@@ -52,6 +57,7 @@ class Ui_ownerProfile(object):
                                     "")
         self.lastname.setReadOnly(True)
         self.lastname.setObjectName("lastname")
+        self.lastname.setText(self.response.get("last_name"))
         self.email.setGeometry(QtCore.QRect(120, 400, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
@@ -65,20 +71,22 @@ class Ui_ownerProfile(object):
                                  "")
         self.email.setReadOnly(True)
         self.email.setObjectName("email")
-        self.phone = QtWidgets.QLineEdit(self.widget)
-        self.phone.setGeometry(QtCore.QRect(500, 400, 330, 50))
+        self.email.setText(self.response.get("email"))
+        self.username = QtWidgets.QLineEdit(self.widget)
+        self.username.setGeometry(QtCore.QRect(500, 400, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.phone.setFont(font)
-        self.phone.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
+        self.username.setFont(font)
+        self.username.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                  "border-radius:20px;\n"
                                  "border:2px solid black;\n"
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);\n"
                                  "\n"
                                  "")
-        self.phone.setReadOnly(True)
-        self.phone.setObjectName("phone")
+        self.username.setReadOnly(True)
+        self.username.setObjectName("username")
+        self.username.setText(self.response.get("username"))
         self.logout_button.setGeometry(QtCore.QRect(310, 600, 321, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -109,5 +117,5 @@ class Ui_ownerProfile(object):
         self.firstname.setPlaceholderText(_translate("Dialog", "First Name"))
         self.lastname.setPlaceholderText(_translate("Dialog", "Last Name"))
         self.email.setPlaceholderText(_translate("Dialog", "Email"))
-        self.phone.setPlaceholderText(_translate("Dialog", "Phone Number"))
+        self.username.setPlaceholderText(_translate("Dialog", "User Name"))
         self.logout_button.setText(_translate("Dialog", "Logout"))
