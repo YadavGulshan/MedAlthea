@@ -1,10 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.getData import getMyMedical
+from .functions.getData import getMyMedical, addMedicine
 
 # importing frame
-from .MyMedical import Ui_MyMedical
+from .medicineHome import Ui_MedicineHome
 from .medicalProfile import Ui_MedicalProfile
-from .addMedicine import Ui_AddMedicine
+from .addMedicine_ import Ui_AddMedicine
 
 
 class Ui_HomePage(object):
@@ -224,17 +224,17 @@ class Ui_HomePage(object):
 
     def getShopId(self):
         sender = self.widget.sender()
-        _id = sender.objectName()
-        self.openMyMedical(_id)
+        self._id = sender.objectName()
+        self.openMyMedical(self._id)
 
     def openMyMedical(self, _id):
-        self.MyMedical = Ui_MyMedical()
-        self.MyMedical.setupUi(self.MyMedicalScreen, self.mainWidget, _id)
+        self.MyMedical = Ui_MedicineHome()
+        self.MyMedical.setupUi(self.MyMedicalScreen, _id)
         self.mainWidget.addWidget(self.MyMedicalScreen)
         self.mainWidget.removeWidget(self.homePage)
-        self.MyMedical.pushButton_home.clicked.connect(self.MedicalToHome)
-        self.MyMedical.pushButton_profile.clicked.connect(self.openProfile)
-        self.MyMedical.pushButton_addMedicine.clicked.connect(self.addMedicines)
+        self.MyMedical.Home_pushButton.clicked.connect(self.MedicalToHome)
+        self.MyMedical.profile_pushButton.clicked.connect(self.openProfile)
+        self.MyMedical.Addmedicine_pushButton.clicked.connect(self.addMedicines)
 
     def MedicalToHome(self):
         self.mainWidget.removeWidget(self.MyMedicalScreen)
@@ -246,6 +246,12 @@ class Ui_HomePage(object):
         self.addMedicine.setupUi(self.addMedicineScreen)
         self.mainWidget.addWidget(self.addMedicineScreen)
         self.mainWidget.removeWidget(self.MyMedicalScreen)
+        self.addMedicine.add_button.clicked.connect(self.checkMedicineDetail)
+        self.addMedicine.pushButton.clicked.connect(self.goBack)
+
+    def goBack(self):
+        self.mainWidget.removeWidget(self.addMedicineScreen)
+        self.mainWidget.addWidget(self.MyMedicalScreen)
 
     def openProfile(self):
         self.medicalProfile = Ui_MedicalProfile(self.MyMedical.id)
@@ -257,3 +263,22 @@ class Ui_HomePage(object):
     def profileToMedical(self):
         self.mainWidget.removeWidget(self.MedicalProfileScreen)
         self.openMyMedical(self.medicalProfile.id)
+
+    def checkMedicineDetail(self):
+        valid, medicineDetails = self.addMedicine.checkFields()
+        if valid:
+            response = addMedicine(medicineDetails)
+            if response.status_code == 201:
+                self.mainWidget.removeWidget(self.addMedicineScreen)
+                self.openMyMedical(self._id)
+                showMessage(True)
+            else:
+                showMessage(False)
+
+
+def showMessage(status):
+    message = QtWidgets.QMessageBox()
+    message.setWindowTitle("Medicine added" if status else "Error")
+    message.setText("Medicine added" if status else "Sorry something went wrong")
+    message.setIcon(QtWidgets.QMessageBox.Information if status else QtWidgets.QMessageBox.Critical)
+    message.exec_()
