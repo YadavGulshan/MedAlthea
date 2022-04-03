@@ -1,10 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from .functions.getData import getMedicine, getMedicalDetails
-
+from .editmedicine import Ui_editMedicine
 
 class Ui_MedicineHome(object):
-    def __init__(self):
+    def __init__(self,mainWidget):
+        self.mainwidget = mainWidget
         self.id = None
         self.medical = None
         self.medicines = None
@@ -19,6 +20,7 @@ class Ui_MedicineHome(object):
             print(e)
         Dialog.setObjectName("Dialog")
         Dialog.resize(900, 854)
+        self.mymedicalScreen=Dialog
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setGeometry(QtCore.QRect(0, 0, 900, 850))
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -171,6 +173,7 @@ class Ui_MedicineHome(object):
                                                "border-radius:10px;")
                 self.view_button.setObjectName(str(self.medicines[j].get('medicineId')))
                 self.view_button.setText("View")
+                self.view_button.clicked.connect(self.openEditMedicine)
                 self.horizontalLayout_3.addWidget(self.col)
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
@@ -187,4 +190,9 @@ class Ui_MedicineHome(object):
         self.profile_pushButton.setText(_translate("Dialog", "Profile"))
         self.search_input.setPlaceholderText(_translate("Dialog", "Search"))
 
-    # def addCol(self):
+    def openEditMedicine(self):
+        self.editMedicine=QtWidgets.QDialog()
+        self.editMedicine=Ui_editMedicine()
+        self.editMedicine.setupUi(self.editMedicine)
+        self.mainWidget.addWidget(self.EditMedicine)
+        self.mainWidget.removeWidget(self.mymedicalScreen)

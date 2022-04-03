@@ -228,7 +228,7 @@ class Ui_HomePage(object):
         self.openMyMedical(self._id)
 
     def openMyMedical(self, _id):
-        self.MyMedical = Ui_MedicineHome()
+        self.MyMedical = Ui_MedicineHome(self.mainWidget)
         self.MyMedical.setupUi(self.MyMedicalScreen, _id)
         self.mainWidget.addWidget(self.MyMedicalScreen)
         self.mainWidget.removeWidget(self.homePage)
