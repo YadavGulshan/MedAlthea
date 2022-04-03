@@ -3,12 +3,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from .functions.getData import getMedicine, getMedicalDetails
 from .editmedicine import Ui_editMedicine
 
+
 class Ui_MedicineHome(object):
-    def __init__(self,mainWidget):
-        self.mainwidget = mainWidget
+    def __init__(self, mainWidget):
+        self.mainWidget = mainWidget
         self.id = None
         self.medical = None
         self.medicines = None
+        self.editMedicineScreen = QtWidgets.QDialog()
 
     def setupUi(self, Dialog, _id):
         self.id = _id
@@ -20,7 +22,7 @@ class Ui_MedicineHome(object):
             print(e)
         Dialog.setObjectName("Dialog")
         Dialog.resize(900, 854)
-        self.mymedicalScreen=Dialog
+        self.myMedicalScreen = Dialog
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setGeometry(QtCore.QRect(0, 0, 900, 850))
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -119,7 +121,7 @@ class Ui_MedicineHome(object):
         length = len(self.medicines)
         col = 3
         for i in range(0, length, col):
-            if i > length-1:
+            if i > length - 1:
                 break
             self.row = QtWidgets.QWidget(self.scrollAreaWidgetContents)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -134,7 +136,7 @@ class Ui_MedicineHome(object):
             self.horizontalLayout_3.setObjectName("horizontalLayout_3")
             self.verticalLayout.addWidget(self.row)
             for j in range(i, i + col):
-                if j > length-1:
+                if j > length - 1:
                     break
                 self.col = QtWidgets.QWidget(self.row)
                 sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -191,8 +193,9 @@ class Ui_MedicineHome(object):
         self.search_input.setPlaceholderText(_translate("Dialog", "Search"))
 
     def openEditMedicine(self):
-        self.editMedicine=QtWidgets.QDialog()
-        self.editMedicine=Ui_editMedicine()
-        self.editMedicine.setupUi(self.editMedicine)
-        self.mainWidget.addWidget(self.EditMedicine)
-        self.mainWidget.removeWidget(self.mymedicalScreen)
+        sender = self.widget.sender()
+        ID = sender.objectName()
+        self.editMedicine = Ui_editMedicine()
+        self.editMedicine.setupUi(self.editMedicineScreen)
+        self.mainWidget.addWidget(self.editMedicineScreen)
+        self.mainWidget.removeWidget(self.myMedicalScreen)
