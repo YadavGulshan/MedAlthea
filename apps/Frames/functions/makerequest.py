@@ -28,7 +28,9 @@ class makeRequest:
         if day > datetime.timedelta(minutes=30):
             self.getNewToken()
 
-    def makeGetRequest(self, url, body):
+    def GetRequest(self, url, body=None):
+        if body is None:
+            body = {}
         self.__checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
@@ -40,7 +42,9 @@ class makeRequest:
         except Exception as e:
             print(e)
 
-    def makePostRequest(self, url, body):
+    def makePostRequest(self, url, body=None):
+        if body is None:
+            body = {}
         self.__checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
@@ -52,19 +56,25 @@ class makeRequest:
         except Exception as e:
             print(e)
 
-    def makePutRequest(self, url, body):
+    def PutRequest(self, url, body=None):
+        if body is None:
+            body = {}
         self.__checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.put(url=url, headers=self.headers, json=body)
             if resp.status_code == 200:
                 return resp
+            elif resp.status_code == 202:
+                return resp
             else:
                 raise Exception("Something went wrong")
         except Exception as e:
             print(e)
 
-    def makeDeleteRequest(self, url, body):
+    def DeleteRequest(self, url, body=None):
+        if body is None:
+            body = {}
         self.__checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)

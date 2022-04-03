@@ -2,42 +2,42 @@ import requests as rs
 
 from .makerequest import makeRequest
 
-mr = makeRequest()
+make = makeRequest()
 
 
 def searchMedicine(medicine_name):
     """ Data required are Medicine Name """
 
-    resp = mr.makeGetRequest(
-        mr.API + "/medicine/search/?search={}".format(medicine_name), {})
+    resp = make.GetRequest(
+        make.API + "/medicine/search/?search={}".format(medicine_name), {})
     return resp
 
 
 def checkAvailableUser(username):
     """This function will return
     whether the given username for registration is available for new registration"""
-    resp = rs.get(mr.API + "/register/search/?username={}".format(username))
+    resp = rs.get(make.API + "/register/search/?username={}".format(username))
     return resp
 
 
 def getNearByShop(pincode):
     """This function required user's area code or pincode
     through which this function will return nearby shop to user"""
-    return mr.makeGetRequest(mr.API + "/nearbymedical/", pincode)
+    return make.GetRequest(make.API + "/nearbymedical/", pincode)
 
 
 def addMedicine(medicine: object):
     """Data required are "name", "description", "price", "quantity", "medicalId" """
-    return mr.makePostRequest(mr.API + "/medicine/", medicine)
+    return make.makePostRequest(make.API + "/medicine/", medicine)
 
 
 def createMedical(medical: object, file):
     """Data required are Medical "name", "address", "pincode", "latitude", "longitude", "phone", "email" """
-    return mr.CreateMedicalPost(mr.API + "/", medical, file)
+    return make.CreateMedicalPost(make.API + "/", medical, file)
 
 
 def allMedicalShop():
-    resp = mr.makeGetRequest(mr.API + "/", {})
+    resp = make.GetRequest(make.API + "/", {})
     print(resp)
     if resp.status_code == 200:
         return resp
@@ -46,19 +46,40 @@ def allMedicalShop():
 
 
 def getMedicine(medical_id):
-    resp = mr.makeGetRequest(mr.API + "/mymedical/{}/".format(medical_id), {})
+    resp = make.GetRequest(make.API + "/mymedical/{}/".format(medical_id))
     return resp
 
 
 def getMyMedical():
-    resp = mr.makeGetRequest(mr.API + "/mymedical/", {})
+    resp = make.GetRequest(make.API + "/mymedical/")
     return resp
 
 
 def getMedicalDetails(medical_id):
-    resp = mr.makeGetRequest(mr.API + "/{}/".format(medical_id), {})
+    resp = make.GetRequest(make.API + "/{}/".format(medical_id))
     return resp.json()[0]
 
+
 def getUserDetails():
-    resp = mr.makeGetRequest(mr.API + "/user/", {})
+    resp = make.GetRequest(make.API + "/user/")
     return resp
+
+
+def getMedicineDetails(ID):
+    return make.GetRequest(make.API + '/medicine/{}/'.format(ID))
+
+
+def deleteMedicine(ID):
+    return make.DeleteRequest(make.API + '/medicine/{}/'.format(ID))
+
+
+def deleteMedical(ID):
+    return make.DeleteRequest(make.API + '/{}/'.format(ID))
+
+
+def updateMedicine(medicine: object, ID):
+    return make.PutRequest(make.API + '/medicine/{}/'.format(ID), medicine)
+
+
+def updateMedical(medical, ID):
+    return make.PutRequest(make.API + '/{}/'.format(ID), medical)

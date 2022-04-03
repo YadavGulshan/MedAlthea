@@ -2,28 +2,33 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from .functions.getData import getMedicine, getMedicalDetails
 from .editmedicine import Ui_editMedicine
+from .functions.getData import deleteMedicine, updateMedicine
 
 
 class Ui_MedicineHome(object):
-    def __init__(self, mainWidget):
+    def __init__(self, mainWidget, Dialog):
         self.mainWidget = mainWidget
         self.id = None
         self.medical = None
         self.medicines = None
         self.editMedicineScreen = QtWidgets.QDialog()
-
-    def setupUi(self, Dialog, _id):
-        self.id = _id
-        try:
-            self.medicines = getMedicine(_id).json()
-            self.medical = getMedicalDetails(_id)
-        except Exception as e:
-            print("server Not Running")
-            print(e)
         Dialog.setObjectName("Dialog")
         Dialog.resize(900, 854)
         self.myMedicalScreen = Dialog
-        self.widget = QtWidgets.QWidget(Dialog)
+
+    def storeDetails(self, _id):
+        self.medicines = getMedicine(_id).json()
+        self.medical = getMedicalDetails(_id)
+
+    def setupUi(self, _id):
+        self.id = _id
+        try:
+            self.storeDetails(_id)
+        except Exception as e:
+            print("server Not Running")
+            print(e)
+
+        self.widget = QtWidgets.QWidget(self.myMedicalScreen)
         self.widget.setGeometry(QtCore.QRect(0, 0, 900, 850))
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.widget.setObjectName("widget")
@@ -180,8 +185,8 @@ class Ui_MedicineHome(object):
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(self.myMedicalScreen)
+        QtCore.QMetaObject.connectSlotsByName(self.myMedicalScreen)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -195,7 +200,50 @@ class Ui_MedicineHome(object):
     def openEditMedicine(self):
         sender = self.widget.sender()
         ID = sender.objectName()
-        self.editMedicine = Ui_editMedicine()
+        self.editMedicine = Ui_editMedicine(ID)
         self.editMedicine.setupUi(self.editMedicineScreen)
         self.mainWidget.addWidget(self.editMedicineScreen)
         self.mainWidget.removeWidget(self.myMedicalScreen)
+        self.editMedicine.Back_pushButton.clicked.connect(self.backToMedicalPage)
+        self.editMedicine.delete_button.clicked.connect(self.delete)
+        self.editMedicine.add_button.clicked.connect(self.submit)
+
+    def submit(self):
+        medicineName_text = self.editMedicine.medicine_name.text()
+        medicinePrice_text = self.editMedicine.medicine_price.text()
+        medicineDescription_text = self.editMedicine.description.toPlainText()
+        medicineQuantity_text = self.editMedicine.medicine_quantity.text()
+        medicineDetails = {
+            'medicalId': self.id,
+            'name': medicineName_text,
+            'description': medicineDescription_text,
+            'price': medicinePrice_text,
+            'quantity': medicineQuantity_text
+        }
+        if medicineName_text == self.editMedicine.medicine.get('name') and medicinePrice_text == self.editMedicine.medicine.get(
+                'price') and medicineQuantity_text == self.editMedicine.medicine.get(
+                'quantity') and medicineDescription_text == self.editMedicine.medicine.get('description'):
+            self.backToMedicalPage()
+        else:
+            response = updateMedicine(medicineDetails, self.editMedicine.ID)
+            self.storeDetails(self.id)
+            self.backToMedicalPage()
+            showMessage(True if not response.status_code == 400 else False, 'Medicine Updated')
+
+    def backToMedicalPage(self):
+        self.mainWidget.addWidget(self.myMedicalScreen)
+        self.mainWidget.removeWidget(self.editMedicineScreen)
+
+    def delete(self):
+        response = deleteMedicine(self.editMedicine.ID)
+        self.storeDetails(self.id)
+        self.backToMedicalPage()
+        showMessage(True if response.status_code == 202 else False, 'Medicine Deleted')
+
+
+def showMessage(status, messages):
+    message = QtWidgets.QMessageBox()
+    message.setWindowTitle(messages if status else "Error")
+    message.setText(messages if status else "Sorry something went wrong")
+    message.setIcon(QtWidgets.QMessageBox.Information if status else QtWidgets.QMessageBox.Critical)
+    message.exec_()
