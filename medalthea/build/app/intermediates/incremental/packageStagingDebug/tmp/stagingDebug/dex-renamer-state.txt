@@ -1,0 +1,4 @@
+#Wed Mar 30 19:39:19 IST 2022
+base.0=/home/Gulshan/Projects/PythonProjects/pharmaServiceBackend/medalthea/build/app/intermediates/dex/stagingDebug/mergeDexStagingDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

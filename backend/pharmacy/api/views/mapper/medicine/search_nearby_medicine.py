@@ -20,7 +20,7 @@ from pharmacy.api.tools import tools
 from pharmacy.models import Medical, Medicine
 
 
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class DisplayNearbyMedicineSearchedByUser(APIView):
     """
     This class will use distance api endpoint
