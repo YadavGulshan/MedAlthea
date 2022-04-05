@@ -10,11 +10,9 @@ class Ui_ownerProfile(object):
         self.widget = QtWidgets.QWidget(owner_profile)
         self.firstname = None
         self.logout_button = QtWidgets.QPushButton(self.widget)
-        self.response=getUserDetails().json()[0]
-        print(self.response)
-
 
     def setupUi(self):
+        self.response = getUserDetails().json()[0]
         font = QtGui.QFont()
         font.setPointSize(28)
         font.setBold(True)
@@ -78,12 +76,12 @@ class Ui_ownerProfile(object):
         font.setPointSize(18)
         self.username.setFont(font)
         self.username.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
-                                 "border-radius:20px;\n"
-                                 "border:2px solid black;\n"
-                                 "padding:10px;\n"
-                                 "color: rgb(52, 52, 52);\n"
-                                 "\n"
-                                 "")
+                                    "border-radius:20px;\n"
+                                    "border:2px solid black;\n"
+                                    "padding:10px;\n"
+                                    "color: rgb(52, 52, 52);\n"
+                                    "\n"
+                                    "")
         self.username.setReadOnly(True)
         self.username.setObjectName("username")
         self.username.setText(self.response.get("username"))

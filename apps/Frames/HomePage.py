@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.getData import getMyMedical, addMedicine
+from .functions.getData import getMyMedical, addMedicine, updateMedical
 
 # importing frame
 from .medicineHome import Ui_MedicineHome
@@ -228,10 +228,10 @@ class Ui_HomePage(object):
         self.openMyMedical(self._id)
 
     def openMyMedical(self, _id):
-        self.MyMedical = Ui_MedicineHome(self.mainWidget)
-        self.MyMedical.setupUi(self.MyMedicalScreen, _id)
-        self.mainWidget.addWidget(self.MyMedicalScreen)
+        self.MyMedical = Ui_MedicineHome(self.mainWidget, self.MyMedicalScreen)
+        self.MyMedical.setupUi(_id)
         self.mainWidget.removeWidget(self.homePage)
+        self.mainWidget.addWidget(self.MyMedicalScreen)
         self.MyMedical.Home_pushButton.clicked.connect(self.MedicalToHome)
         self.MyMedical.profile_pushButton.clicked.connect(self.openProfile)
         self.MyMedical.Addmedicine_pushButton.clicked.connect(self.addMedicines)
@@ -259,10 +259,20 @@ class Ui_HomePage(object):
         self.mainWidget.addWidget(self.MedicalProfileScreen)
         self.mainWidget.removeWidget(self.MyMedicalScreen)
         self.medicalProfile.back_button.clicked.connect(self.profileToMedical)
+        self.medicalProfile.save_button.clicked.connect(self.submitProfile)
 
     def profileToMedical(self):
         self.mainWidget.removeWidget(self.MedicalProfileScreen)
         self.openMyMedical(self.medicalProfile.id)
+
+    def submitProfile(self):
+        valid, medicalProfile = self.medicalProfile.updateProfile()
+        if not valid[-1]:
+            self.profileToMedical()
+        else:
+            response = updateMedical(medicalProfile, self.MyMedical.id)
+            showMessage(True if response.status_code == 202 else False, "Profile Update")
+            self.profileToMedical()
 
     def checkMedicineDetail(self):
         valid, medicineDetails = self.addMedicine.checkFields()
@@ -271,14 +281,14 @@ class Ui_HomePage(object):
             if response.status_code == 201:
                 self.mainWidget.removeWidget(self.addMedicineScreen)
                 self.openMyMedical(self._id)
-                showMessage(True)
+                showMessage(True, Message='Medicine Add')
             else:
-                showMessage(False)
+                showMessage(False, "medicine Add")
 
 
-def showMessage(status):
+def showMessage(status, Message):
     message = QtWidgets.QMessageBox()
-    message.setWindowTitle("Medicine added" if status else "Error")
-    message.setText("Medicine added" if status else "Sorry something went wrong")
+    message.setWindowTitle(Message if status else "Error")
+    message.setText(Message if status else "Sorry something went wrong")
     message.setIcon(QtWidgets.QMessageBox.Information if status else QtWidgets.QMessageBox.Critical)
     message.exec_()
