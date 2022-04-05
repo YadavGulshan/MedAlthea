@@ -71,8 +71,8 @@ class Ui_MedicalProfile(object):
         self.profile_picture.setObjectName("profile_picture")
         url_image = 'https://live.staticflickr.com/65535/49251422908_591245c64a_c_d.jpg'
         image = QImage()
-        image.loadFromData(requests.get(url_image).content)
-        self.profile_picture.setPixmap(QPixmap(image))
+        # image.loadFromData(requests.get(url_image).content)
+        # self.profile_picture.setPixmap(QPixmap(image))
         self.save_button = QtWidgets.QPushButton(self.mainFrame)
         self.save_button.setGeometry(QtCore.QRect(610, 710, 121, 41))
         font = QtGui.QFont()
