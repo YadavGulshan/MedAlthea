@@ -3,6 +3,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from .functions.getData import getMedicine, getMedicalDetails
 from .editmedicine import Ui_editMedicine
 from .functions.getData import deleteMedicine, updateMedicine
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import QCompleter
 
 
 class Ui_MedicineHome(object):
@@ -24,6 +26,9 @@ class Ui_MedicineHome(object):
         self.id = _id
         try:
             self.storeDetails(_id)
+            self.medicineList = []
+            for medicine in self.medicines:
+                self.medicineList.append(medicine.get("name"))
         except Exception as e:
             print("server Not Running")
             print(e)
@@ -102,6 +107,12 @@ class Ui_MedicineHome(object):
                                         "padding:2px 8px;\n"
                                         "")
         self.search_input.setObjectName("search_input")
+        self.model = QStandardItemModel()
+        completer = QCompleter(self.model, self.widget)
+        self.search_input.setCompleter(completer)
+        for i in self.medicineList:
+            self.model.appendRow(QStandardItem(i))
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
         self.search_button = QtWidgets.QPushButton(self.widget_9)
         self.search_button.setGeometry(QtCore.QRect(570, 80, 71, 51))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -220,9 +231,10 @@ class Ui_MedicineHome(object):
             'price': medicinePrice_text,
             'quantity': medicineQuantity_text
         }
-        if medicineName_text == self.editMedicine.medicine.get('name') and medicinePrice_text == self.editMedicine.medicine.get(
+        if medicineName_text == self.editMedicine.medicine.get(
+                'name') and medicinePrice_text == self.editMedicine.medicine.get(
                 'price') and medicineQuantity_text == self.editMedicine.medicine.get(
-                'quantity') and medicineDescription_text == self.editMedicine.medicine.get('description'):
+            'quantity') and medicineDescription_text == self.editMedicine.medicine.get('description'):
             self.backToMedicalPage()
         else:
             response = updateMedicine(medicineDetails, self.editMedicine.ID)
