@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.getData import getMyMedical, addMedicine, updateMedical
+from .functions.getData import getMyMedical, addMedicine, updateMedical, deleteMedical
 
 # importing frame
 from .medicineHome import Ui_MedicineHome
@@ -12,7 +12,6 @@ class Ui_HomePage(object):
         self.medicals = {}
         self.MedicalProfileScreen = QtWidgets.QDialog()
         self.MyMedicalScreen = QtWidgets.QDialog()
-        self.homePage = None
         self.mainWidget = widget
 
     def setupUi(self, Dialog):
@@ -260,6 +259,7 @@ class Ui_HomePage(object):
         self.mainWidget.removeWidget(self.MyMedicalScreen)
         self.medicalProfile.back_button.clicked.connect(self.profileToMedical)
         self.medicalProfile.save_button.clicked.connect(self.submitProfile)
+        self.medicalProfile.delete_button.clicked.connect(self.delete)
 
     def profileToMedical(self):
         self.mainWidget.removeWidget(self.MedicalProfileScreen)
@@ -284,6 +284,13 @@ class Ui_HomePage(object):
                 showMessage(True, Message='Medicine Add')
             else:
                 showMessage(False, "medicine Add")
+
+    def delete(self):
+        resp = deleteMedical(self.MyMedical.id)
+        self.mainWidget.removeWidget(self.MedicalProfileScreen)
+        self.setupUi(self.homePage)
+        self.mainWidget.addWidget(self.homePage)
+        showMessage(True if resp.status_code == 204 else False, "Medical Deleted")
 
 
 def showMessage(status, Message):
