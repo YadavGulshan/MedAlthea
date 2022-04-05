@@ -8,18 +8,21 @@ from rest_framework.views import APIView
 
 
 class Activate(APIView):
-    def get(self,request, uidb64, token):
+    def get(self, request, uidb64, token):
+        if uidb64 and token == None:
+            return HttpResponse("Invalid URL")
         print("serving a request")
         tokenCheck = TokenGenerator()
         user = User.objects
         try:
             uid = force_str(urlsafe_b64decode(uidb64))
             user = User.objects.get(pk=uid)
-        except(TypeError, ValueError, OverflowError):
+        except (TypeError, ValueError, OverflowError):
             user = None
         if user is not None and tokenCheck.check_token(user, token):
-            user.is_active = True
-            user.save()
-            return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+            if user.is_active is not True:
+                user.is_active = True
+                user.save()
+                return HttpResponse("User has been activated")
         else:
-            return HttpResponse('Activation link is invalid!')
+            return HttpResponse("Activation link is invalid!")

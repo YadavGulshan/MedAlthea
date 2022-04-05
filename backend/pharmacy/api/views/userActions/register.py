@@ -34,24 +34,42 @@ class Register(generics.CreateAPIView):
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
-        
+
         if serializer.is_valid():
             account = serializer.save()
             if "isStaff" not in request.data:
                 account.is_staff = False
-            
+
             if "isStaff" in request.data:
                 if request.data["isStaff"]:
                     account.is_staff = True
 
+            # Set the user to inactive
+            account.is_active = False
             account.save()
             # Abstract base user
             user = User.objects.get(username=account.username)
             tokengen = TokenGenerator()
             uid = urlsafe_b64encode(force_bytes(user.pk))
             token = tokengen.make_token(user)
-            print(str(str("http://localhost:8000/api/emailverification/")+str(uid).replace('b','').replace("'","")+"/"+str(token)))
-            tools.send_email(send_to=request.data["email"], url=str(str("http://localhost:8000/api/emailverification/")+str(uid).replace('b','').replace("'","")+"/"+str(token)))
+            print(
+                str(
+                    str("http://localhost:8000/api/emailverification/")
+                    + str(uid).replace("b", "").replace("'", "")
+                    + "/"
+                    + str(token)
+                )
+            )
+            tools.send_email(
+                send_to=request.data["email"],
+                url=str(
+                    str("http://localhost:8000/api/emailverification/")
+                    + str(uid).replace("b", "").replace("'", "")
+                    + "/"
+                    + str(token)
+                    + "/"
+                ),
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -26,6 +26,7 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
     This class will use distance api endpoint
     and check for lat and long of medicals listed and then it will show them
     """
+
     def get(self, request):
         name = request.query_params.get("name")
         pincode = request.query_params.get("pincode")
@@ -38,11 +39,12 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
         medical = []
         for med in medicineMedical:
             medid = med.medicalId.medicalId
-            print("####################ID: ",medid)
+            print("####################ID: ", medid)
             # result = Medical.objects.filter(id=id).filter(
             #         pincode__contains=pincode)
             result = Medical.objects.filter(medicalId=medid).filter(
-                pincode__contains=pincode)
+                pincode__contains=pincode
+            )
             # Calculate the distance between the user and the medical
             for res in result:
                 distance = tools.calculate(
@@ -61,7 +63,6 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
 
         serializer = MedicineSerializer(medical, many=True)
         return Response(serializer.data, status=200)
-
 
     def post(self, request):
         """
