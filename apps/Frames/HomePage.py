@@ -1,10 +1,13 @@
+import csv
+import os
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .functions.getData import getMyMedical, addMedicine, updateMedical, deleteMedical
 
 # importing frame
 from .medicineHome import Ui_MedicineHome
 from .medicalProfile import Ui_MedicalProfile
-from .addMedicine_ import Ui_AddMedicine
+from .addMedicine import Ui_AddMedicine
 
 
 class Ui_HomePage(object):
@@ -37,7 +40,7 @@ class Ui_HomePage(object):
         font.setPointSize(16)
         self.profile_pushButton.setFont(font)
         self.profile_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                              "color: rgb(10, 89, 83);\n"
+                                              "color: rgb(0, 157, 113);\n"
                                               "border-radius:10px;")
         self.profile_pushButton.setObjectName("back_pushButton")
         self.profile_pushButton.setCursor(
@@ -246,11 +249,40 @@ class Ui_HomePage(object):
         self.mainWidget.addWidget(self.addMedicineScreen)
         self.mainWidget.removeWidget(self.MyMedicalScreen)
         self.addMedicine.add_button.clicked.connect(self.checkMedicineDetail)
-        self.addMedicine.pushButton.clicked.connect(self.goBack)
+        self.addMedicine.Back_pushButton.clicked.connect(self.goBack)
+        self.addMedicine.uploadButton.clicked.connect(self.uploadFile)
 
     def goBack(self):
         self.mainWidget.removeWidget(self.addMedicineScreen)
         self.mainWidget.addWidget(self.MyMedicalScreen)
+
+    def uploadFile(self):
+        pathToHome = os.path.expanduser('~')
+        selected_csv, _ = QtWidgets.QFileDialog.getOpenFileName(self.mainWidget, "select CSV", pathToHome,
+                                                                "CSV Files (*.csv)")
+        if not selected_csv == "":
+            print(selected_csv)
+            with open(selected_csv, "r") as CSV:
+                files = csv.reader(CSV)
+                next(files)
+                for file in files:
+                    if file[0] and file[1] and file[2] and file[3]:
+                        medicineDetails = {
+                            'medicalId': self.addMedicine.id,
+                            'name': file[0],
+                            'description': file[1],
+                            'price': file[2],
+                            'quantity': file[3]
+                        }
+                        response = addMedicine(medicineDetails)
+                        if not response.status_code == 201:
+                            showMessage(False, "medicine Add")
+                    else:
+                        showMessage(True, "Empty Fields are not allowed")
+                self.mainWidget.removeWidget(self.addMedicineScreen)
+                self.openMyMedical(self._id)
+                showMessage(True, Message='Medicines Add')
+                CSV.close()
 
     def openProfile(self):
         self.medicalProfile = Ui_MedicalProfile(self.MyMedical.id)

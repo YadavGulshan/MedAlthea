@@ -39,7 +39,7 @@ class Ui_MedicineHome(object):
         self.widget.setObjectName("widget")
         self.widget_2 = QtWidgets.QWidget(self.widget)
         self.widget_2.setGeometry(QtCore.QRect(0, 0, 900, 70))
-        self.widget_2.setStyleSheet("background-color: rgb(57, 66, 148);")
+        self.widget_2.setStyleSheet("background-color: rgb(0, 156, 112);")
         self.widget_2.setObjectName("widget_2")
         self.label = QtWidgets.QLabel(self.widget_2)
         self.label.setGeometry(QtCore.QRect(10, 9, 121, 41))
@@ -51,19 +51,19 @@ class Ui_MedicineHome(object):
         self.Home_pushButton = QtWidgets.QPushButton(self.widget_2)
         self.Home_pushButton.setGeometry(QtCore.QRect(550, 20, 90, 35))
         self.Home_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                           "color: rgb(57, 66, 148);\n"
+                                           "color: rgb(0, 156, 112);\n"
                                            "border-radius:8px;")
         self.Home_pushButton.setObjectName("Home_pushButton")
         self.Addmedicine_pushButton = QtWidgets.QPushButton(self.widget_2)
         self.Addmedicine_pushButton.setGeometry(QtCore.QRect(660, 20, 111, 35))
         self.Addmedicine_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                                  "color: rgb(57, 66, 148);\n"
+                                                  "color: rgb(0, 156, 112);\n"
                                                   "border-radius:8px;")
         self.Addmedicine_pushButton.setObjectName("Addmedicine_pushButton")
         self.profile_pushButton = QtWidgets.QPushButton(self.widget_2)
         self.profile_pushButton.setGeometry(QtCore.QRect(790, 20, 90, 35))
         self.profile_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                              "color: rgb(57, 66, 148);\n"
+                                              "color: rgb(0, 156, 112);\n"
                                               "border-radius:8px;")
         self.profile_pushButton.setObjectName("profile_pushButton")
         self.scrollArea = QtWidgets.QScrollArea(self.widget)
@@ -122,7 +122,7 @@ class Ui_MedicineHome(object):
         self.search_button.setSizePolicy(sizePolicy)
         self.search_button.setStyleSheet("font-size: 25px;\n"
                                          "color: rgb(255, 255, 255);\n"
-                                         "background-color: rgb(57, 66, 148);\n"
+                                         "background-color: rgb(0, 156, 112);\n"
                                          "border-top-right-radius: 10px;\n"
                                          "border-bottom-right-radius: 10px;\n"
                                          "border:none;")
@@ -161,7 +161,7 @@ class Ui_MedicineHome(object):
                 sizePolicy.setHeightForWidth(self.col.sizePolicy().hasHeightForWidth())
                 self.col.setSizePolicy(sizePolicy)
                 self.col.setMinimumSize(QtCore.QSize(250, 230))
-                self.col.setStyleSheet("background-color: rgb(57, 66, 148);\n"
+                self.col.setStyleSheet("background-color: rgb(0, 156, 112);\n"
                                        "border-radius:15px;")
                 self.col.setObjectName("col")
                 self.medicine_name = QtWidgets.QLabel(self.col)
@@ -187,7 +187,7 @@ class Ui_MedicineHome(object):
                 self.view_button = QtWidgets.QPushButton(self.col)
                 self.view_button.setGeometry(QtCore.QRect(20, 180, 81, 31))
                 self.view_button.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                               "color: rgb(39, 24, 106);\n"
+                                               "color: rgb(0, 156, 112);\n"
                                                "border-radius:10px;")
                 self.view_button.setObjectName(str(self.medicines[j].get('medicineId')))
                 self.view_button.setText("View")

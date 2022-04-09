@@ -23,7 +23,7 @@ class Ui_editMedicine(object):
         self.widget.setObjectName("widget")
         self.widget_2 = QtWidgets.QWidget(self.widget)
         self.widget_2.setGeometry(QtCore.QRect(0, -10, 911, 71))
-        self.widget_2.setStyleSheet("background-color: rgb(57, 66, 148);")
+        self.widget_2.setStyleSheet("background-color: rgb(0, 156, 112);")
         self.widget_2.setObjectName("widget_2")
         self.label = QtWidgets.QLabel(self.widget_2)
         self.label.setGeometry(QtCore.QRect(40, 20, 67, 17))
@@ -40,12 +40,12 @@ class Ui_editMedicine(object):
         self.Back_pushButton = QtWidgets.QPushButton(self.widget_2)
         self.Back_pushButton.setGeometry(QtCore.QRect(780, 20, 81, 31))
         self.Back_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                           "color: rgb(39, 24, 106);\n"
+                                           "color: rgb(0, 156, 112);\n"
                                            "border-radius:6px;")
         self.Back_pushButton.setObjectName("pushButton")
         self.widget_3 = QtWidgets.QWidget(self.widget)
         self.widget_3.setGeometry(QtCore.QRect(150, 90, 630, 676))
-        self.widget_3.setStyleSheet("background-color: rgb(57, 66, 148);\n"
+        self.widget_3.setStyleSheet("background-color: rgb(0, 156, 112);\n"
                                     "border-radius:15px;")
         self.widget_3.setObjectName("widget_3")
         self.label_3 = QtWidgets.QLabel(self.widget_3)
@@ -87,7 +87,7 @@ class Ui_editMedicine(object):
         self.add_button.setFont(font)
         self.add_button.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                       "border-radius:5px;\n"
-                                      "color: rgb(57, 66, 148);")
+                                      "color: rgb(0, 156, 112);")
         self.add_button.setObjectName("add_button")
         self.label_6 = QtWidgets.QLabel(self.widget_3)
         self.label_6.setGeometry(QtCore.QRect(300, 460, 91, 41))
@@ -149,7 +149,7 @@ class Ui_editMedicine(object):
         self.delete_button.setFont(font)
         self.delete_button.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                          "border-radius:5px;\n"
-                                         "color: rgb(57, 66, 148);")
+                                         "color: rgb(0, 156, 112);")
         self.delete_button.setObjectName("add_button_2")
 
         self.retranslateUi(Dialog)
