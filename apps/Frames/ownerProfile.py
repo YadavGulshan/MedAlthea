@@ -25,7 +25,7 @@ class Ui_ownerProfile(object):
         self.widget.setObjectName("widget")
         self.Title.setGeometry(QtCore.QRect(400, 180, 151, 61))
         self.Title.setFont(font)
-        self.Title.setStyleSheet("color: rgb(0, 0, 0);")
+        self.Title.setStyleSheet("color: rgb(0, 156, 112);")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
         self.firstname.setGeometry(QtCore.QRect(120, 310, 330, 50))
@@ -92,7 +92,7 @@ class Ui_ownerProfile(object):
         self.logout_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.logout_button.setStyleSheet("border-radius:20px;\n"
                                          "color: rgb(255, 255, 255);\n"
-                                         "background-color: rgb(0, 94, 69);")
+                                         "background-color: rgb(0, 156, 112);")
         self.logout_button.setObjectName("logout_button")
         self.back = QtWidgets.QPushButton(self.widget)
         self.back.setGeometry(QtCore.QRect(16, 15, 91, 41))
@@ -101,7 +101,7 @@ class Ui_ownerProfile(object):
         self.back.setFont(font)
         self.back.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.back.setStyleSheet("border-radius:10px;\n"
-                                "background-color: rgb(0, 94, 69);\n"
+                                "background-color: rgb(0, 156, 112);\n"
                                 "color: rgb(255, 255, 255);")
         self.back.setObjectName("back")
         self.back.setText("Back")
