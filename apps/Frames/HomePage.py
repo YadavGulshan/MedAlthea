@@ -261,7 +261,6 @@ class Ui_HomePage(object):
         selected_csv, _ = QtWidgets.QFileDialog.getOpenFileName(self.mainWidget, "select CSV", pathToHome,
                                                                 "CSV Files (*.csv)")
         if not selected_csv == "":
-            print(selected_csv)
             with open(selected_csv, "r") as CSV:
                 files = csv.reader(CSV)
                 next(files)
