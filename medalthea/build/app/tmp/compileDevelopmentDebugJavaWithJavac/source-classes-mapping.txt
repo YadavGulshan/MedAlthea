@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/example/verygoodcore/medalthea/BuildConfig.java
- com.example.verygoodcore.medalthea.BuildConfig
