@@ -45,47 +45,29 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
             result = Medical.objects.filter(medicalId=medid).filter(
                 pincode__contains=pincode
             )
-            # Calculate the distance between the user and the medical
-            for res in result:
-                distance = tools.calculate(
+            for _ in result:
+                medical.append(med)
+        newData = []
+        for med in medical:
+            medid = med.medicalId
+            medMap = {
+                "name": med.name,
+                "medical_name": medid.name,
+                "price": med.price,
+                "description": med.description,
+                "quantity": med.quantity,
+                "pincode": medid.pincode,
+                "latitude": medid.latitude,
+                "longitude": medid.longitude,
+                "distance": tools.calculate(
                     lat1=latitude,
                     lon1=longitude,
-                    lat2=res.latitude,
-                    lon2=res.longitude,
-                )
-                if distance < 2:
-                    # medMap = {
-                    #     med,
-                    #     distance
-                    # }
-                    # medical[medid] = medMap
-                    medical.append(med)
-
-        serializer = MedicineSerializer(medical, many=True)
-        return Response(serializer.data, status=200)
-
-    def post(self, request):
-        """
-        This method will check the request for given pincode and will throw the medicals having pincode similar to request
-        """
-        pincode = request.data.get("pincode")
-        name = request.data.get("name")
-        medicineMedical = Medicine.objects.filter(name__contains=name)
-
-        # Now we have to check for the pincode of the medicals and then we will show the medicals
-        # which are near to the user
-        medical = []
-        for med in medicineMedical:
-            id = med.medicalId
-            # print("search func: ", id.name)
-            # print(Medical.objects.get(pincode=id.pincode))
-            # Look for id in medical model
-            # and then check for the pincode
-            result = Medical.objects.filter(pincode=id.pincode).filter(
-                pincode__contains=pincode
-            )
-            # print("result: ", result)
-            if result:
-                medical.append(med)
-        serializer = MedicineSerializer(medical, many=True)
-        return Response(serializer.data, status=200)
+                    lat2=medid.latitude,
+                    lon2=medid.longitude,
+                ),
+            }
+            newData.append(medMap)
+        
+        # Sort the data according to the distance
+        newData.sort(key=lambda x: x["distance"])
+        return JsonResponse(newData, safe=False)
