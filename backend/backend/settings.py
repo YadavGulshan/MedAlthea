@@ -163,6 +163,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
+APPEND_SLASH = False
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
@@ -194,8 +195,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Dealing with media!
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# MEDIA_URL = "/media/"
 
 
 DJANGO_LIVESYNC = {"PORT": 9999, "HOST": ""}

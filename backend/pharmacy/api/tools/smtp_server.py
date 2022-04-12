@@ -1,12 +1,12 @@
 from os import environ
-import smtplib, ssl
+import smtplib
+import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-
 class smtp_server:
-    def send_email(send_to:str, url:str):
+    def send_email(send_to: str, url: str, **kwargs):
         print("Sending email to: " + send_to)
         smtp_server = "smtp.gmail.com"
         port = 587  # For starttls
@@ -14,7 +14,11 @@ class smtp_server:
         password = environ.get("PASSWORD")
 
         message = MIMEMultipart("alternative")
-        message["Subject"] = "Account Verification"
+        message["Subject"] = (
+            kwargs.get("subject") is not None
+            and kwargs.get("subject")
+            or "Email verification"
+        )
         message["From"] = send_from
         text = """\
                 <html>
@@ -25,7 +29,9 @@ class smtp_server:
                     </p>
                   </body>
                 </html>
-                """.format(url)
+                """.format(
+            url
+        )
 
         part = MIMEText(text, "html")
         message.attach(part)

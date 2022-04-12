@@ -15,5 +15,6 @@ from .list import MedicineViewList
 from .search import MedicineSearch
 from .views import MedicineView
 
+
 class MedicineClass(MedicineViewList, MedicineSearch, MedicineView):
     """view.medicine"""
