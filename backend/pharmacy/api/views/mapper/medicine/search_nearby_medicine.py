@@ -8,13 +8,10 @@
 #
 # All rights reserved.
 
-import json
 from django.http import JsonResponse
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
-from pharmacy.api.serializers import MedicineSerializer
 from pharmacy.api.tools import tools
 
 from pharmacy.models import Medical, Medicine
@@ -67,7 +64,7 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
                 ),
             }
             newData.append(medMap)
-        
+
         # Sort the data according to the distance
         newData.sort(key=lambda x: x["distance"])
         return JsonResponse(newData, safe=False)
