@@ -11,8 +11,8 @@ class Ui_ownerProfile(object):
         self.firstname = None
         self.logout_button = QtWidgets.QPushButton(self.widget)
 
-    def setupUi(self):
-        self.response = getUserDetails().json()[0]
+    def setupUi(self, name):
+        self.response = getUserDetails(name).json()[0]
         font = QtGui.QFont()
         font.setPointSize(28)
         font.setBold(True)

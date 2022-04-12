@@ -16,10 +16,21 @@ from Frames.functions.localdb import LocalDB
 from Frames.login import LoginFrame
 from Frames.signUp import signUpFrame
 from Frames.userHomePage import Ui_userHomePage
+from Frames.ownerProfile import Ui_ownerProfile
+
+pathToHome = os.path.expanduser('~')
+
+
+def getDetails():
+    with open(pathToHome + '/ipinfo.json', "w+") as f:
+        ipinfo = json.load(f)
+        f.close()
+    lon = ipinfo.get('location')['longitude']
+    lat = ipinfo.get('location')['latitude']
+    return lon, lat
 
 
 def getIpInfo():
-    pathToHome = os.path.expanduser('~')
     if not exists(pathToHome + "/ipinfo.json"):
         print(exists(pathToHome + "/ipinfo.json"))
         print("creating file for ipInfo")
@@ -105,12 +116,37 @@ class userApp:
         self.homePage.setupUi(self.homePageScreen)
         self.widgetMain.addWidget(self.homePageScreen)
         self.widgetMain.removeWidget(self.loginScreen)
+        self.homePage.profile.clicked.connect(self.userProfile)
+
+    def userProfile(self):
+        self.userProfileScreen = QtWidgets.QWidget()
+        userprofile = Ui_ownerProfile(self.userProfileScreen)
+        userprofile.setupUi("userToken")
+        self.widgetMain.addWidget(self.userProfileScreen)
+        self.widgetMain.removeWidget(self.homePageScreen)
+        userprofile.back.clicked.connect(self.closeUserProfile)
+        userprofile.logout_button.clicked.connect(self.logout)
+
+    def closeUserProfile(self):
+        self.widgetMain.removeWidget(self.userProfileScreen)
+        self.widgetMain.addWidget(self.homePageScreen)
+
+    def logout(self):
+        self.localDB.getLogout()
+        self.widgetMain.removeWidget(self.homePageScreen)
+        self.widgetMain.removeWidget(self.userProfileScreen)
+        self.openLogin()
 
 
 if __name__ == '__main__':
     thread = Thread(target=getIpInfo)
     thread.start()
     App = QApplication(sys.argv)
+    App.setStyleSheet('''
+            QWidget {
+                background-color:white;
+            }
+        ''')
     widgetMain = QtWidgets.QStackedWidget()
     userHomePage = userApp(widgetMain)
     widgetMain.setFixedWidth(900)

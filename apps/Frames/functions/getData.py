@@ -37,8 +37,9 @@ def getMedicalDetails(medical_id):
     return resp.json()[0]
 
 
-def getUserDetails():
-    resp = make.GetRequest(make.API + "/user/")
+def getUserDetails(name):
+    userMake = makeRequest(name)
+    resp = userMake.GetRequest(make.API + "/user/")
     return resp
 
 

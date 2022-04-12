@@ -36,7 +36,7 @@ class main:
         self.homePage.add_pushButton.clicked.connect(self.addMedical)
 
     def openOwnerProfile(self):
-        self.AddProfile.setupUi()
+        self.AddProfile.setupUi('token')
         self.widget.removeWidget(self.homeScreen)
         self.widget.addWidget(self.AddProfileFrame)
         self.AddProfile.back.clicked.connect(self.profileToHome)
