@@ -1,7 +1,8 @@
 import json
 import os
 import sys
-import asyncio
+from threading import Thread
+from os.path import exists
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
@@ -12,15 +13,19 @@ from app import app
 from main import main
 
 
-async def getIpInfo():
-    print('running function')
+def getIpInfo():
     pathToHome = os.path.expanduser('~')
-    client = IpregistryClient("tryout")
-    ipInfo = client.lookup()._json
-    with open(pathToHome + '/ipinfo.json', "w+") as f:
-        json.dump(ipInfo, f)
-        f.close()
-        print('function end')
+    if not exists(pathToHome + "/ipinfo.json"):
+        print(exists(pathToHome + "/ipinfo.json"))
+        print("creating file for ipInfo")
+        client = IpregistryClient("tryout")
+        ipInfo = client.lookup()._json
+        with open(pathToHome + '/ipinfo.json', "w+") as f:
+            json.dump(ipInfo, f)
+            f.close()
+            print('function end')
+    else:
+        print("file exists")
 
 
 class Root(main, app):
@@ -50,7 +55,7 @@ class Root(main, app):
             self.authApp.login.message.setText("All Field are required!")
         else:
             self.authApp.login.message.setText("")
-            token = getTokens(username_text, password_text)
+            token = getTokens(username_text, password_text, 'token')
             if token == 200:
                 self.widget.removeWidget(self.authApp.loginScreen)
                 self.StartShopApp()
@@ -60,7 +65,8 @@ class Root(main, app):
 
 if __name__ == '__main__':
     App = QApplication(sys.argv)
-    # asyncio.run(getIpInfo())
+    thread = Thread(target=getIpInfo)
+    thread.start()
     widgetMain = QtWidgets.QStackedWidget()
     RootObject = Root(widgetMain)
     RootObject.setDimension()
@@ -71,5 +77,4 @@ if __name__ == '__main__':
             RootObject.StartShopApp()
         else:
             RootObject.startAuthApp()
-
     sys.exit(App.exec_())

@@ -2,10 +2,9 @@ import requests
 
 from .makerequest import makeRequest
 
-mr = makeRequest()
 
-
-def userRegister(userDetails):
+def userRegister(userDetails, name):
+    mr = makeRequest(name)
     # response = mr.makePostRequest(mr.API + "/register/", userDetails)
     response = requests.post(mr.API + "/register/", json=userDetails)
     if response.status_code == 201:

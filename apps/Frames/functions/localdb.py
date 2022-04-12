@@ -4,9 +4,9 @@ from datetime import datetime
 
 
 class LocalDB:
-    def __init__(self):
+    def __init__(self, name):
         pathToHome = os.path.expanduser('~')
-        self.con = sqlite3.connect(pathToHome+"/token.sqlite3")
+        self.con = sqlite3.connect(pathToHome+"/{}.sqlite3".format(name))
         self.cur = self.con.cursor()
         self.cur.execute(
             """
