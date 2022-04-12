@@ -18,7 +18,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 
 
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class CalculateDistance(generics.CreateAPIView):
     """
     This class is used to calculate the distance between two points

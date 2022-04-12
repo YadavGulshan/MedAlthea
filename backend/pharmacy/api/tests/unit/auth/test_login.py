@@ -10,13 +10,15 @@
 from rest_framework.test import APITestCase
 
 from pharmacy.api.tests.setup import Service
+
+
 class userLoginTest(APITestCase):
     def setUp(self):
         self.factory, self.client, self.header = Service.setup_auth_user()
 
     def test_user_login(self):
-        """User login is already performed by the above setup... 
-            This is just ensuring that performing a get request on /token/ does not works
+        """User login is already performed by the above setup...
+        This is just ensuring that performing a get request on /token/ does not works
         """
         response = self.client.get("/api/token/", HTTP_AUTHORIZATION=self.header)
         self.assertEqual(response.status_code, 405)

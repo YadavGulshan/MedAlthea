@@ -32,7 +32,6 @@ urlpatterns = [
     path("medicine/", medicine.MedicineViewList.as_view(), name="get"),
     # Functionality to edit or delete a medicine
     path("medicine/<int:pk>/", medicine.MedicineView.as_view(), name="get"),
-
     path("medicine/search/", medicine.MedicineSearch.as_view(), name="search"),
     # User
     path("user/", userActions.UserView.as_view(), name="user"),
@@ -52,7 +51,26 @@ urlpatterns = [
         userActions.register.UserNameAvailable.as_view(),
         name="serch",
     ),
-    path("emailverification/<uidb64>/<token>/", userActions.Activate.as_view(), name="emailverification"),
+    path(
+        "emailverification/<uidb64>/<token>/",
+        userActions.Activate.as_view(),
+        name="emailverification",
+    ),
+    # path(
+    #     "passwordreset/<str:mail>/",
+    #     userActions.PasswordReset.as_view(),
+    #     name="passwordreset",
+    # ),
+    # path(
+    #     "passwordreset/<uidb64>/<token>/",
+    #     userActions.PasswordResetConfirm.as_view(),
+    #     name="passwordresetconfirm",
+    # ),
+    path(
+        "delete/",
+        userActions.UserView.as_view(),
+        name="deleteAccount",
+    ),
     # Utilities goes here.
     path("distance/", mapper.CalculateDistance.as_view(), name="calculate_distance"),
     path(

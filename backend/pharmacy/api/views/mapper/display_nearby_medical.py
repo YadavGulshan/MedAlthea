@@ -17,7 +17,7 @@ from rest_framework.decorators import permission_classes
 from pharmacy.models import Medical
 
 
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class DisplayNearbyMedical(APIView):
     """
     This class will use distance api endpoint
