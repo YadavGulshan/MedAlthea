@@ -13,7 +13,7 @@ class makeRequest:
         self.headers["Accept"] = "application/json"
         self.accessToken = ""
 
-    def __checkAccessToken(self):
+    def checkAccessToken(self):
         token = self.db.getAccessToken()
         if not len(token) == 0:
             accessTokenLastUsed = token[0][1]
@@ -31,7 +31,7 @@ class makeRequest:
     def GetRequest(self, url, body=None):
         if body is None:
             body = {}
-        self.__checkAccessToken()
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.get(url, headers=self.headers, json=body)
@@ -45,7 +45,7 @@ class makeRequest:
     def makePostRequest(self, url, body=None):
         if body is None:
             body = {}
-        self.__checkAccessToken()
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.post(url, headers=self.headers, json=body, )
@@ -59,7 +59,7 @@ class makeRequest:
     def PutRequest(self, url, body=None):
         if body is None:
             body = {}
-        self.__checkAccessToken()
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.put(url=url, headers=self.headers, json=body)
@@ -75,7 +75,7 @@ class makeRequest:
     def DeleteRequest(self, url, body=None):
         if body is None:
             body = {}
-        self.__checkAccessToken()
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.delete(url=url, headers=self.headers, json=body)
@@ -94,7 +94,7 @@ class makeRequest:
 
     def CreateMedicalPost(self, url, body, file):
         try:
-            self.__checkAccessToken()
+            self.checkAccessToken()
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.post(url, headers=self.headers, data=body, files=file)
             if resp.status_code == 201:

@@ -31,6 +31,7 @@ class MedicineViewList(generics.CreateAPIView):
         serializer = MedicalSerializer(medicine, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 @permission_classes([IsAuthenticated])
 class MedicineViewByID(generics.CreateAPIView):
     """ "This class will display only the medicine owned by specific medical shop."""

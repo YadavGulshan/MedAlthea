@@ -16,28 +16,29 @@ from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
+
 class UserSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = User
         fields = (
-            'id',
-            'password',
-            'username',
-            'email',
-            'first_name',
-            'last_name',
-            'is_staff',
-            'is_active',
-            'is_superuser',
-            'last_login',
-            'date_joined',
+            "id",
+            "password",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_staff",
+            "is_active",
+            "is_superuser",
+            "last_login",
+            "date_joined",
         )
         extra_kwargs = {
-            'password': {
-                'write_only': True,
+            "password": {
+                "write_only": True,
             },
         }
+
 
 class MedicalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -109,7 +110,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         # # Set the user to staff
         # user.is_staff = True
-        user.set_active = False
+        # user.set_active = False
         user.set_password(validated_data["password"])
         user.save()
         return user
@@ -122,6 +123,31 @@ class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("username", "password")
+
+
+class ResetPasswordRequestSerializer(serializers.Serializer):
+    """For validating if the request contains a valid email"""
+
+    email = serializers.EmailField()
+
+
+class ResetSerializer(serializers.ModelSerializer):
+    """To be used when verifying the token and then resetting the password to the new one."""
+
+    password = serializers.CharField(write_only=True, required=True, min_length=8)
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ("password", "password2")
+
+    def validatePassword(self, attr):
+        """
+        This method is used to validate the password and password2 fields
+        """
+        if attr["password"] != attr["password2"]:
+            raise serializers.ValidationError("Passwords must match")
+        return attr
 
 
 class UserNameSerializer(serializers.ModelSerializer):

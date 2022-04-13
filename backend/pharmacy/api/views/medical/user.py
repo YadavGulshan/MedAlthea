@@ -21,8 +21,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 
-# A method decorator to cache the view for 2 hours
-@method_decorator(cache_page(60 * 60 * 2), name="get")
+# A method decorator to cache the view for 10 min
+@method_decorator(cache_page(60 * 10), name="get")
 # A method decorator to vary on the headers
 @method_decorator(vary_on_headers("Authorization"), name="get")
 @permission_classes([IsAuthenticated])

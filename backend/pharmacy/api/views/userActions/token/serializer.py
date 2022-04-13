@@ -12,6 +12,8 @@
 # For customizing user claims
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+from pharmacy.api import serializers
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

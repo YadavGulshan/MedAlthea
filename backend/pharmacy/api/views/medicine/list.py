@@ -39,7 +39,7 @@ class MedicineViewList(generics.ListCreateAPIView):
 
     def post(self, request):
         serializer = MedicineSerializer(data=request.data)
-        
+
         # Make serializer mutable
         serializer.initial_data = serializer.initial_data.copy()
         # Set the user to the logged in user
@@ -50,10 +50,12 @@ class MedicineViewList(generics.ListCreateAPIView):
             if request.user.is_staff:
 
                 # Ensure that the user is the owner of the medical shop
-                medical = self.getObject(request.data['medicalId'])
+                medical = self.getObject(request.data["medicalId"])
                 # If the user is not the owner of the medical shop, return 403
                 if medical[0].user.id != request.user.id:
-                    return Response("HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN)
+                    return Response(
+                        "HTTP 403 Forbidden", status=status.HTTP_403_FORBIDDEN
+                    )
 
                 # Save
                 serializer.save()

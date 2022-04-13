@@ -58,7 +58,9 @@ class setup:
         client = APIClient()
 
         username = str(
-             kwargs.get("username") is not None and kwargs.get("username") or "fuckingstaff",
+            kwargs.get("username") is not None
+            and kwargs.get("username")
+            or "fuckingstaff",
         )
         password = str(
             kwargs.get("password") is not None
@@ -93,4 +95,3 @@ class setup:
         header = "Bearer " + access_token
 
         return factory, client, header
-
