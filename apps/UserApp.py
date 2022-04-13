@@ -2,15 +2,21 @@ import datetime
 import json
 import os
 import sys
+import requests as rs
 from os.path import exists
 from threading import Thread
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import QCompleter
+from PyQt5 import QtCore
 from ipregistry import IpregistryClient
 
 from Frames.functions.getLogin import getTokens
-# from Frames.map import MyApp
+from Frames.functions.userOperations import getNearByShop
+from Frames.functions.makerequest import makeRequest
+from Frames.map import MyApp
 from Frames.functions.getRegister import userRegister
 from Frames.functions.localdb import LocalDB
 from Frames.login import LoginFrame
@@ -21,18 +27,33 @@ from Frames.ownerProfile import Ui_ownerProfile
 pathToHome = os.path.expanduser('~')
 
 
+def getAllMedicines():
+    make = makeRequest('userToken')
+    make.checkAccessToken()
+
+    try:
+        make.headers["Authorization"] = "Bearer {}".format(make.accessToken)
+        resp = rs.get(make.API + "/medicine/", headers=make.headers, json={})
+        if resp.status_code == 200:
+            return resp
+        else:
+            raise Exception("Unauthorized")
+    except Exception as e:
+        print(e)
+
+
 def getDetails():
-    with open(pathToHome + '/ipinfo.json', "w+") as f:
+    with open(pathToHome + '/ipinfo.json', "r") as f:
         ipinfo = json.load(f)
         f.close()
     lon = ipinfo.get('location')['longitude']
     lat = ipinfo.get('location')['latitude']
-    return lon, lat
+    pincode = ipinfo.get('location')['postal']
+    return pincode, lon, lat
 
 
 def getIpInfo():
     if not exists(pathToHome + "/ipinfo.json"):
-        print(exists(pathToHome + "/ipinfo.json"))
         print("creating file for ipInfo")
         client = IpregistryClient("tryout")
         ipInfo = client.lookup()._json
@@ -114,9 +135,24 @@ class userApp:
         self.homePage = Ui_userHomePage()
         self.homePageScreen = QtWidgets.QWidget()
         self.homePage.setupUi(self.homePageScreen)
+        self.model = QStandardItemModel()
+        self.completer = QCompleter(self.model, self.widgetMain)
+        self.homePage.search_input.setCompleter(self.completer)
         self.widgetMain.addWidget(self.homePageScreen)
         self.widgetMain.removeWidget(self.loginScreen)
         self.homePage.profile.clicked.connect(self.userProfile)
+        self.homePage.findIt.clicked.connect(self.openMap)
+        thread = Thread(target=self.addCompleter())
+        thread.start()
+
+    def openMap(self):
+        medicine = self.homePage.search_input.text()
+        pincode, lat, lon = getDetails()
+        resp = getNearByShop(medicine, pincode, lat, lon)
+        self.mapScreen = QtWidgets.QWidget()
+        map = MyApp(resp.json(), self.mapScreen, (lon, lat))
+        self.mapScreen.show()
+        self.homePageScreen.show()
 
     def userProfile(self):
         self.userProfileScreen = QtWidgets.QWidget()
@@ -137,16 +173,25 @@ class userApp:
         self.widgetMain.removeWidget(self.userProfileScreen)
         self.openLogin()
 
+    def addCompleter(self):
+        try:
+            allMedicines = getAllMedicines()
+            for i in allMedicines.json():
+                self.model.appendRow(QStandardItem(i.get('name')))
+            self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        except Exception as e:
+            print(e)
+
 
 if __name__ == '__main__':
     thread = Thread(target=getIpInfo)
     thread.start()
     App = QApplication(sys.argv)
-    App.setStyleSheet('''
-            QWidget {
-                background-color:white;
-            }
-        ''')
+    # App.setStyleSheet('''
+    #         QWidget {
+    #             background-color:#fff;
+    #         }
+    #     ''')
     widgetMain = QtWidgets.QStackedWidget()
     userHomePage = userApp(widgetMain)
     widgetMain.setFixedWidth(900)

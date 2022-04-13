@@ -5,7 +5,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 
 class MyApp:
-    def __init__(self, medicalList, widget, userCoordinate, coordinate):
+    def __init__(self, medicalList, widget, userCoordinate):
         self.widget = widget
         self.widget.setWindowTitle('Shops are here')
         self.window_width, self.window_height = 900, 850
@@ -16,10 +16,11 @@ class MyApp:
 
         m = folium.Map(
             zoom_start=13,
-            location=userCoordinate
+            location=userCoordinate,
+            width=900, height=850
         )
         folium.Marker(
-            location=coordinate,
+            location=userCoordinate,
             icon=folium.DivIcon(html=f""" <div><svg width="35" height="35" viewBox="0 0 32 32" fill="none" 
                         xmlns="http://www.w3.org/2000/svg"> <path d="M16 2C13.0837 2.00344 10.2878 3.16347 8.22564 
                         5.22563C6.16348 7.28778 5.00345 10.0837 5.00001 13C4.99652 15.3832 5.77499 17.7018 7.21601 19.6C7.21601 
@@ -29,22 +30,22 @@ class MyApp:
                         15.2616 12.3045 14.5307C12.0017 13.7998 11.9225 12.9956 12.0769 12.2196C12.2312 11.4437 12.6122 10.731 
                         13.1716 10.1716C13.731 9.61216 14.4437 9.2312 15.2197 9.07686C15.9956 8.92252 16.7998 9.00173 17.5307 
                         9.30448C18.2616 9.60723 18.8864 10.1199 19.3259 10.7777C19.7654 11.4355 20 12.2089 20 13C19.9987 14.0605 
-                        19.5768 15.0771 18.827 15.827C18.0771 16.5768 17.0605 16.9987 16 17V17Z" fill="#000"/> </svg> 
+                        19.5768 15.0771 18.827 15.827C18.0771 16.5768 17.0605 16.9987 16 17V17Z" fill="#009c6d"/> </svg> 
                         </div>""")
         ).add_to(m)
         for i in medicalList:
             html = f"""
-                   <h1> {i.name}</h1>
+                   <h1> {i.get('name')}</h1>
                    <h2>{"shopName"}</h2>
                    <div>
-                    <p>price: {i.price}</p> 
-                    <p>price: {i.quantity}</p>
+                    <p>price: {i.get('price')}</p> 
+                    <p>Quantity: {i.get('quantity')}</p>
                    </div>
                    """
             iframe = folium.IFrame(html=html, width=200, height=200)
             popup = folium.Popup(iframe, max_width=560)
             folium.Marker(
-                location=coordinate,
+                location=[i.get("latitude"), i.get("longitude")],
                 popup=popup,
                 icon=folium.DivIcon(html=f""" <div><svg width="35" height="35" viewBox="0 0 32 32" fill="none" 
                 xmlns="http://www.w3.org/2000/svg"> <path d="M16 2C13.0837 2.00344 10.2878 3.16347 8.22564 

@@ -1,4 +1,4 @@
-from makerequest import makeRequest
+from .makerequest import makeRequest
 
 make = makeRequest("userToken")
 
@@ -11,10 +11,11 @@ def searchMedicine(medicine_name):
     return resp
 
 
-def getNearByShop(pincode):
+def getNearByShop(medicine, pincode, lat, lon):
     """This function required user's area code or pincode
     through which this function will return nearby shop to user"""
-    return make.GetRequest(make.API + "/nearbymedical/", pincode)
+    return make.GetRequest(
+        make.API + "/nearbymedicine/?name={}&pincode={}&latitude={}&longitude={}".format(medicine, pincode, lat, lon))
 
 
 def allMedicalShop():
@@ -26,6 +27,5 @@ def allMedicalShop():
         print("Error")
 
 
-def getUserDetails():
-    resp = make.GetRequest(make.API + "/user/")
-    return resp
+def getAllMedicines():
+    return make.GetRequest(make.GetRequest(make.API + "/medicine/"))

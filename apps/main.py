@@ -120,6 +120,7 @@ class main:
             calling_code = ipinfo.get('location')['country']['calling_code']
             lon = ipinfo.get('location')['longitude']
             lat = ipinfo.get('location')['latitude']
+            lat, lon =19.265236251248197, 72.96929313756121
             phoneNumber = '+' + calling_code + phoneNumber_text
             # sending request to backend for creating the medical
             response = createMedical(
