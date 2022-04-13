@@ -6,8 +6,8 @@ from .localdb import LocalDB
 
 
 class makeRequest:
-    def __init__(self):
-        self.db = LocalDB()
+    def __init__(self, name):
+        self.db = LocalDB(name)
         self.API = "http://localhost:8000/api"
         self.headers = CaseInsensitiveDict()
         self.headers["Accept"] = "application/json"

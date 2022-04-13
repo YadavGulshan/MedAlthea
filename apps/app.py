@@ -24,7 +24,7 @@ class app:
         self.loginScreen = QtWidgets.QDialog()
         self.messageScreen = QtWidgets.QWidget()
         self.searchScreen = QtWidgets.QDialog()
-        self.DB = LocalDB()
+        self.DB = LocalDB("token")
         self.TOKENS = self.DB.getTokens()
         self.widget = widget
 
@@ -39,7 +39,6 @@ class app:
         self.login = LoginFrame()
         self.login.setupUi(self.loginScreen)
         self.widget.addWidget(self.loginScreen)
-
         self.login.signup.clicked.connect(self.openSignUp)
 
     def openSignUp(self):
@@ -58,7 +57,7 @@ class app:
                                password2=self.signUp.password_text, email=self.signUp.email_text,
                                first_name=self.signUp.firstname_text, last_name=self.signUp.lastname_text,
                                isStaff=str(self.signUp.checkbox))
-            status = userRegister(userDetails)
+            status = userRegister(userDetails, 'token')
             if status.status_code == 201:
                 self.gotoLogin()
 

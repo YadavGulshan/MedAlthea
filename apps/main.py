@@ -17,7 +17,7 @@ class main:
     def __init__(self, widget):
         self.photo = None
         self.widget = widget
-        self.DB = LocalDB()
+        self.DB = LocalDB("token")
         self.valid = False
         self.email_text = None
 
