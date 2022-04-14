@@ -1,19 +1,19 @@
 import datetime
-from requests.structures import CaseInsensitiveDict
 import requests as rs
+from requests.structures import CaseInsensitiveDict
 
 from .localdb import LocalDB
 
 
 class makeRequest:
-    def __init__(self):
-        self.db = LocalDB()
+    def __init__(self, name):
+        self.db = LocalDB(name)
         self.API = "http://localhost:8000/api"
         self.headers = CaseInsensitiveDict()
         self.headers["Accept"] = "application/json"
         self.accessToken = ""
 
-    def __checkAccessToken(self):
+    def checkAccessToken(self):
         token = self.db.getAccessToken()
         if not len(token) == 0:
             accessTokenLastUsed = token[0][1]
@@ -27,12 +27,11 @@ class makeRequest:
         day = today - lastUsed
         if day > datetime.timedelta(minutes=30):
             self.getNewToken()
-            print("get new token")
-        else:
-            print("valid")
 
-    def makeGetRequest(self, url, body):
-        self.__checkAccessToken()
+    def GetRequest(self, url, body=None):
+        if body is None:
+            body = {}
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.get(url, headers=self.headers, json=body)
@@ -43,11 +42,13 @@ class makeRequest:
         except Exception as e:
             print(e)
 
-    def makePostRequest(self, url, body):
-        self.__checkAccessToken()
+    def makePostRequest(self, url, body=None):
+        if body is None:
+            body = {}
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
-            resp = rs.post(url, headers=self.headers, json=body)
+            resp = rs.post(url, headers=self.headers, json=body, )
             if resp.status_code == 201:
                 return resp
             else:
@@ -55,20 +56,26 @@ class makeRequest:
         except Exception as e:
             print(e)
 
-    def makePutRequest(self, url, body):
-        self.__checkAccessToken()
+    def PutRequest(self, url, body=None):
+        if body is None:
+            body = {}
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.put(url=url, headers=self.headers, json=body)
             if resp.status_code == 200:
+                return resp
+            elif resp.status_code == 202:
                 return resp
             else:
                 raise Exception("Something went wrong")
         except Exception as e:
             print(e)
 
-    def makeDeleteRequest(self, url, body):
-        self.__checkAccessToken()
+    def DeleteRequest(self, url, body=None):
+        if body is None:
+            body = {}
+        self.checkAccessToken()
         try:
             self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
             resp = rs.delete(url=url, headers=self.headers, json=body)
@@ -84,3 +91,15 @@ class makeRequest:
         if resp.status_code == 200:
             self.db.addNewToken(resp.json().get("access"), resp.json().get("refresh"))
         return resp
+
+    def CreateMedicalPost(self, url, body, file):
+        try:
+            self.checkAccessToken()
+            self.headers["Authorization"] = "Bearer {}".format(self.accessToken)
+            resp = rs.post(url, headers=self.headers, data=body, files=file)
+            if resp.status_code == 201:
+                return resp
+            else:
+                return resp
+        except Exception as e:
+            print(e)

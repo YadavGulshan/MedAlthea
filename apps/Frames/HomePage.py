@@ -1,26 +1,28 @@
+import csv
+import os
+
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.getData import getMyMedical
+from .functions.getData import getMyMedical, addMedicine, updateMedical, deleteMedical
 
 # importing frame
-from .MyMedical import Ui_MyMedical
+from .medicineHome import Ui_MedicineHome
 from .medicalProfile import Ui_MedicalProfile
 from .addMedicine import Ui_AddMedicine
 
 
 class Ui_HomePage(object):
     def __init__(self, widget):
+        self.medicals = {}
         self.MedicalProfileScreen = QtWidgets.QDialog()
         self.MyMedicalScreen = QtWidgets.QDialog()
-        self.homePage = None
         self.mainWidget = widget
-        try:
-            self.medicals = getMyMedical()
-        except Exception as e:
-            print("server not running")
-            print(e)
 
     def setupUi(self, Dialog):
-        print("homepage")
+        try:
+            self.medicals.clear()
+            self.medicals = getMyMedical().json()
+        except Exception as e:
+            print(e)
         self.homePage = Dialog
         self.homePage.setObjectName("Dialog")
         self.homePage.resize(900, 850)
@@ -38,7 +40,7 @@ class Ui_HomePage(object):
         font.setPointSize(16)
         self.profile_pushButton.setFont(font)
         self.profile_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                              "color: rgb(10, 89, 83);\n"
+                                              "color: rgb(0, 157, 113);\n"
                                               "border-radius:10px;")
         self.profile_pushButton.setObjectName("back_pushButton")
         self.profile_pushButton.setCursor(
@@ -94,7 +96,7 @@ class Ui_HomePage(object):
         self.add_pushButton.setObjectName("add_pushButton")
         self.verticalLayout.addWidget(self.Add_medical)
 
-        for medical in self.medicals.json():
+        for medical in self.medicals:
             self.medical_widget = QtWidgets.QWidget(
                 self.scrollAreaWidgetContents)
             sizePolicy = QtWidgets.QSizePolicy(
@@ -224,17 +226,17 @@ class Ui_HomePage(object):
 
     def getShopId(self):
         sender = self.widget.sender()
-        _id = sender.objectName()
-        self.openMyMedical(_id)
+        self._id = sender.objectName()
+        self.openMyMedical(self._id)
 
     def openMyMedical(self, _id):
-        self.MyMedical = Ui_MyMedical()
-        self.MyMedical.setupUi(self.MyMedicalScreen, self.mainWidget, _id)
-        self.mainWidget.addWidget(self.MyMedicalScreen)
+        self.MyMedical = Ui_MedicineHome(self.mainWidget, self.MyMedicalScreen)
+        self.MyMedical.setupUi(_id)
         self.mainWidget.removeWidget(self.homePage)
-        self.MyMedical.pushButton_home.clicked.connect(self.MedicalToHome)
-        self.MyMedical.pushButton_profile.clicked.connect(self.openProfile)
-        self.MyMedical.pushButton_addMedicine.clicked.connect(self.addMedicines)
+        self.mainWidget.addWidget(self.MyMedicalScreen)
+        self.MyMedical.Home_pushButton.clicked.connect(self.MedicalToHome)
+        self.MyMedical.profile_pushButton.clicked.connect(self.openProfile)
+        self.MyMedical.Addmedicine_pushButton.clicked.connect(self.addMedicines)
 
     def MedicalToHome(self):
         self.mainWidget.removeWidget(self.MyMedicalScreen)
@@ -246,6 +248,40 @@ class Ui_HomePage(object):
         self.addMedicine.setupUi(self.addMedicineScreen)
         self.mainWidget.addWidget(self.addMedicineScreen)
         self.mainWidget.removeWidget(self.MyMedicalScreen)
+        self.addMedicine.add_button.clicked.connect(self.checkMedicineDetail)
+        self.addMedicine.Back_pushButton.clicked.connect(self.goBack)
+        self.addMedicine.uploadButton.clicked.connect(self.uploadFile)
+
+    def goBack(self):
+        self.mainWidget.removeWidget(self.addMedicineScreen)
+        self.mainWidget.addWidget(self.MyMedicalScreen)
+
+    def uploadFile(self):
+        pathToHome = os.path.expanduser('~')
+        selected_csv, _ = QtWidgets.QFileDialog.getOpenFileName(self.mainWidget, "select CSV", pathToHome,
+                                                                "CSV Files (*.csv)")
+        if not selected_csv == "":
+            with open(selected_csv, "r") as CSV:
+                files = csv.reader(CSV)
+                next(files)
+                for file in files:
+                    if file[0] and file[1] and file[2] and file[3]:
+                        medicineDetails = {
+                            'medicalId': self.addMedicine.id,
+                            'name': file[0],
+                            'description': file[1],
+                            'price': file[2],
+                            'quantity': file[3]
+                        }
+                        response = addMedicine(medicineDetails)
+                        if not response.status_code == 201:
+                            showMessage(False, "medicine Add")
+                    else:
+                        showMessage(True, "Empty Fields are not allowed")
+                self.mainWidget.removeWidget(self.addMedicineScreen)
+                self.openMyMedical(self._id)
+                showMessage(True, Message='Medicines Add')
+                CSV.close()
 
     def openProfile(self):
         self.medicalProfile = Ui_MedicalProfile(self.MyMedical.id)
@@ -253,7 +289,44 @@ class Ui_HomePage(object):
         self.mainWidget.addWidget(self.MedicalProfileScreen)
         self.mainWidget.removeWidget(self.MyMedicalScreen)
         self.medicalProfile.back_button.clicked.connect(self.profileToMedical)
+        self.medicalProfile.save_button.clicked.connect(self.submitProfile)
+        self.medicalProfile.delete_button.clicked.connect(self.delete)
 
     def profileToMedical(self):
         self.mainWidget.removeWidget(self.MedicalProfileScreen)
         self.openMyMedical(self.medicalProfile.id)
+
+    def submitProfile(self):
+        valid, medicalProfile = self.medicalProfile.updateProfile()
+        if not valid[-1]:
+            self.profileToMedical()
+        else:
+            response = updateMedical(medicalProfile, self.MyMedical.id)
+            showMessage(True if response.status_code == 202 else False, "Profile Update")
+            self.profileToMedical()
+
+    def checkMedicineDetail(self):
+        valid, medicineDetails = self.addMedicine.checkFields()
+        if valid:
+            response = addMedicine(medicineDetails)
+            if response.status_code == 201:
+                self.mainWidget.removeWidget(self.addMedicineScreen)
+                self.openMyMedical(self._id)
+                showMessage(True, Message='Medicine Add')
+            else:
+                showMessage(False, "medicine Add")
+
+    def delete(self):
+        resp = deleteMedical(self.MyMedical.id)
+        self.mainWidget.removeWidget(self.MedicalProfileScreen)
+        self.setupUi(self.homePage)
+        self.mainWidget.addWidget(self.homePage)
+        showMessage(True if resp.status_code == 204 else False, "Medical Deleted")
+
+
+def showMessage(status, Message):
+    message = QtWidgets.QMessageBox()
+    message.setWindowTitle(Message if status else "Error")
+    message.setText(Message if status else "Sorry something went wrong")
+    message.setIcon(QtWidgets.QMessageBox.Information if status else QtWidgets.QMessageBox.Critical)
+    message.exec_()

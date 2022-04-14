@@ -1,10 +1,12 @@
+import requests
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QImage, QPixmap
 from .functions.getData import getMedicalDetails
 
 
 class Ui_MedicalProfile(object):
     def __init__(self, _id):
-        self.is_editable = True
+        self.is_editable = False
         self.id = _id
         try:
             self.response = getMedicalDetails(self.id)
@@ -42,19 +44,18 @@ class Ui_MedicalProfile(object):
         self.mainFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.mainFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.mainFrame.setObjectName("mainFrame")
-        self.fname = QtWidgets.QLineEdit(self.mainFrame)
-        self.fname.setGeometry(QtCore.QRect(20, 360, 411, 51))
+        self.shopeName = QtWidgets.QLineEdit(self.mainFrame)
+        self.shopeName.setGeometry(QtCore.QRect(20, 360, 411, 51))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.fname.setFont(font)
-        self.fname.setStyleSheet("border:2px solid rgb(0,0,0);\n"
-                                 "border-radius:20px;\n"
-                                 "padding:10px;\n"
-                                 "color: rgb(52, 52, 52);")
+        self.shopeName.setFont(font)
+        self.shopeName.setStyleSheet("border:2px solid rgb(0,0,0);\n"
+                                     "border-radius:20px;\n"
+                                     "padding:10px;\n"
+                                     "color: rgb(52, 52, 52);")
 
-        self.fname.setReadOnly(self.is_editable)
-        self.fname.setObjectName("fname")
-        self.fname.setText(self.response.get("name"))
+        self.shopeName.setObjectName("shopName")
+        self.shopeName.setText(self.response.get("name"))
         self.profile_picture = QtWidgets.QLabel(self.mainFrame)
         self.profile_picture.setGeometry(QtCore.QRect(360, 80, 180, 180))
         font = QtGui.QFont()
@@ -68,19 +69,22 @@ class Ui_MedicalProfile(object):
         self.profile_picture.setText("")
         self.profile_picture.setAlignment(QtCore.Qt.AlignCenter)
         self.profile_picture.setObjectName("profile_picture")
-        self.edit_button = QtWidgets.QPushButton(self.mainFrame)
-        self.edit_button.setEnabled(self.is_editable)
-        self.edit_button.setGeometry(QtCore.QRect(610, 710, 121, 41))
+        url_image = 'https://live.staticflickr.com/65535/49251422908_591245c64a_c_d.jpg'
+        image = QImage()
+        image.loadFromData(requests.get(url_image).content)
+        self.profile_picture.setPixmap(QPixmap(image))
+        self.save_button = QtWidgets.QPushButton(self.mainFrame)
+        self.save_button.setGeometry(QtCore.QRect(610, 710, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(True)
-        self.edit_button.setFont(font)
-        self.edit_button.setStyleSheet("border-radius:10px;\n"
+        self.save_button.setFont(font)
+        self.save_button.setStyleSheet("border-radius:10px;\n"
                                        "color: white;\n"
                                        "background-color: rgb(0, 153, 112);\n"
                                        "\n"
                                        "")
-        self.edit_button.setObjectName("edit_button")
+        self.save_button.setObjectName("edit_button")
         self.delete_button = QtWidgets.QPushButton(self.mainFrame)
         self.delete_button.setEnabled(True)
         self.delete_button.setGeometry(QtCore.QRect(740, 710, 131, 41))
@@ -95,18 +99,17 @@ class Ui_MedicalProfile(object):
                                          "\n"
                                          "")
         self.delete_button.setObjectName("delete_button")
-        self.lname = QtWidgets.QLineEdit(self.mainFrame)
-        self.lname.setGeometry(QtCore.QRect(20, 440, 411, 51))
+        self.website = QtWidgets.QLineEdit(self.mainFrame)
+        self.website.setGeometry(QtCore.QRect(20, 440, 411, 51))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.lname.setFont(font)
-        self.lname.setStyleSheet("border:2px solid rgb(0,0,0);\n"
-                                 "border-radius:20px;\n"
-                                 "padding:10px;\n"
-                                 "color: rgb(52, 52, 52);")
-        self.lname.setReadOnly(self.is_editable)
-        self.lname.setText(self.response.get("last_name"))
-        self.lname.setObjectName("lname")
+        self.website.setFont(font)
+        self.website.setStyleSheet("border:2px solid rgb(0,0,0);\n"
+                                   "border-radius:20px;\n"
+                                   "padding:10px;\n"
+                                   "color: rgb(52, 52, 52);")
+        self.website.setText(self.response.get("website"))
+        self.website.setObjectName("website")
         self.zipcode = QtWidgets.QLineEdit(self.mainFrame)
         self.zipcode.setGeometry(QtCore.QRect(470, 440, 411, 51))
         font = QtGui.QFont()
@@ -116,7 +119,6 @@ class Ui_MedicalProfile(object):
                                    "border-radius:20px;\n"
                                    "padding:10px;\n"
                                    "color: rgb(52, 52, 52);")
-        self.zipcode.setReadOnly(self.is_editable)
         self.zipcode.setObjectName("zipcode")
         self.zipcode.setText(str(self.response.get("pincode")))
         self.address = QtWidgets.QLineEdit(self.mainFrame)
@@ -128,7 +130,6 @@ class Ui_MedicalProfile(object):
                                    "border-radius:20px;\n"
                                    "padding:10px;\n"
                                    "color: rgb(52, 52, 52);")
-        self.address.setReadOnly(self.is_editable)
         self.address.setObjectName("address")
         self.address.setText(self.response.get("address"))
         self.phonenumber = QtWidgets.QLineEdit(self.mainFrame)
@@ -140,11 +141,11 @@ class Ui_MedicalProfile(object):
                                        "border-radius:20px;\n"
                                        "padding:10px;\n"
                                        "color: rgb(52, 52, 52);")
-        self.phonenumber.setReadOnly(self.is_editable)
 
         self.phonenumber.setText(self.response.get("phone"))
 
         self.phonenumber.setObjectName("phonenumber")
+        self.phonenumber.setReadOnly(True)
         self.email = QtWidgets.QLineEdit(self.mainFrame)
         self.email.setGeometry(QtCore.QRect(470, 520, 411, 51))
         font = QtGui.QFont()
@@ -155,8 +156,8 @@ class Ui_MedicalProfile(object):
                                  "padding:10px;\n"
                                  "color: rgb(52, 52, 52);")
         self.email.setText(self.response.get("email"))
-        self.email.setReadOnly(self.is_editable)
         self.email.setObjectName("email")
+        self.email.setReadOnly(True)
         self.back_button = QtWidgets.QPushButton(self.mainFrame)
         self.back_button.setGeometry(QtCore.QRect(480, 710, 121, 41))
         font = QtGui.QFont()
@@ -177,12 +178,28 @@ class Ui_MedicalProfile(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.title.setText(_translate("Dialog", "Medical details"))
-        self.fname.setPlaceholderText(_translate("Dialog", "first Name"))
-        self.edit_button.setText(_translate("Dialog", "Edit Profile"))
+        self.shopeName.setPlaceholderText(_translate("Dialog", "first Name"))
+        self.save_button.setText(_translate("Dialog", "Save Profile"))
         self.delete_button.setText(_translate("Dialog", "delete Medical"))
-        self.lname.setPlaceholderText(_translate("Dialog", "last Name"))
+        self.website.setPlaceholderText(_translate("Dialog", "Website"))
         self.zipcode.setPlaceholderText(_translate("Dialog", "pincode / zip code"))
         self.address.setPlaceholderText(_translate("Dialog", "Address"))
         self.phonenumber.setPlaceholderText(_translate("Dialog", "Phone Number"))
         self.email.setPlaceholderText(_translate("Dialog", "email"))
         self.back_button.setText(_translate("Dialog", "Back"))
+
+    def updateProfile(self):
+        medicalProfile = {}
+        submit = []
+        if int(self.zipcode.text()) == self.response.get('pincode') and self.address.text() == self.response.get(
+                'address') and self.shopeName.text() == self.response.get("name") and self.website.text() == self.response.get(
+                'website'):
+            submit.append(False)
+            print("hello")
+        else:
+            submit.append(True)
+            medicalProfile = {'medicalId': self.response.get('medicalId'), 'name': self.shopeName.text(),
+                              'website': self.website.text(), 'address': self.address.text(),
+                              "latitude": self.response.get('latitude'),
+                              "longitude": self.response.get('longitude'), 'pincode': int(self.zipcode.text())}
+        return submit, medicalProfile

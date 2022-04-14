@@ -1,10 +1,12 @@
+import os
 import sqlite3
 from datetime import datetime
 
 
 class LocalDB:
-    def __init__(self):
-        self.con = sqlite3.connect("token.sqlite3")
+    def __init__(self, name):
+        pathToHome = os.path.expanduser('~')
+        self.con = sqlite3.connect(pathToHome+"/{}.sqlite3".format(name))
         self.cur = self.con.cursor()
         self.cur.execute(
             """
@@ -20,7 +22,6 @@ class LocalDB:
             (refresh, datetime.now(), access, datetime.now()),
         )
         self.con.commit()
-        print("Token Added! ✅")
         return 200
 
     def getAccessToken(self):
@@ -39,6 +40,6 @@ class LocalDB:
         return response.fetchall()
 
     def getLogout(self):
-        self.cur.execute('''DROP tabel token''')
+        self.cur.execute('''DROP table tokens''')
         self.con.commit()
         print("LOG OUT!!")
