@@ -10,13 +10,13 @@ class MyApp:
         self.widget.setWindowTitle('Shops are here')
         self.window_width, self.window_height = 900, 850
         self.widget.setMinimumSize(self.window_width, self.window_height)
-
+        self.widget.setStyleSheet("background-color: #fff;")
         layout = QVBoxLayout()
         self.widget.setLayout(layout)
 
         m = folium.Map(
             zoom_start=13,
-            location=userCoordinate,
+            location=[19.269106819456606, 72.96846805854489],
             width=900, height=850
         )
         folium.Marker(
@@ -36,7 +36,7 @@ class MyApp:
         for i in medicalList:
             html = f"""
                    <h1> {i.get('name')}</h1>
-                   <h2>{"shopName"}</h2>
+                   <h2>{i.get("medical_name")}</h2>
                    <div>
                     <p>price: {i.get('price')}</p> 
                     <p>Quantity: {i.get('quantity')}</p>

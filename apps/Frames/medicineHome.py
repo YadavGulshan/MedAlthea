@@ -275,20 +275,23 @@ class Ui_MedicineHome(object):
     def sortList(self):
         text = self.search_input.text()
         if not text == "":
-            length = len(self.medicines)
-            length = length / 3
-            length = int(length + 1) if type(length) is float else length
-            for i in range(1, length + 1):
-                row = self.verticalLayout.itemAt(i).widget()
-                content = row.findChildren(
-                    QtWidgets.QLabel, "medicine_name")
-                count = 0
-                for j in range(len(content)):
-                    if not content[j].text() == text:
-                        count += 1
-                        content[j].parent().hide()
-                if count == 3:
-                    row.hide()
+            try:
+                length = len(self.medicines)
+                length = length / 3
+                length = int(length + 1) if type(length) is float else length
+                for i in range(1, length + 1):
+                    row = self.verticalLayout.itemAt(i).widget()
+                    content = row.findChildren(
+                        QtWidgets.QLabel, "medicine_name")
+                    count = 0
+                    for j in range(len(content)):
+                        if not content[j].text() == text:
+                            count += 1
+                            content[j].parent().hide()
+                    if count == 3:
+                        row.hide()
+            except Exception as e:
+                print(e)
 
 
 def showMessage(status, messages):

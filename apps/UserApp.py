@@ -147,12 +147,13 @@ class userApp:
 
     def openMap(self):
         medicine = self.homePage.search_input.text()
-        pincode, lat, lon = getDetails()
-        resp = getNearByShop(medicine, pincode, lat, lon)
-        self.mapScreen = QtWidgets.QWidget()
-        map = MyApp(resp.json(), self.mapScreen, (lon, lat))
-        self.mapScreen.show()
-        self.homePageScreen.show()
+        if not len(medicine) == 0:
+            pincode, lat, lon = getDetails()
+            resp = getNearByShop(medicine, pincode, lat, lon)
+            self.mapScreen = QtWidgets.QWidget()
+            map = MyApp(resp.json(), self.mapScreen, (lon, lat))
+            self.mapScreen.show()
+            self.homePageScreen.show()
 
     def userProfile(self):
         self.userProfileScreen = QtWidgets.QWidget()
