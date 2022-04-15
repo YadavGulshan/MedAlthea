@@ -149,7 +149,7 @@ class signUpFrame(object):
         self.checkBox.setStyleSheet("color: rgb(18, 18, 18);")
         self.checkBox.setObjectName("checkBox")
         self.email = QtWidgets.QLineEdit(self.widget)
-        self.email.setGeometry(QtCore.QRect(500, 310, 330, 55))
+        self.email.setGeometry(QtCore.QRect(490, 310, 331, 55))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.email.setFont(font)
@@ -198,7 +198,8 @@ class signUpFrame(object):
         self.F_Name.setPlaceholderText(_translate("signUp", "First Name"))
         self.UserName.setPlaceholderText(_translate("signUp", "UserName"))
         self.l_Name.setPlaceholderText(_translate("signUp", "Last Name"))
-        self.C_Password.setPlaceholderText(_translate("signUp", "Confirm Password"))
+        self.C_Password.setPlaceholderText(
+            _translate("signUp", "Confirm Password"))
         self.checkBox.setText(_translate("signUp", "Have A Shop ?"))
         self.email.setPlaceholderText(_translate("signUp", "Email"))
 
@@ -247,7 +248,8 @@ class signUpFrame(object):
         return valid
 
     def check(self):
-        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        regex = re.compile(
+            r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
         if re.fullmatch(regex, self.email_text):
             return True
         else:
