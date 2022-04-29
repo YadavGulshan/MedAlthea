@@ -8,11 +8,12 @@
 #
 # All rights reserved.
 
-from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
+from pharmacy.api.serializers import PopularMedicineSerializer
 from pharmacy.api.tools import tools
+from rest_framework.response import Response
 
 from pharmacy.models import Medical, Medicine
 
@@ -34,11 +35,9 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
         # Check for the pincode of the medicals and then we will show the medicals
         # which are near to the user
         medical = []
+
         for med in medicineMedical:
             medid = med.medicalId.medicalId
-            print("####################ID: ", medid)
-            # result = Medical.objects.filter(id=id).filter(
-            #         pincode__contains=pincode)
             result = Medical.objects.filter(medicalId=medid).filter(
                 pincode__contains=pincode
             )
@@ -67,4 +66,20 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
 
         # Sort the data according to the distance
         newData.sort(key=lambda x: x["distance"])
-        return JsonResponse(newData, safe=False)
+        if len(newData) > 0:
+            popularSerializer = PopularMedicineSerializer(
+                data={
+                    "name": newData[0]["name"],
+                    "pincode": pincode,
+                    "user": request.user.id,
+                }
+            )
+
+            print(popularSerializer)
+            if popularSerializer.is_valid():
+                print("added")
+                popularSerializer.save()
+            else:
+                return Response(popularSerializer.errors, status=400)
+
+        return Response(newData, status=200)

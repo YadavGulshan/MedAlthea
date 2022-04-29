@@ -12,6 +12,7 @@
 from base64 import urlsafe_b64encode
 from django.http import JsonResponse
 from pharmacy.api.tools import tools
+from pharmacy.api.tools.smtp_server import smtp_server
 from pharmacy.api.views.userActions.token.token_generator import TokenGenerator
 
 from ...serializers import RegisterSerializer, UserNameSerializer
@@ -52,24 +53,27 @@ class Register(generics.CreateAPIView):
             tokengen = TokenGenerator()
             uid = urlsafe_b64encode(force_bytes(user.pk))
             token = tokengen.make_token(user)
-            print(
-                str(
-                    str("http://localhost:8000/api/emailverification/")
-                    + str(uid).replace("b", "").replace("'", "")
-                    + "/"
-                    + str(token)
-                )
-            )
-            tools.send_email(
-                send_to=request.data["email"],
-                url=str(
+            # tools.send_email(
+            #     send_to=request.data["email"],
+            # url=str(
+            #     str("http://localhost:8000/api/emailverification/")
+            #     + str(uid).replace("b", "").replace("'", "")
+            #     + "/"
+            #     + str(token)
+            #     + "/"
+            # ),
+            # )
+            smtp_server(
+                email=request.data["email"],
+                subject="Account verification",
+                message=str(
                     str("http://localhost:8000/api/emailverification/")
                     + str(uid).replace("b", "").replace("'", "")
                     + "/"
                     + str(token)
                     + "/"
                 ),
-            )
+            ).start()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
