@@ -50,3 +50,10 @@ class Medicine(models.Model):
     description = models.CharField(max_length=100)
     price = models.IntegerField()
     quantity = models.IntegerField()
+
+
+class PopularMedicine(models.Model):
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    pincode = models.IntegerField()
+    name = models.CharField(max_length=20)
+    timestamp = models.DateTimeField(auto_now_add=True)
