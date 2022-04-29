@@ -51,7 +51,7 @@ class PopularMedicineSearch(APIView):
                 "count": count,
             }
             medicine_list.append(counter)
-        
+
         print(data)
 
         return Response(medicine_list, status=status.HTTP_200_OK)

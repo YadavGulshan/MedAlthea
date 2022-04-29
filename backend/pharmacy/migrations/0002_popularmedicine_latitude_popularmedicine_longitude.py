@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pharmacy', '0001_initial'),
+        ("pharmacy", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='popularmedicine',
-            name='latitude',
+            model_name="popularmedicine",
+            name="latitude",
             field=models.FloatField(default=0.0),
         ),
         migrations.AddField(
-            model_name='popularmedicine',
-            name='longitude',
+            model_name="popularmedicine",
+            name="longitude",
             field=models.FloatField(default=0.0),
         ),
     ]

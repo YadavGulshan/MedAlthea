@@ -81,7 +81,11 @@ urlpatterns = [
         mapper.MedicineSearch.as_view(),
         name="nearby_medicine",
     ),
-    path("popularmedicine/", mapper.PopularMedicineSearch.as_view(), name="popular_medicine"),
+    path(
+        "popularmedicine/",
+        mapper.PopularMedicineSearch.as_view(),
+        name="popular_medicine",
+    ),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

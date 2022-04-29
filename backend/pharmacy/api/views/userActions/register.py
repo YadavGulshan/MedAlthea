@@ -63,13 +63,17 @@ class Register(generics.CreateAPIView):
             #     + "/"
             # ),
             # )
-            smtp_server(email=request.data["email"], subject="Account verification", message=str(
-                str("http://localhost:8000/api/emailverification/")
-                + str(uid).replace("b", "").replace("'", "")
-                + "/"
-                + str(token)
-                + "/"
-            ),).start()
+            smtp_server(
+                email=request.data["email"],
+                subject="Account verification",
+                message=str(
+                    str("http://localhost:8000/api/emailverification/")
+                    + str(uid).replace("b", "").replace("'", "")
+                    + "/"
+                    + str(token)
+                    + "/"
+                ),
+            ).start()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import threading
 
+
 class smtp_server(threading.Thread):
     def __init__(self, email, subject, message):
         threading.Thread.__init__(self)

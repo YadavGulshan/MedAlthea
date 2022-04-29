@@ -16,5 +16,7 @@ from .display_nearby_medical import DisplayNearbyMedical
 from .medicine import MedicineSearch
 
 
-class Mapper(CalculateDistance, DisplayNearbyMedical, MedicineSearch, PopularMedicineSearch):
+class Mapper(
+    CalculateDistance, DisplayNearbyMedical, MedicineSearch, PopularMedicineSearch
+):
     """views.mapper"""

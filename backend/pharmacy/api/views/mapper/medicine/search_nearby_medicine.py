@@ -68,7 +68,12 @@ class DisplayNearbyMedicineSearchedByUser(APIView):
         newData.sort(key=lambda x: x["distance"])
         if len(newData) > 0:
             popularSerializer = PopularMedicineSerializer(
-                data={"name": newData[0]["name"], "pincode": pincode, "user": request.user.id})
+                data={
+                    "name": newData[0]["name"],
+                    "pincode": pincode,
+                    "user": request.user.id,
+                }
+            )
 
             print(popularSerializer)
             if popularSerializer.is_valid():
