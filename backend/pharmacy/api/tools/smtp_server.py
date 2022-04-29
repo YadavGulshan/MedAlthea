@@ -3,22 +3,24 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import threading
 
+class smtp_server(threading.Thread):
+    def __init__(self, email, subject, message):
+        threading.Thread.__init__(self)
+        self.email = email
+        self.subject = subject
+        self.message = message
 
-class smtp_server:
-    def send_email(send_to: str, url: str, **kwargs):
-        print("Sending email to: " + send_to)
+    def run(self):
+        print("Sending email to: " + self.email)
         smtp_server = "smtp.gmail.com"
         port = 587  # For starttls
         send_from = environ.get("EMAIL")
         password = environ.get("PASSWORD")
 
         message = MIMEMultipart("alternative")
-        message["Subject"] = (
-            kwargs.get("subject") is not None
-            and kwargs.get("subject")
-            or "Email verification"
-        )
+        message["Subject"] = self.subject
         message["From"] = send_from
         text = """\
                 <html>
@@ -30,7 +32,7 @@ class smtp_server:
                   </body>
                 </html>
                 """.format(
-            url
+            self.message
         )
 
         part = MIMEText(text, "html")
@@ -41,7 +43,7 @@ class smtp_server:
             with smtplib.SMTP(smtp_server, port) as server:
                 server.starttls(context=context)
                 server.login(send_from, password)
-                server.sendmail(send_from, send_to, message.as_string())
+                server.sendmail(send_from, self.email, message.as_string())
                 server.close()
                 print("Email sent!")
         except Exception as e:

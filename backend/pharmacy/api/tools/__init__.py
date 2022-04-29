@@ -1,4 +1,4 @@
-from .smtp_server import smtp_server
+from pharmacy.api.tools.smtp_server import smtp_server
 from .distance_calculator import CalculateDistanceBetweenTwoPoints
 
 __all__ = ["tools"]
