@@ -23,10 +23,10 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 
 
-@method_decorator(cache_page(60 * 5), name="get")
+# @method_decorator(cache_page(60 * 5), name="get")
 @method_decorator(vary_on_headers("Authorization"), name="get")
 @method_decorator(vary_on_headers("Accept"), name="get")
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class PopularMedicineSearch(APIView):
     def get(self, request):
         # Variables #####################################

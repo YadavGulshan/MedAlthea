@@ -9,7 +9,7 @@
 # All rights reserved.
 
 from rest_framework import serializers
-from pharmacy.models import Medical, Medicine
+from pharmacy.models import Medical, Medicine, PopularMedicine
 
 # For auth
 from django.contrib.auth.models import User
@@ -154,3 +154,9 @@ class UserNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("username",)
+
+
+class PopularMedicineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PopularMedicine
+        fields = "__all__"
