@@ -5,6 +5,7 @@ import sys
 import requests as rs
 from os.path import exists
 from threading import Thread
+import ocrspace as ocr
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
@@ -141,6 +142,7 @@ class userApp:
         self.widgetMain.addWidget(self.homePageScreen)
         self.widgetMain.removeWidget(self.loginScreen)
         self.homePage.profile.clicked.connect(self.userProfile)
+        self.homePage.ocrButton.clicked.connect(self.getPicture)
         self.homePage.findIt.clicked.connect(self.openMap)
         thread = Thread(target=self.addCompleter())
         thread.start()
@@ -154,6 +156,15 @@ class userApp:
             map = MyApp(resp.json(), self.mapScreen, (lon, lat))
             self.mapScreen.show()
             self.homePageScreen.show()
+
+    def getPicture(self):
+        ocrImage, _ = QtWidgets.QFileDialog.getOpenFileName(self.widgetMain, "select CSV", pathToHome,
+                                                            "Image Files (*.png *.jpeg)")
+        if not ocrImage == "":
+            self.homePage.search_input.setText("")
+            api = ocr.API(OCREngine=2)
+            resp = api.ocr_file(open(ocrImage, 'rb'))
+            self.homePage.search_input.setText(resp)
 
     def userProfile(self):
         self.userProfileScreen = QtWidgets.QWidget()
@@ -188,11 +199,6 @@ if __name__ == '__main__':
     thread = Thread(target=getIpInfo)
     thread.start()
     App = QApplication(sys.argv)
-    # App.setStyleSheet('''
-    #         QWidget {
-    #             background-color:#fff;
-    #         }
-    #     ''')
     widgetMain = QtWidgets.QStackedWidget()
     userHomePage = userApp(widgetMain)
     widgetMain.setFixedWidth(900)
