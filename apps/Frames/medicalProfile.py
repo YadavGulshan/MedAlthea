@@ -1,6 +1,7 @@
 import requests
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QImage, QPixmap
+
 from .functions.getData import getMedicalDetails
 
 

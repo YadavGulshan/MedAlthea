@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class LoginFrame(object):
 
     def setupUi(self, PharmaServices):
-        PharmaServices.setObjectName("loginscreen")
+        PharmaServices.setObjectName("login_screen")
         PharmaServices.resize(900, 850)
 
         self.widget = QtWidgets.QWidget(PharmaServices)

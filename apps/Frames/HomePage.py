@@ -2,12 +2,12 @@ import csv
 import os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.getData import getMyMedical, addMedicine, updateMedical, deleteMedical
 
+from .addMedicine import Ui_AddMedicine
+from .functions.getData import getMyMedical, addMedicine, updateMedical, deleteMedical
+from .medicalProfile import Ui_MedicalProfile
 # importing frame
 from .medicineHome import Ui_MedicineHome
-from .medicalProfile import Ui_MedicalProfile
-from .addMedicine import Ui_AddMedicine
 
 
 class Ui_HomePage(object):

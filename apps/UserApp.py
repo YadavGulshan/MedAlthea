@@ -2,28 +2,28 @@ import datetime
 import json
 import os
 import sys
-import requests as rs
 from os.path import exists
 from threading import Thread
-import ocrspace as ocr
 
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtGui import QStandardItem, QStandardItemModel
-from PyQt5.QtWidgets import QCompleter
+import ocrspace as ocr
+import requests as rs
 from PyQt5 import QtCore
+from PyQt5 import QtWidgets
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QCompleter
 from ipregistry import IpregistryClient
 
 from Frames.functions.getLogin import getTokens
-from Frames.functions.userOperations import getNearByShop
-from Frames.functions.makerequest import makeRequest
-from Frames.map import MyApp
 from Frames.functions.getRegister import userRegister
 from Frames.functions.localdb import LocalDB
+from Frames.functions.makerequest import makeRequest
+from Frames.functions.userOperations import getNearByShop
 from Frames.login import LoginFrame
+from Frames.map import MyApp
+from Frames.ownerProfile import Ui_ownerProfile
 from Frames.signUp import signUpFrame
 from Frames.userHomePage import Ui_userHomePage
-from Frames.ownerProfile import Ui_ownerProfile
 
 pathToHome = os.path.expanduser('~')
 
@@ -62,8 +62,14 @@ def getIpInfo():
             json.dump(ipInfo, f)
             f.close()
             print('function end')
-    else:
-        print("file exists")
+
+
+def showMessage(messageText):
+    message = QtWidgets.QMessageBox()
+    message.setWindowTitle("Medical Not Found")
+    message.setText(messageText)
+    message.setIcon(QtWidgets.QMessageBox.Information)
+    message.exec_()
 
 
 class userApp:
@@ -144,18 +150,21 @@ class userApp:
         self.homePage.profile.clicked.connect(self.userProfile)
         self.homePage.ocrButton.clicked.connect(self.getPicture)
         self.homePage.findIt.clicked.connect(self.openMap)
-        thread = Thread(target=self.addCompleter())
-        thread.start()
+        thread1 = Thread(target=self.addCompleter)
+        thread1.start()
 
     def openMap(self):
         medicine = self.homePage.search_input.text()
         if not len(medicine) == 0:
             pincode, lat, lon = getDetails()
             resp = getNearByShop(medicine, pincode, lat, lon)
-            self.mapScreen = QtWidgets.QWidget()
-            map = MyApp(resp.json(), self.mapScreen, (lon, lat))
-            self.mapScreen.show()
-            self.homePageScreen.show()
+            if len(resp.json()) == 0:
+                showMessage("\nShop not found \nwith given medicine. \nSorry for inconvenience!!\n")
+            else:
+                self.mapScreen = QtWidgets.QWidget()
+                map = MyApp(resp.json(), self.mapScreen, (lon, lat))
+                self.mapScreen.show()
+                self.homePageScreen.show()
 
     def getPicture(self):
         ocrImage, _ = QtWidgets.QFileDialog.getOpenFileName(self.widgetMain, "select CSV", pathToHome,

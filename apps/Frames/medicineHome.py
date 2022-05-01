@@ -1,10 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-from .functions.getData import getMedicine, getMedicalDetails
-from .editmedicine import Ui_editMedicine
-from .functions.getData import deleteMedicine, updateMedicine
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QCompleter
+
+from .editmedicine import Ui_editMedicine
+from .functions.getData import deleteMedicine, updateMedicine
+from .functions.getData import getMedicine, getMedicalDetails
 
 
 class Ui_MedicineHome(object):

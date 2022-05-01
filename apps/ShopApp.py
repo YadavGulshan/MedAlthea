@@ -1,9 +1,8 @@
 import json
 import os
-from re import A
 import sys
-from threading import Thread
 from os.path import exists
+from threading import Thread
 
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QFontDatabase

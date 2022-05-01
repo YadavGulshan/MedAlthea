@@ -1,5 +1,7 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import re
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 from .functions.getData import checkAvailableUser
 
 

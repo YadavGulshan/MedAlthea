@@ -1,7 +1,8 @@
 import io
+
 import folium
-from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWidgets import QVBoxLayout
 
 
 class MyApp:
