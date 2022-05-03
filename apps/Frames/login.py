@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class LoginFrame(object):
 
     def setupUi(self, PharmaServices):
-        PharmaServices.setObjectName("loginscreen")
+        PharmaServices.setObjectName("login_screen")
         PharmaServices.resize(900, 850)
 
         self.widget = QtWidgets.QWidget(PharmaServices)
@@ -14,16 +14,16 @@ class LoginFrame(object):
         self.Title = QtWidgets.QLabel(self.widget)
         self.Title.setGeometry(QtCore.QRect(360, 180, 161, 41))
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(24)
         font.setBold(True)
         self.Title.setFont(font)
         self.Title.setStyleSheet("color: rgb(0, 0, 0);")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
         self.UserName = QtWidgets.QLineEdit(self.widget)
-        self.UserName.setGeometry(QtCore.QRect(280, 260, 330, 50))
+        self.UserName.setGeometry(QtCore.QRect(280, 260, 330, 55))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.UserName.setFont(font)
         self.UserName.setStyleSheet(
             "border:2px solid rgb(85, 0, 255);\n"
@@ -37,9 +37,9 @@ class LoginFrame(object):
         self.UserName.setText("")
         self.UserName.setObjectName("Email")
         self.Password = QtWidgets.QLineEdit(self.widget)
-        self.Password.setGeometry(QtCore.QRect(280, 350, 331, 50))
+        self.Password.setGeometry(QtCore.QRect(280, 350, 331, 55))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.Password.setFont(font)
         self.Password.setStyleSheet(
             "border:2px solid rgb(85, 0, 255);\n"
@@ -68,10 +68,9 @@ class LoginFrame(object):
         )
         self.SignIn_button.setObjectName("SignIn_button")
         self.label_4 = QtWidgets.QLabel(self.widget)
-        self.label_4.setEnabled(True)
-        self.label_4.setGeometry(QtCore.QRect(340, 510, 130, 18))
+        self.label_4.setGeometry(QtCore.QRect(320, 510, 150, 18))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(10)
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("color: rgb(0, 0, 0);")
         self.label_4.setObjectName("label_4")
@@ -111,6 +110,6 @@ class LoginFrame(object):
         self.Password.setPlaceholderText(_translate("loginscreen", "Password"))
         self.SignIn_button.setText(_translate("loginscreen", "SIGN IN"))
         self.label_4.setText(_translate("loginscreen", "Not a member yet?"))
-        self.signup.setText(_translate("loginscreen", "Signup"))
+        self.signup.setText(_translate("loginscreen", "SIGN UP"))
 
 

@@ -1,7 +1,7 @@
+import asyncio
 import json
 import os
 import re
-import asyncio
 
 from PyQt5 import QtWidgets
 
@@ -120,7 +120,6 @@ class main:
             calling_code = ipinfo.get('location')['country']['calling_code']
             lon = ipinfo.get('location')['longitude']
             lat = ipinfo.get('location')['latitude']
-            lat, lon =19.265236251248197, 72.96929313756121
             phoneNumber = '+' + calling_code + phoneNumber_text
             # sending request to backend for creating the medical
             response = createMedical(
@@ -138,7 +137,7 @@ class main:
 
     @staticmethod
     def check(email):
-        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        regex = re.compile(r'([A-Za-z\d]+[.-_])*[A-Za-z\d]+@[A-Za-z\d-]+(\.[A-Z|a-z]{2,})+')
         if re.fullmatch(regex, email):
             return True
         else:

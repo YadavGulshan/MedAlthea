@@ -24,6 +24,15 @@ class Ui_userHomePage(object):
                                    "color: rgb(56, 136, 122);\n"
                                    "font-size:16px;")
         self.profile.setObjectName("profile")
+        self.ocrButton = QtWidgets.QPushButton(self.widget)
+        self.ocrButton.setGeometry(QtCore.QRect(674, 12, 101, 41))
+        self.ocrButton.setFont(font)
+        self.ocrButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.ocrButton.setStyleSheet("border-radius:10px;\n"
+                                     "background-color: rgb(255, 255, 255);\n"
+                                     "color: rgb(56, 136, 122);\n"
+                                     "font-size:16px;")
+        self.ocrButton.setObjectName("ocrButton")
         self.findIt = QtWidgets.QPushButton(self.widget)
         self.findIt.setGeometry(QtCore.QRect(590, 400, 81, 61))
         self.findIt.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -82,6 +91,8 @@ class Ui_userHomePage(object):
         self.label.setObjectName("label")
         self.widget_2.raise_()
         self.profile.raise_()
+        self.ocrButton.raise_()
+        self.ocrButton.setText("Ocr Text")
         self.findIt.raise_()
         self.label_2.raise_()
         self.search_input.raise_()

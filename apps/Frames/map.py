@@ -1,7 +1,8 @@
 import io
+
 import folium
-from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWidgets import QVBoxLayout
 
 
 class MyApp:
@@ -10,7 +11,7 @@ class MyApp:
         self.widget.setWindowTitle('Shops are here')
         self.window_width, self.window_height = 900, 850
         self.widget.setMinimumSize(self.window_width, self.window_height)
-
+        self.widget.setStyleSheet("background-color: #fff;")
         layout = QVBoxLayout()
         self.widget.setLayout(layout)
 
@@ -30,13 +31,13 @@ class MyApp:
                         15.2616 12.3045 14.5307C12.0017 13.7998 11.9225 12.9956 12.0769 12.2196C12.2312 11.4437 12.6122 10.731 
                         13.1716 10.1716C13.731 9.61216 14.4437 9.2312 15.2197 9.07686C15.9956 8.92252 16.7998 9.00173 17.5307 
                         9.30448C18.2616 9.60723 18.8864 10.1199 19.3259 10.7777C19.7654 11.4355 20 12.2089 20 13C19.9987 14.0605 
-                        19.5768 15.0771 18.827 15.827C18.0771 16.5768 17.0605 16.9987 16 17V17Z" fill="#009c6d"/> </svg> 
+                        19.5768 15.0771 18.827 15.827C18.0771 16.5768 17.0605 16.9987 16 17V17Z" fill="#000"/> </svg> 
                         </div>""")
         ).add_to(m)
         for i in medicalList:
             html = f"""
                    <h1> {i.get('name')}</h1>
-                   <h2>{"shopName"}</h2>
+                   <h2>{i.get("medical_name")}</h2>
                    <div>
                     <p>price: {i.get('price')}</p> 
                     <p>Quantity: {i.get('quantity')}</p>
@@ -56,7 +57,7 @@ class MyApp:
                 15.2616 12.3045 14.5307C12.0017 13.7998 11.9225 12.9956 12.0769 12.2196C12.2312 11.4437 12.6122 10.731 
                 13.1716 10.1716C13.731 9.61216 14.4437 9.2312 15.2197 9.07686C15.9956 8.92252 16.7998 9.00173 17.5307 
                 9.30448C18.2616 9.60723 18.8864 10.1199 19.3259 10.7777C19.7654 11.4355 20 12.2089 20 13C19.9987 14.0605 
-                19.5768 15.0771 18.827 15.827C18.0771 16.5768 17.0605 16.9987 16 17V17Z" fill="#000"/> </svg> 
+                19.5768 15.0771 18.827 15.827C18.0771 16.5768 17.0605 16.9987 16 17V17Z" fill="#009c6d"/> </svg> 
                 </div>""")
             ).add_to(m)
         # save map data to data object
