@@ -61,3 +61,7 @@ def updateMedicine(medicine: object, ID):
 
 def updateMedical(medical, ID):
     return make.PutRequest(make.API + '/{}/'.format(ID), medical)
+
+
+def getTrendingMed(pincode):
+    return make.GetRequest(make.API + '/popularmedicine/?pincode={}'.format(pincode))
