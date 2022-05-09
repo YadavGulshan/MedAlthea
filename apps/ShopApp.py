@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QApplication
 from ipregistry import IpregistryClient
 
 from Frames.functions.getLogin import getTokens
+from Frames.functions.getData import getTrendingMed
 from app import app
 from main import main
 
@@ -82,3 +83,10 @@ if __name__ == '__main__':
         else:
             RootObject.startAuthApp()
     sys.exit(App.exec_())
+
+
+    # trendingMedScreen = QtWidgets.QWidget()
+    # data = getTrendingMed(400601).json()
+    # trendingMed.setup(trendingMedScreen, data)
+    # widgetMain.addWidget(trendingMedScreen)
+

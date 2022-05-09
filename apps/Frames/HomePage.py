@@ -45,6 +45,19 @@ class Ui_HomePage(object):
         self.profile_pushButton.setObjectName("back_pushButton")
         self.profile_pushButton.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.trendingMed_pushButton = QtWidgets.QPushButton(self.widget_2)
+        self.trendingMed_pushButton.setGeometry(QtCore.QRect(640, 10, 101, 51))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.trendingMed_pushButton.setFont(font)
+        self.trendingMed_pushButton.setText("Trending Medicine")
+        self.trendingMed_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+                                              "color: rgb(0, 157, 113);\n"
+                                              "border-radius:10px;")
+        self.trendingMed_pushButton.setObjectName("back_pushButton")
+        self.trendingMed_pushButton.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        
         self.scrollArea = QtWidgets.QScrollArea(self.widget)
         self.scrollArea.setGeometry(QtCore.QRect(0, 70, 901, 791))
         self.scrollArea.setStyleSheet("border: none;")
