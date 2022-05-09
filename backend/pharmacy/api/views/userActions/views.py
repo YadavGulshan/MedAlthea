@@ -18,6 +18,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 
 from pharmacy.api.serializers import UserSerializer
+from pharmacy.api.views.userActions.token import serializer
 
 
 @permission_classes([IsAuthenticated])
@@ -39,3 +40,20 @@ class UserView(APIView):
         user = User.objects.filter(pk=current_user.id)
         user.delete()
         return Response("user is deleted!", status=status.HTTP_204_NO_CONTENT)
+
+
+
+class UserStatus(APIView):
+    def get(self, request):
+        username = request.query_params.get("username", None)
+        if username:
+            user = User.objects.all().filter(username=username)
+            # if user is active then return true
+            if user.exists():
+                serializer = UserSerializer(user, many=True)
+                if serializer.data[0]["is_active"] == True:
+                    return Response({"status: True"}, status=status.HTTP_200_OK)
+                else:
+                    return Response({"status: False"}, status=status.HTTP_302_FOUND)
+            else:
+                return Response({"status": "user does't exists"}, status=status.HTTP_404_NOT_FOUND)
