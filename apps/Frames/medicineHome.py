@@ -1,4 +1,3 @@
-from msilib.schema import Font
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QCompleter
