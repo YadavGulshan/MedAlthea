@@ -29,7 +29,7 @@ class Ui_ownerProfile(object):
         self.Title.setStyleSheet("color: rgb(0, 156, 112);")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
-        self.firstname.setGeometry(QtCore.QRect(80, 310, 340, 55))
+        self.firstname.setGeometry(QtCore.QRect(0, 310, 340, 55))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.firstname.setFont(font)

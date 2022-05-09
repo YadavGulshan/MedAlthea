@@ -71,6 +71,7 @@ if __name__ == '__main__':
     QFontDatabase.addApplicationFont('Lato2OFL/Lato-Regular.ttf')
     QFontDatabase.addApplicationFont('Lato2OFL/Lato-SemiBold.ttf')
     widgetMain = QtWidgets.QStackedWidget()
+    widgetMain.setStyleSheet("font-family:'Lato'")
     RootObject = Root(widgetMain)
     RootObject.setDimension()
     if len(RootObject.DB.getTokens()) == 0:
