@@ -1,3 +1,4 @@
+from msilib.schema import Font
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QCompleter
@@ -49,18 +50,21 @@ class Ui_MedicineHome(object):
         self.label.setStyleSheet("color: rgb(255, 255, 255);")
         self.label.setObjectName("label")
         self.Home_pushButton = QtWidgets.QPushButton(self.widget_2)
-        self.Home_pushButton.setGeometry(QtCore.QRect(550, 20, 90, 35))
+        self.Home_pushButton.setFont(font)
+        self.Home_pushButton.setGeometry(QtCore.QRect(530, 20, 90, 35))
         self.Home_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                            "color: rgb(0, 156, 112);\n"
                                            "border-radius:8px;")
         self.Home_pushButton.setObjectName("Home_pushButton")
         self.Addmedicine_pushButton = QtWidgets.QPushButton(self.widget_2)
-        self.Addmedicine_pushButton.setGeometry(QtCore.QRect(660, 20, 111, 35))
+        self.Addmedicine_pushButton.setGeometry(QtCore.QRect(640, 20, 133, 35))
+        self.Addmedicine_pushButton.setFont(font)
         self.Addmedicine_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                                   "color: rgb(0, 156, 112);\n"
                                                   "border-radius:8px;")
         self.Addmedicine_pushButton.setObjectName("Addmedicine_pushButton")
         self.profile_pushButton = QtWidgets.QPushButton(self.widget_2)
+        self.profile_pushButton.setFont(font)
         self.profile_pushButton.setGeometry(QtCore.QRect(790, 20, 90, 35))
         self.profile_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                               "color: rgb(0, 156, 112);\n"
@@ -108,7 +112,7 @@ class Ui_MedicineHome(object):
         sizePolicy.setHeightForWidth(
             self.search_input.sizePolicy().hasHeightForWidth())
         self.search_input.setSizePolicy(sizePolicy)
-        self.search_input.setStyleSheet("border: 2px solid rgb(45, 22, 90);\n"
+        self.search_input.setStyleSheet("border: 2px solid rgb(0, 156, 112);\n"
                                         "border-top-left-radius: 10px;\n"
                                         "border-bottom-left-radius: 10px;\n"
                                         "color: rgb(0, 0, 0);\n"
@@ -183,7 +187,7 @@ class Ui_MedicineHome(object):
                     self.medicines[j].get('medicineId')))
                 self.medicine_name = QtWidgets.QLabel(self.col)
                 self.medicine_name.setGeometry(QtCore.QRect(20, 16, 231, 50))
-                font.setPointSize(24)
+                font.setPointSize(20)
                 font.setBold(True)
                 self.medicine_name.setFont(font)
                 self.medicine_name.setStyleSheet("color: rgb(255, 255, 255);")
@@ -202,6 +206,8 @@ class Ui_MedicineHome(object):
                 self.quantity.setText(str(self.medicines[j].get('quantity')))
                 self.quantity.setObjectName("quantity")
                 self.view_button = QtWidgets.QPushButton(self.col)
+                font.setPointSize(13)
+                self.view_button.setFont(font)
                 self.view_button.setGeometry(QtCore.QRect(20, 180, 81, 31))
                 self.view_button.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                                "color: rgb(0, 156, 112);\n"

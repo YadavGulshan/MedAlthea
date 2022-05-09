@@ -16,7 +16,7 @@ class Ui_AddMedicine(object):
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.widget.setObjectName("widget")
         self.widget_2 = QtWidgets.QWidget(self.widget)
-        self.widget_2.setGeometry(QtCore.QRect(0, -10, 911, 71))
+        self.widget_2.setGeometry(QtCore.QRect(0, 0, 900, 70))
         self.widget_2.setStyleSheet("background-color: rgb(0, 156, 112);")
         self.widget_2.setObjectName("widget_2")
         self.label = QtWidgets.QLabel(self.widget_2)
@@ -24,7 +24,7 @@ class Ui_AddMedicine(object):
         self.label.setText("")
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.widget_2)
-        self.label_2.setGeometry(QtCore.QRect(10, 16, 121, 41))
+        self.label_2.setGeometry(QtCore.QRect(10, 16, 131, 41))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -32,14 +32,14 @@ class Ui_AddMedicine(object):
         self.label_2.setStyleSheet("color: rgb(255, 255, 255);")
         self.label_2.setObjectName("label_2")
         self.uploadButton = QtWidgets.QPushButton(self.widget_2)
-        self.uploadButton.setGeometry(QtCore.QRect(669, 20, 91, 31))
+        self.uploadButton.setGeometry(QtCore.QRect(655, 18, 110, 35))
         self.uploadButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                         "color: rgb(0, 156, 112);\n"
                                         "border-radius:6px;")
         self.uploadButton.setObjectName("uploadButton")
         self.uploadButton.setText("Upload file")
         self.Back_pushButton = QtWidgets.QPushButton(self.widget_2)
-        self.Back_pushButton.setGeometry(QtCore.QRect(780, 20, 81, 31))
+        self.Back_pushButton.setGeometry(QtCore.QRect(780, 18, 81, 35))
         self.Back_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
                                            "color: rgb(0, 156, 112);\n"
                                            "border-radius:6px;")
@@ -50,7 +50,7 @@ class Ui_AddMedicine(object):
                                     "border-radius:15px;")
         self.widget_3.setObjectName("widget_3")
         self.label_3 = QtWidgets.QLabel(self.widget_3)
-        self.label_3.setGeometry(QtCore.QRect(210, 50, 228, 29))
+        self.label_3.setGeometry(QtCore.QRect(160, 50, 330, 29))
         font = QtGui.QFont()
         font.setPointSize(24)
         font.setBold(True)
