@@ -5,7 +5,8 @@ import sys
 class Trending_Medicine(object):
     def setup(self, Dialog,TrendingMed):
         self.Dialog = Dialog
-        print(TrendingMed)
+        sorted_TrendingMed = sorted(TrendingMed, key=lambda d: d["count"], reverse=True)
+        print(sorted_TrendingMed)
         Dialog.setObjectName("Dialog")
         Dialog.resize(800, 900)
         Dialog.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -67,7 +68,7 @@ class Trending_Medicine(object):
 #     widgetMain.addWidget(trendingMedScreen)
 #     widgetMain.show()
 #     sys.exit(App.exec_())
-    
+
 
 
 
