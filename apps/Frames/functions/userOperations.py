@@ -15,7 +15,7 @@ def getNearByShop(medicine, pincode, lat, lon):
     """This function required user's area code or pincode
     through which this function will return nearby shop to user"""
     return make.GetRequest(
-        make.API + "/nearbymedicine/?name={}&pincode={}&latitude={}&longitude={}".format(medicine, 400601, lat, lon))
+        make.API + "/nearbymedicine/?name={}&pincode={}&latitude={}&longitude={}".format(medicine, pincode, lat, lon))
 
 
 def allMedicalShop():
