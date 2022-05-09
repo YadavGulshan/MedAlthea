@@ -4,13 +4,12 @@ import sys
 from os.path import exists
 from threading import Thread
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtWidgets import QApplication
 from ipregistry import IpregistryClient
 
 from Frames.functions.getLogin import getTokens
-from Frames.functions.getData import getTrendingMed
 from app import app
 from main import main
 
@@ -69,8 +68,9 @@ if __name__ == '__main__':
     App = QApplication(sys.argv)
     thread = Thread(target=getIpInfo)
     thread.start()
-    QFontDatabase.addApplicationFont('Lato2OFL/Lato-Regular.ttf')
-    QFontDatabase.addApplicationFont('Lato2OFL/Lato-SemiBold.ttf')
+    print(os.getcwd())
+    QFontDatabase.addApplicationFont(os.getcwd()+'/apps/Lato2OFL/Lato-Semibold.ttf')
+    QFontDatabase.addApplicationFont(os.getcwd()+'/apps/Lato2OFL/Lato-Regular.ttf')
     widgetMain = QtWidgets.QStackedWidget()
     widgetMain.setStyleSheet("font-family:'Lato'")
     RootObject = Root(widgetMain)
