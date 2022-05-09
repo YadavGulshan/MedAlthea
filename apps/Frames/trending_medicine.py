@@ -6,7 +6,6 @@ class Trending_Medicine(object):
     def setup(self, Dialog,TrendingMed):
         self.Dialog = Dialog
         sorted_TrendingMed = sorted(TrendingMed, key=lambda d: d["count"], reverse=True)
-        print(sorted_TrendingMed)
         Dialog.setObjectName("Dialog")
         Dialog.resize(800, 900)
         Dialog.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -32,43 +31,28 @@ class Trending_Medicine(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(
             self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy)
-        self.widget.setMinimumSize(QtCore.QSize(0, 100))
-        self.widget.setStyleSheet("background-color: rgb(16, 76, 42);\n"
-                                  "border-radius:25px;\n"
-                                  "")
-        self.widget.setObjectName("widget")
-        self.label_2 = QtWidgets.QLabel(self.widget)
-        self.label_2.setText("Medicine Name")
-        self.label_2.setGeometry(QtCore.QRect(10, 30, 681, 41))
-        font.setPointSize(16)
-        self.label_2.setFont(font)
-        self.label_2.setStyleSheet("color: rgb(255, 255, 255);")
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.widget)
+        for i in sorted_TrendingMed:
+            self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+            sizePolicy = QtWidgets.QSizePolicy(
+                QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(
+                self.widget.sizePolicy().hasHeightForWidth())
+            self.widget.setSizePolicy(sizePolicy)
+            self.widget.setMinimumSize(QtCore.QSize(0, 100))
+            self.widget.setStyleSheet("background-color: rgb(16, 76, 42);\n"
+                                    "border-radius:25px;\n"
+                                    "")
+            self.widget.setObjectName("widget")
+            self.label_2 = QtWidgets.QLabel(self.widget)
+            self.label_2.setText(i.get("name"))
+            self.label_2.setGeometry(QtCore.QRect(10, 30, 681, 41))
+            font.setPointSize(16)
+            self.label_2.setFont(font)
+            self.label_2.setStyleSheet("color: rgb(255, 255, 255);")
+            self.label_2.setObjectName("label_2")
+            self.verticalLayout.addWidget(self.widget)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-
-
-# if __name__ == "__main__":
-#     App = QApplication(sys.argv)
-#     widgetMain = QtWidgets.QStackedWidget()
-#     trendingMed = Trending_Medicine()
-#     widgetMain.setFixedWidth(900)
-#     widgetMain.setFixedHeight(850)
-#     trendingMedScreen = QtWidgets.QWidget()
-#     trendingMed.setup(trendingMedScreen)
-#     widgetMain.addWidget(trendingMedScreen)
-#     widgetMain.show()
-#     sys.exit(App.exec_())
-
-
-
 

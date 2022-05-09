@@ -13,7 +13,7 @@ from Frames.functions.getLogin import getTokens
 from Frames.functions.getData import getTrendingMed
 from app import app
 from main import main
-from Frames.trending_medicine import Trending_Medicine
+
 
 def getIpInfo():
     pathToHome = os.path.expanduser('~')
@@ -66,31 +66,26 @@ class Root(main, app):
 
 
 if __name__ == '__main__':
-    # App = QApplication(sys.argv)
-    # thread = Thread(target=getIpInfo)
-    # thread.start()
-    # QFontDatabase.addApplicationFont('Lato2OFL/Lato-Regular.ttf')
-    # QFontDatabase.addApplicationFont('Lato2OFL/Lato-SemiBold.ttf')
-    # widgetMain = QtWidgets.QStackedWidget()
-    # RootObject = Root(widgetMain)
-    # RootObject.setDimension()
-    # if len(RootObject.DB.getTokens()) == 0:
-    #     RootObject.startAuthApp()
-    # else:
-    #     if RootObject.isRefreshValid():
-    #         RootObject.StartShopApp()
-    #     else:
-    #         RootObject.startAuthApp()
-    # sys.exit(App.exec_())
-
     App = QApplication(sys.argv)
+    thread = Thread(target=getIpInfo)
+    thread.start()
+    QFontDatabase.addApplicationFont('Lato2OFL/Lato-Regular.ttf')
+    QFontDatabase.addApplicationFont('Lato2OFL/Lato-SemiBold.ttf')
     widgetMain = QtWidgets.QStackedWidget()
-    trendingMed = Trending_Medicine()
-    widgetMain.setFixedWidth(900)
-    widgetMain.setFixedHeight(850)
-    trendingMedScreen = QtWidgets.QWidget()
-    data = getTrendingMed(400601).json()
-    trendingMed.setup(trendingMedScreen, data)
-    widgetMain.addWidget(trendingMedScreen)
-    widgetMain.show()
+    RootObject = Root(widgetMain)
+    RootObject.setDimension()
+    if len(RootObject.DB.getTokens()) == 0:
+        RootObject.startAuthApp()
+    else:
+        if RootObject.isRefreshValid():
+            RootObject.StartShopApp()
+        else:
+            RootObject.startAuthApp()
     sys.exit(App.exec_())
+
+
+    # trendingMedScreen = QtWidgets.QWidget()
+    # data = getTrendingMed(400601).json()
+    # trendingMed.setup(trendingMedScreen, data)
+    # widgetMain.addWidget(trendingMedScreen)
+

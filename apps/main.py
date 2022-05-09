@@ -10,7 +10,10 @@ from Frames.addMedical import Ui_addMedical
 from Frames.functions.getData import createMedical
 from Frames.functions.localdb import LocalDB
 from Frames.ownerProfile import Ui_ownerProfile
+from Frames.trending_medicine import Trending_Medicine
+from Frames.functions.getData import getTrendingMed
 
+pathToHome = os.path.expanduser('~')
 
 class main:
 
@@ -33,8 +36,21 @@ class main:
         self.homePage.setupUi(self.homeScreen)
         self.widget.addWidget(self.homeScreen)
         self.homePage.profile_pushButton.clicked.connect(self.openOwnerProfile)
+        self.homePage.trendingMed_pushButton.clicked.connect(self.openTrendingPage)
         self.homePage.add_pushButton.clicked.connect(self.addMedical)
 
+    def openTrendingPage(self):
+        self.trendingMedScreen = QtWidgets.QWidget()
+        with open(pathToHome + '/ipinfo.json', "r") as f:
+            ipinfo = json.load(f)
+            f.close()
+        pincode = ipinfo.get('location')['postal']
+        data = getTrendingMed(pincode).json()
+        trendingMed = Trending_Medicine()
+        trendingMed.setup(self.trendingMedScreen, data)
+        self.widget.addWidget(self.trendingMedScreen)
+        self.widget.removeWidget(self.homeScreen)
+        
     def openOwnerProfile(self):
         self.AddProfile.setupUi('token')
         self.widget.removeWidget(self.homeScreen)
