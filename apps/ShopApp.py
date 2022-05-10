@@ -68,7 +68,6 @@ if __name__ == '__main__':
     App = QApplication(sys.argv)
     thread = Thread(target=getIpInfo)
     thread.start()
-    print(os.getcwd())
     QFontDatabase.addApplicationFont(os.getcwd()+'/apps/Lato2OFL/Lato-Semibold.ttf')
     QFontDatabase.addApplicationFont(os.getcwd()+'/apps/Lato2OFL/Lato-Regular.ttf')
     widgetMain = QtWidgets.QStackedWidget()
@@ -84,9 +83,4 @@ if __name__ == '__main__':
             RootObject.startAuthApp()
     sys.exit(App.exec_())
 
-
-    # trendingMedScreen = QtWidgets.QWidget()
-    # data = getTrendingMed(400601).json()
-    # trendingMed.setup(trendingMedScreen, data)
-    # widgetMain.addWidget(trendingMedScreen)
 

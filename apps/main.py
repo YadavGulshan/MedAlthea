@@ -10,10 +10,11 @@ from Frames.addMedical import Ui_addMedical
 from Frames.functions.getData import createMedical
 from Frames.functions.localdb import LocalDB
 from Frames.ownerProfile import Ui_ownerProfile
-from Frames.trending_medicine import Trending_Medicine
+from Frames.Trending_medicine import Trending_Medicine
 from Frames.functions.getData import getTrendingMed
 
 pathToHome = os.path.expanduser('~')
+
 
 class main:
 
@@ -47,10 +48,15 @@ class main:
         pincode = ipinfo.get('location')['postal']
         data = getTrendingMed(pincode).json()
         trendingMed = Trending_Medicine()
-        trendingMed.setup(self.trendingMedScreen, data)
+        trendingMed.setupUi(self.trendingMedScreen, data)
+        trendingMed.pushButton.clicked.connect(self.backToHome)
         self.widget.addWidget(self.trendingMedScreen)
         self.widget.removeWidget(self.homeScreen)
-        
+
+    def backToHome(self):
+        self.widget.removeWidget(self.trendingMedScreen)
+        self.widget.addWidget(self.homeScreen)
+
     def openOwnerProfile(self):
         self.AddProfile.setupUi('token')
         self.widget.removeWidget(self.homeScreen)

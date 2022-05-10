@@ -12,6 +12,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QCompleter
+from PyQt6.QtGui import QFontDatabase
 from ipregistry import IpregistryClient
 
 from Frames.functions.getLogin import getTokens
@@ -208,7 +209,10 @@ if __name__ == '__main__':
     thread = Thread(target=getIpInfo)
     thread.start()
     App = QApplication(sys.argv)
+    QFontDatabase.addApplicationFont(os.getcwd() + '/apps/Lato2OFL/Lato-Semibold.ttf')
+    QFontDatabase.addApplicationFont(os.getcwd() + '/apps/Lato2OFL/Lato-Regular.ttf')
     widgetMain = QtWidgets.QStackedWidget()
+    widgetMain.setStyleSheet("font-family:'Lato'")
     userHomePage = userApp(widgetMain)
     widgetMain.setFixedWidth(900)
     widgetMain.setFixedHeight(850)
