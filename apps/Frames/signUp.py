@@ -1,5 +1,7 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import re
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 from .functions.getData import checkAvailableUser
 
 
@@ -12,17 +14,17 @@ class signUpFrame(object):
         self.widget.setStyleSheet("background-color :rgb(255, 255, 255)")
         self.widget.setObjectName("widget")
         self.Title = QtWidgets.QLabel(self.widget)
-        self.Title.setGeometry(QtCore.QRect(390, 180, 151, 61))
+        self.Title.setGeometry(QtCore.QRect(385, 180, 155, 61))
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(24)
         self.Title.setFont(font)
         self.Title.setStyleSheet("color: rgb(0, 0, 0);font-weight:bold;")
         self.Title.setAlignment(QtCore.Qt.AlignCenter)
         self.Title.setObjectName("Title")
         self.Password = QtWidgets.QLineEdit(self.widget)
-        self.Password.setGeometry(QtCore.QRect(490, 400, 331, 50))
+        self.Password.setGeometry(QtCore.QRect(490, 400, 331, 55))
 
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.Password.setFont(font)
         self.Password.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                     "border-radius:20px;\n"
@@ -49,7 +51,7 @@ class signUpFrame(object):
         self.label_4.setEnabled(True)
         self.label_4.setGeometry(QtCore.QRect(310, 680, 181, 41))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(10)
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("color: rgb(0, 0, 0);")
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
@@ -77,9 +79,9 @@ class signUpFrame(object):
         self.message.setAlignment(QtCore.Qt.AlignCenter)
         self.message.setObjectName("message")
         self.F_Name = QtWidgets.QLineEdit(self.widget)
-        self.F_Name.setGeometry(QtCore.QRect(110, 400, 330, 50))
+        self.F_Name.setGeometry(QtCore.QRect(110, 400, 330, 55))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.F_Name.setFont(font)
         self.F_Name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                   "border-radius:20px;\n"
@@ -91,9 +93,9 @@ class signUpFrame(object):
         self.F_Name.setText("")
         self.F_Name.setObjectName("l_name")
         self.UserName = QtWidgets.QLineEdit(self.widget)
-        self.UserName.setGeometry(QtCore.QRect(110, 310, 330, 50))
+        self.UserName.setGeometry(QtCore.QRect(110, 310, 330, 55))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.UserName.setFont(font)
         self.UserName.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                     "border-radius:20px;\n"
@@ -112,9 +114,9 @@ class signUpFrame(object):
         self.message_username.setObjectName("message_username")
 
         self.l_Name = QtWidgets.QLineEdit(self.widget)
-        self.l_Name.setGeometry(QtCore.QRect(110, 490, 330, 50))
+        self.l_Name.setGeometry(QtCore.QRect(110, 490, 330, 55))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.l_Name.setFont(font)
         self.l_Name.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                   "border-radius:20px;\n"
@@ -126,9 +128,9 @@ class signUpFrame(object):
         self.l_Name.setText("")
         self.l_Name.setObjectName("city")
         self.C_Password = QtWidgets.QLineEdit(self.widget)
-        self.C_Password.setGeometry(QtCore.QRect(490, 490, 331, 50))
+        self.C_Password.setGeometry(QtCore.QRect(490, 490, 331, 55))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.C_Password.setFont(font)
         self.C_Password.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                       "border-radius:20px;\n"
@@ -144,14 +146,14 @@ class signUpFrame(object):
         self.checkBox.setChecked(True)
         self.checkBox.setGeometry(QtCore.QRect(410, 560, 151, 41))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(10)
         self.checkBox.setFont(font)
         self.checkBox.setStyleSheet("color: rgb(18, 18, 18);")
         self.checkBox.setObjectName("checkBox")
         self.email = QtWidgets.QLineEdit(self.widget)
-        self.email.setGeometry(QtCore.QRect(500, 310, 330, 50))
+        self.email.setGeometry(QtCore.QRect(490, 310, 331, 55))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         self.email.setFont(font)
         self.email.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                  "border-radius:20px;\n"
@@ -198,7 +200,8 @@ class signUpFrame(object):
         self.F_Name.setPlaceholderText(_translate("signUp", "First Name"))
         self.UserName.setPlaceholderText(_translate("signUp", "UserName"))
         self.l_Name.setPlaceholderText(_translate("signUp", "Last Name"))
-        self.C_Password.setPlaceholderText(_translate("signUp", "Confirm Password"))
+        self.C_Password.setPlaceholderText(
+            _translate("signUp", "Confirm Password"))
         self.checkBox.setText(_translate("signUp", "Have A Shop ?"))
         self.email.setPlaceholderText(_translate("signUp", "Email"))
 
@@ -247,7 +250,8 @@ class signUpFrame(object):
         return valid
 
     def check(self):
-        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        regex = re.compile(
+            r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
         if re.fullmatch(regex, self.email_text):
             return True
         else:

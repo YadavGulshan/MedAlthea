@@ -2,12 +2,12 @@ import csv
 import os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .functions.getData import getMyMedical, addMedicine, updateMedical, deleteMedical
 
+from .addMedicine import Ui_AddMedicine
+from .functions.getData import getMyMedical, addMedicine, updateMedical, deleteMedical
+from .medicalProfile import Ui_MedicalProfile
 # importing frame
 from .medicineHome import Ui_MedicineHome
-from .medicalProfile import Ui_MedicalProfile
-from .addMedicine import Ui_AddMedicine
 
 
 class Ui_HomePage(object):
@@ -35,7 +35,7 @@ class Ui_HomePage(object):
         self.widget_2.setStyleSheet("background-color: rgb(0, 153, 112);")
         self.widget_2.setObjectName("widget_2")
         self.profile_pushButton = QtWidgets.QPushButton(self.widget_2)
-        self.profile_pushButton.setGeometry(QtCore.QRect(760, 10, 101, 51))
+        self.profile_pushButton.setGeometry(QtCore.QRect(760, 15, 101, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.profile_pushButton.setFont(font)
@@ -45,6 +45,19 @@ class Ui_HomePage(object):
         self.profile_pushButton.setObjectName("back_pushButton")
         self.profile_pushButton.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.trendingMed_pushButton = QtWidgets.QPushButton(self.widget_2)
+        self.trendingMed_pushButton.setGeometry(QtCore.QRect(600, 15, 141, 41))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.trendingMed_pushButton.setFont(font)
+        self.trendingMed_pushButton.setText("Trending Medicine")
+        self.trendingMed_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+                                              "color: rgb(0, 157, 113);\n"
+                                              "border-radius:10px;")
+        self.trendingMed_pushButton.setObjectName("back_pushButton")
+        self.trendingMed_pushButton.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+
         self.scrollArea = QtWidgets.QScrollArea(self.widget)
         self.scrollArea.setGeometry(QtCore.QRect(0, 70, 901, 791))
         self.scrollArea.setStyleSheet("border: none;")
@@ -133,7 +146,7 @@ class Ui_HomePage(object):
             self.label_4.setStyleSheet("color: rgb(255, 255, 255);")
             self.label_4.setObjectName("label_4")
             self.shopName_text = QtWidgets.QLabel(self.medical_widget)
-            self.shopName_text.setGeometry(QtCore.QRect(130, 30, 281, 21))
+            self.shopName_text.setGeometry(QtCore.QRect(130, 23, 281, 35))
             font = QtGui.QFont()
             font.setPointSize(18)
             font.setBold(True)
@@ -169,7 +182,7 @@ class Ui_HomePage(object):
                 QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
             self.label_14.setObjectName("label_14")
             self.email_text = QtWidgets.QLabel(self.medical_widget)
-            self.email_text.setGeometry(QtCore.QRect(130, 160, 221, 21))
+            self.email_text.setGeometry(QtCore.QRect(130, 162, 221, 25))
             font = QtGui.QFont()
             font.setPointSize(16)
             self.email_text.setFont(font)

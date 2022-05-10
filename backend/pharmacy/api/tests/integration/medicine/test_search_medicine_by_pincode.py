@@ -100,14 +100,16 @@ class IntegrationTestForSearchingMedicineInNearbyMedicalShops(APITestCase):
         except Exception as e:
             print(e, "at setUp")
 
-    # def test_dryrun(self):
-    #     response = self.client.post(
-    #         "/api/nearbymedicine/",
-    #         {
-    #             "pincode": "4006",
-    #             "name": "TestMedicine",
-    #         },
-    #         HTTP_AUTHORIZATION=self.header,
-    #     )
-    #     # print(response.data)
-    #     self.assertEqual(response.status_code, 200)
+    def test_nearby_medicine_shop(self):
+        response = self.client.get(
+            
+            "/api/nearbymedicine/",
+            {
+                "pincode": "4006",
+                "name": "TestMedicine",
+                "latitude":"19.2423461799462",
+                "longitude":"72.97524713277"
+            },
+            HTTP_AUTHORIZATION=self.header,
+        )
+        self.assertEqual(response.status_code, 200)

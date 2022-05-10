@@ -1,6 +1,7 @@
 import requests
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QImage, QPixmap
+
 from .functions.getData import getMedicalDetails
 
 
@@ -62,19 +63,19 @@ class Ui_MedicalProfile(object):
         font.setPointSize(48)
         font.setBold(True)
         self.profile_picture.setFont(font)
-        self.profile_picture.setStyleSheet("border:2px solid rgb(0,0,0);\n"
+        self.profile_picture.setStyleSheet("border:none;\n"
                                            "color: rgb(52, 52, 52);\n"
                                            "\n"
                                            "")
         self.profile_picture.setText("")
         self.profile_picture.setAlignment(QtCore.Qt.AlignCenter)
         self.profile_picture.setObjectName("profile_picture")
-        url_image = 'https://live.staticflickr.com/65535/49251422908_591245c64a_c_d.jpg'
+        url_image = 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png'
         image = QImage()
         image.loadFromData(requests.get(url_image).content)
-        self.profile_picture.setPixmap(QPixmap(image))
+        self.profile_picture.setPixmap(QPixmap(image).scaled(140,140))
         self.save_button = QtWidgets.QPushButton(self.mainFrame)
-        self.save_button.setGeometry(QtCore.QRect(610, 710, 121, 41))
+        self.save_button.setGeometry(QtCore.QRect(576, 710, 141, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(True)
@@ -87,7 +88,7 @@ class Ui_MedicalProfile(object):
         self.save_button.setObjectName("edit_button")
         self.delete_button = QtWidgets.QPushButton(self.mainFrame)
         self.delete_button.setEnabled(True)
-        self.delete_button.setGeometry(QtCore.QRect(740, 710, 131, 41))
+        self.delete_button.setGeometry(QtCore.QRect(728, 710, 161, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(False)
@@ -159,7 +160,7 @@ class Ui_MedicalProfile(object):
         self.email.setObjectName("email")
         self.email.setReadOnly(True)
         self.back_button = QtWidgets.QPushButton(self.mainFrame)
-        self.back_button.setGeometry(QtCore.QRect(480, 710, 121, 41))
+        self.back_button.setGeometry(QtCore.QRect(445, 710, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(True)
@@ -180,7 +181,7 @@ class Ui_MedicalProfile(object):
         self.title.setText(_translate("Dialog", "Medical details"))
         self.shopeName.setPlaceholderText(_translate("Dialog", "first Name"))
         self.save_button.setText(_translate("Dialog", "Save Profile"))
-        self.delete_button.setText(_translate("Dialog", "delete Medical"))
+        self.delete_button.setText(_translate("Dialog", "Delete Medical"))
         self.website.setPlaceholderText(_translate("Dialog", "Website"))
         self.zipcode.setPlaceholderText(_translate("Dialog", "pincode / zip code"))
         self.address.setPlaceholderText(_translate("Dialog", "Address"))

@@ -1,10 +1,11 @@
 import json
 import os
 import sys
-from threading import Thread
 from os.path import exists
+from threading import Thread
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtWidgets import QApplication
 from ipregistry import IpregistryClient
 
@@ -67,7 +68,10 @@ if __name__ == '__main__':
     App = QApplication(sys.argv)
     thread = Thread(target=getIpInfo)
     thread.start()
+    QFontDatabase.addApplicationFont(os.getcwd()+'/apps/Lato2OFL/Lato-Semibold.ttf')
+    QFontDatabase.addApplicationFont(os.getcwd()+'/apps/Lato2OFL/Lato-Regular.ttf')
     widgetMain = QtWidgets.QStackedWidget()
+    widgetMain.setStyleSheet("font-family:'Lato'")
     RootObject = Root(widgetMain)
     RootObject.setDimension()
     if len(RootObject.DB.getTokens()) == 0:
@@ -78,3 +82,5 @@ if __name__ == '__main__':
         else:
             RootObject.startAuthApp()
     sys.exit(App.exec_())
+
+

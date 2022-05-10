@@ -10,9 +10,9 @@ class Ui_addMedical(object):
         self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.widget.setObjectName("widget")
         self.medicalName = QtWidgets.QLineEdit(self.widget)
-        self.medicalName.setGeometry(QtCore.QRect(70, 310, 330, 50))
+        self.medicalName.setGeometry(QtCore.QRect(80, 310, 330, 50))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(16)
         self.medicalName.setFont(font)
         self.medicalName.setStyleSheet("border-radius:20px;\n"
                                        "border:2px solid black;\n"
@@ -23,9 +23,9 @@ class Ui_addMedical(object):
         self.medicalName.setText("")
         self.medicalName.setObjectName("medicalName")
         self.email = QtWidgets.QLineEdit(self.widget)
-        self.email.setGeometry(QtCore.QRect(70, 400, 330, 50))
+        self.email.setGeometry(QtCore.QRect(80, 400, 330, 50))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(16)
         self.email.setFont(font)
         self.email.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                  "border-radius:20px;\n"
@@ -37,7 +37,7 @@ class Ui_addMedical(object):
         self.email.setText("")
         self.email.setObjectName("email")
         self.pincode = QtWidgets.QLineEdit(self.widget)
-        self.pincode.setGeometry(QtCore.QRect(70, 490, 330, 50))
+        self.pincode.setGeometry(QtCore.QRect(80, 490, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.pincode.setFont(font)
@@ -61,7 +61,7 @@ class Ui_addMedical(object):
                                   "color: rgb(255, 255, 255);")
         self.submit.setObjectName("submit")
         self.phoneNumber = QtWidgets.QLineEdit(self.widget)
-        self.phoneNumber.setGeometry(QtCore.QRect(450, 310, 330, 50))
+        self.phoneNumber.setGeometry(QtCore.QRect(460, 310, 330, 50))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.phoneNumber.setFont(font)
@@ -75,9 +75,9 @@ class Ui_addMedical(object):
         self.phoneNumber.setText("")
         self.phoneNumber.setObjectName("phoneNumber")
         self.address = QtWidgets.QLineEdit(self.widget)
-        self.address.setGeometry(QtCore.QRect(450, 400, 330, 50))
+        self.address.setGeometry(QtCore.QRect(460, 400, 330, 50))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(16)
         self.address.setFont(font)
         self.address.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                    "border-radius:20px;\n"
@@ -105,9 +105,9 @@ class Ui_addMedical(object):
                                 "color: rgb(0, 153, 112);;")
         self.back.setObjectName("back")
         self.website = QtWidgets.QLineEdit(self.widget)
-        self.website.setGeometry(QtCore.QRect(450, 490, 330, 50))
+        self.website.setGeometry(QtCore.QRect(460, 490, 330, 50))
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(16)
         self.website.setFont(font)
         self.website.setStyleSheet("border:2px solid rgb(85, 0, 255);\n"
                                    "border-radius:20px;\n"
@@ -131,7 +131,7 @@ class Ui_addMedical(object):
         self.label = QtWidgets.QLabel(self.widget)
         self.label.setGeometry(QtCore.QRect(260, 140, 401, 81))
         font = QtGui.QFont()
-        font.setPointSize(30)
+        font.setPointSize(25)
         font.setBold(True)
         self.label.setFont(font)
         self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -174,7 +174,5 @@ class Ui_addMedical(object):
         self.back.setText(_translate("Dialog", "Back"))
         self.website.setPlaceholderText(_translate("Dialog", "Website"))
         self.addPhoto.setText(_translate("Dialog", "Add photo"))
-        self.label.setToolTip(_translate("Dialog", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
-        self.label.setWhatsThis(_translate("Dialog", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
         self.label.setText(_translate("Dialog", "Create Medical Account"))
 

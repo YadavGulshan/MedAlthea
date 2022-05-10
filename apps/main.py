@@ -1,7 +1,7 @@
+import asyncio
 import json
 import os
 import re
-import asyncio
 
 from PyQt5 import QtWidgets
 
@@ -10,6 +10,10 @@ from Frames.addMedical import Ui_addMedical
 from Frames.functions.getData import createMedical
 from Frames.functions.localdb import LocalDB
 from Frames.ownerProfile import Ui_ownerProfile
+from Frames.Trending_medicine import Trending_Medicine
+from Frames.functions.getData import getTrendingMed
+
+pathToHome = os.path.expanduser('~')
 
 
 class main:
@@ -33,7 +37,25 @@ class main:
         self.homePage.setupUi(self.homeScreen)
         self.widget.addWidget(self.homeScreen)
         self.homePage.profile_pushButton.clicked.connect(self.openOwnerProfile)
+        self.homePage.trendingMed_pushButton.clicked.connect(self.openTrendingPage)
         self.homePage.add_pushButton.clicked.connect(self.addMedical)
+
+    def openTrendingPage(self):
+        self.trendingMedScreen = QtWidgets.QWidget()
+        with open(pathToHome + '/ipinfo.json', "r") as f:
+            ipinfo = json.load(f)
+            f.close()
+        pincode = ipinfo.get('location')['postal']
+        data = getTrendingMed(pincode).json()
+        trendingMed = Trending_Medicine()
+        trendingMed.setupUi(self.trendingMedScreen, data)
+        trendingMed.pushButton.clicked.connect(self.backToHome)
+        self.widget.addWidget(self.trendingMedScreen)
+        self.widget.removeWidget(self.homeScreen)
+
+    def backToHome(self):
+        self.widget.removeWidget(self.trendingMedScreen)
+        self.widget.addWidget(self.homeScreen)
 
     def openOwnerProfile(self):
         self.AddProfile.setupUi('token')
@@ -137,7 +159,7 @@ class main:
 
     @staticmethod
     def check(email):
-        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        regex = re.compile(r'([A-Za-z\d]+[.-_])*[A-Za-z\d]+@[A-Za-z\d-]+(\.[A-Z|a-z]{2,})+')
         if re.fullmatch(regex, email):
             return True
         else:

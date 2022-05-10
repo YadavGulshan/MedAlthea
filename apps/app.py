@@ -2,9 +2,8 @@ import datetime
 
 from PyQt5 import QtWidgets
 
-from Frames.functions.localdb import LocalDB
 from Frames.functions.getRegister import userRegister
-
+from Frames.functions.localdb import LocalDB
 from Frames.login import LoginFrame
 from Frames.signUp import signUpFrame
 
