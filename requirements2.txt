@@ -17,7 +17,7 @@ MarkupSafe==2.0.1
 packaging==21.3
 phonenumbers==8.12.43
 Pillow==9.0.1
-PyJWT==2.3.0
+PyJWT==2.4.0
 pyparsing==3.0.7
 pytz==2021.3
 requests==2.27.1
