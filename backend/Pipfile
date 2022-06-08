@@ -52,7 +52,7 @@ Django = "==4.0.4"
 Jinja2 = "==3.0.3"
 MarkupSafe = "==2.0.1"
 Pillow = "==9.0.1"
-PyJWT = "==2.3.0"
+PyJWT = "==2.4.0"
 
 [dev-packages]
 
